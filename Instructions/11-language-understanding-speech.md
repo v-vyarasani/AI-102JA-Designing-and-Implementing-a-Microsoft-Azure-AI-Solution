@@ -38,20 +38,20 @@ Azure サブスクリプションに Language Understanding オーサリング�
 
 ## Language Understanding アプリを準備する
 
-前の演習の**時計**アプリを既にお持ちの場合は、`https://www.luis.ai` の Language Understanding ポータルで開きます。それ以外の場合は、次の手順に従って作成してください。
+前の演習の**Clock**アプリを既にお持ちの場合は、`https://www.luis.ai` の Language Understanding ポータルで開きます。それ以外の場合は、次の手順に従って作成してください。
 
 1. 新しいブラウザタブで、`https://www.luis.ai` の Language Understanding ポータルを開きます。
 2. Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。Language Understanding ポータルに初めてサインインする場合は、アカウントの詳細にアクセスするためのアクセス許可をアプリに付与する必要がある場合があります。次に、Azure サブスクリプションと作成したオーサリングリ ソースを選択して、*ようこそ*手順を完了します。
-3. **「会話アプリ」** ページを開き、**「新しいアプリ」** の横にあるドロップダウン リストを表示して、**「LU としてインポート」** を選択します。
+3. **「Conversation apps」** ページを開き、**「New app」** の横にあるドロップダウン リストを表示して、**「Import as LU」** を選択します。
 この演習のラボ ファイルを含むプロジェクト フォルダー内の **11-luis-speech** サブフォルダーを参照し、**Clock&period;lu** を選択します。次に、時計アプリの一意の名前を指定します。
 4. 効果的な Language Understanding アプリを作成するためのヒントが記載されたパネルが表示されたら、それを閉じます。
 
 ## *音声プライミング*でアプリをトレーニングして公開する
 
-1. アプリがまだトレーニングされていない場合は、Language Understanding ポータルの上部にある **「トレーニング」** を選択して、アプリをトレーニングします。
-2. Language Understanding ポータルの右上にある **「公開」** を選択します。次に、**「本番スロット」** を選択し、設定を変更して**音声プライミング**を有効にします (これにより、音声認識のパフォーマンスが向上します)。
-3. 公開が完了したら、Language Understanding ポータルの上部にある **「管理」** を選択します。
-4. **「設定」** ページで、**アプリ ID** をメモします。クライアント アプリケーションがアプリを使用するには、これが必要です。
+1. アプリがまだトレーニングされていない場合は、Language Understanding ポータルの上部にある **「Train」** を選択して、アプリをトレーニングします。
+2. Language Understanding ポータルの右上にある **「Publish」** を選択します。次に、**「実稼働スロット」** を選択し、設定を変更して**音声プライミング**を有効にします (これにより、音声認識のパフォーマンスが向上します)。
+3. 公開が完了したら、Language Understanding ポータルの上部にある **「MANAGE」** を選択します。
+4. **「Settings」** ページで、**アプリ ID** をメモします。クライアント アプリケーションがアプリを使用するには、これが必要です。
 5. **「Azure リソース」** ページの **「予測リソース」** で、予測リソースがリストされていない場合は、Azure サブスクリプションに予測リソースを追加します。
 6. 予測リソースの**プライマリ キー**、**セカンダリ キー**、および**場所L** (エンドポイントでは<u>ありません</u>) に注意してください。Speech SDK クライアント アプリケーションは、予測リソースに接続して認証されるために、場所とキーの 1 つを必要とします。
 
@@ -80,19 +80,19 @@ pip install azure-cognitiveservices-speech==1.14.0
     - **C#**: appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Language Understanding アプリの**アプリ ID** を含めます。**場所** (完全なエンドポイントでは<u>ありません</u> - たとえば、*eastus*) とその予測リソースの**キー**の 1 つ (Language Understanding ポータルのアプリの **「管理」** ページから)。
+    構成ファイルを開き、含まれている構成値を更新して、Language Understanding アプリの**アプリ ID** を含めます。**場所** (完全なエンドポイントでは<u>ありません</u> - たとえば、*eastus*) とその予測リソースの**キー**の 1 つ (Language Understanding ポータルのアプリの **「MANAGE」** ページから)。
 
 4. **speaking-clock-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#**: Program.cs
     - **Python**: speaking-clock-client&period;py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
 **C#**
 
 ```C#
-// 名前空間をインポートする
+// Import namespaces
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Intent;
 ```
@@ -100,7 +100,7 @@ using Microsoft.CognitiveServices.Speech.Intent;
 **Python**
 
 ```Python
-# 名前空間をインポートする
+# Import namespaces
 import azure.cognitiveservices.speech as speech_sdk
 ```
     
@@ -108,12 +108,12 @@ import azure.cognitiveservices.speech as speech_sdk
 
 音声入力から予測意図を取得するコードを実装する準備が整いました。
 
-1. **Main** 関数では、構成ファイルからアプリ ID、予測リージョン、およびキーを読み込むためのコードが既に提供されていることに注意してください。そして、コメント **「スピーチ サービスを構成して認識エンジンを取得する」** を見つけ、次のコードを追加して、Language Understanding 予測リソースの詳細を使用して、**Speech SDKSpeechConfig** と **IntentRecognizer** を作成します。
+1. **Main** 関数では、構成ファイルからアプリ ID、予測リージョン、およびキーを読み込むためのコードが既に提供されていることに注意してください。そして、コメント **「Configure speech service and get intent recognizer」** を見つけ、次のコードを追加して、Language Understanding 予測リソースの詳細を使用して、**Speech SDKSpeechConfig** と **IntentRecognizer** を作成します。
 
 **C#**
 
 ```C#
-// 音声サービスを構成する and get intent recognizer
+// Configure speech service and get intent recognizer
 SpeechConfig speechConfig = SpeechConfig.FromSubscription(predictionKey, predictionRegion);
 IntentRecognizer recognizer = new IntentRecognizer(speechConfig);
 ```
@@ -121,17 +121,17 @@ IntentRecognizer recognizer = new IntentRecognizer(speechConfig);
 **Python**
 
 ```Python
-# 音声サービスを構成する and get intent recognizer
+# Configure speech service and get intent recognizer
 speech_config = speech_sdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
 recognizer = speech_sdk.intent.IntentRecognizer(speech_config)
 ```
     
-2. 追加したコードのすぐ下に、コメント **「AppID からモデルを取得して使用する意図を追加する」** を見つけ、使用する意図を追加し、次のコードを追加して、(アプリ ID に基づいて) Language Understanding モデルを取得し、認識機能に識別させたい意図を指定します。
+2. 追加したコードのすぐ下に、コメント **「Get the model from the AppID and add the intents we want to use」** を見つけ、使用する意図を追加し、次のコードを追加して、(アプリ ID に基づいて) Language Understanding モデルを取得し、認識機能に識別させたい意図を指定します。
 
 **C#**
 
 ```C#
-// AppID からモデルを取得して使用する意図を追加する
+// Get the model from the AppID and add the intents we want to use
 var model = LanguageUnderstandingModel.FromAppId(luAppId);
 recognizer.AddIntent(model, "GetTime", "time");
 recognizer.AddIntent(model, "GetDate", "date");
@@ -144,7 +144,7 @@ recognizer.AddIntent(model, "None", "none");
 **Python**
 
 ```Python
-# AppID からモデルを取得して使用する意図を追加する
+# Get the model from the AppID and add the intents we want to use
 model = speech_sdk.intent.LanguageUnderstandingModel(app_id=lu_app_id)
 intents = [
     (model, "GetTime"),
@@ -155,12 +155,12 @@ intents = [
 recognizer.add_intents(intents)
 ```
 
-3. **Main** のコードは、ユーザーが「stop」と言うまで継続的にループすることに注意してください。このループ内で、コメント **「音声入力を処理する」** を見つけ、次のコードを追加します。このコードは、レコグナイザーを使用して、音声入力を使用して Language Understanding サービスを非同期的に呼び出し、応答を取得します。応答に予測された意図が含まれている場合、音声クエリ、予測された意図、および完全な JSON 応答が表示されます。それ以外の場合、コードは返された理由に基づいて応答を処理します。
+3. **Main** のコードは、ユーザーが「stop」と言うまで継続的にループすることに注意してください。このループ内で、コメント **「Process speech input」** を見つけ、次のコードを追加します。このコードは、レコグナイザーを使用して、音声入力を使用して Language Understanding サービスを非同期的に呼び出し、応答を取得します。応答に予測された意図が含まれている場合、音声クエリ、予測された意図、および完全な JSON 応答が表示されます。それ以外の場合、コードは返された理由に基づいて応答を処理します。
     
 **C#**
 
 ```C
-// 音声入力を処理する
+// Process speech input
 var result = await recognizer.RecognizeOnceAsync().ConfigureAwait(false);
 if (result.Reason == ResultReason.RecognizedIntent)
 {
@@ -204,7 +204,7 @@ else if (result.Reason == ResultReason.Canceled)
 **Python**
 
 ```Python
-# 音声入力を処理する
+# Process speech input
 result = recognizer.recognize_once_async().get()
 if result.reason == speech_sdk.ResultReason.RecognizedIntent:
     intent = result.intent_id
