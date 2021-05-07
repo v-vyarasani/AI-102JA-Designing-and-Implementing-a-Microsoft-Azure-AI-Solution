@@ -70,7 +70,7 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 **C#**
 
 ```C#
-// 名前空間をインポートする
+// Import namespaces
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 ```
@@ -78,13 +78,13 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 **Python**
 
 ```Python
-# 名前空間をインポートする
+# Import namespaces
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
 from msrest.authentication import CognitiveServicesCredentials
 ```
     
-## ビューの画像は、あなたが分析します
+## 分析用の画像を確認する
 
 この演習では、Computer Vision サービスを使用して複数の画像を分析します。
 
@@ -95,12 +95,12 @@ from msrest.authentication import CognitiveServicesCredentials
 
 これで、SDK を使用して Computer Vision サービスを呼び出す準備が整いました。
 
-1. クライアント アプリケーションのコード ファイル (**Program.cs** または **image-analysis&period;py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント **「Computer Vision クライアントを認証する」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+1. クライアント アプリケーションのコード ファイル (**Program.cs** または **image-analysis&period;py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント **「Authenticate Computer Vision client」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
 
 **C#**
 
 ```C#
-// Computer Vision クライアントを認証する
+// Authenticate Computer Vision client
 ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
 cvClient = new ComputerVisionClient(credentials)
 {
@@ -111,19 +111,19 @@ cvClient = new ComputerVisionClient(credentials)
 **Python**
 
 ```Python
-# Computer Vision クライアントを認証する
+# Authenticate Computer Vision client
 credential = CognitiveServicesCredentials(cog_key) 
 cv_client = ComputerVisionClient(cog_endpoint, credential)
 ```
 
 2. **Main** 関数で、追加したコードの下で、コードが画像ファイルへのパスを指定し、画像パスを他の 2 つの関数 (**AnalyzeImage** と **GetThumbnail**) に渡すことに注意してください。これらの関数はまだ完全には実装されていません。
 
-3. **AnalyzeImage** 関数のコメン **「取得する機能を特定する」** の下に、次のコードを追加します。
+3. **AnalyzeImage** 関数のコメン **「Specify features to be retrieved」** の下に、次のコードを追加します。
 
 **C#**
 
 ```C#
-// 取得する機能を特定する
+// Specify features to be retrieved
 List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
 {
     VisualFeatureTypes.Description,
@@ -138,7 +138,7 @@ List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
 **Python**
 
 ```Python
-# 取得する機能を特定する
+# Specify features to be retrieved
 features = [VisualFeatureTypes.description,
             VisualFeatureTypes.tags,
             VisualFeatureTypes.categories,
@@ -262,12 +262,12 @@ if (len(analysis.tags) > 0):
 
 Computer Vision サービスは、画像の*カテゴリ*を提案でき、各カテゴリ内で有名なランドマークや有名人を識別できます。
 
-1. **AnalyzeImage** 関数のコメント **「画像カテゴリを取得する (有名人とランドマークを含む)」** の下に、次のコードを追加します
+1. **AnalyzeImage** 関数のコメント **「画像カテゴリを取得する」** の下に、次のコードを追加します
 
 **C#**
 
 ```C
-// 画像カテゴリを取得する (有名人とランドマークを含む)
+// 画像カテゴリを取得する
 List<LandmarksModel> landmarks = new List<LandmarksModel> {};
 List<CelebritiesModel> celebrities = new List<CelebritiesModel> {};
 Console.WriteLine("Categories:");
@@ -325,7 +325,7 @@ if (celebrities.Count > 0)
 **Python**
 
 ```Python
-# 画像カテゴリを取得する (有名人とランドマークを含む)
+# 画像カテゴリを取得する
 if (len(analysis.categories) > 0):
     print("Categories:")
     landmarks = []
@@ -497,12 +497,12 @@ print(ratings)
 
 場合によっては、*サムネイル*という名前の画像の小さいバージョンを作成し、それをトリミングして、新しい画像の寸法内に主要な視覚的主題を含める必要があります。
 
-1. コード ファイルで、**GetThumbnail** 関数を見つけます。コメント **「サムネイルを生成する」** の下に、次のコードを追加します。
+1. コード ファイルで、**GetThumbnail** 関数を見つけます。コメント **「Generate a thumbnail」** の下に、次のコードを追加します。
 
 **C#**
 
 ```C
-// サムネイルを生成する
+// Generate a thumbnail
 using (var imageData = File.OpenRead(imageFile))
 {
     // サムネイル データを取得する
@@ -522,7 +522,7 @@ using (var imageData = File.OpenRead(imageFile))
 **Python**
 
 ```Python
-# サムネイルを生成する
+# Generate a thumbnail
 with open(image_file, mode="rb") as image_data:
     # サムネイル データを取得する
     thumbnail_stream = cv_client.generate_thumbnail_in_stream(100, 100, image_data, True)
