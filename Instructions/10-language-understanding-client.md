@@ -42,14 +42,14 @@ Azure サブスクリプションに Language Understanding オーサリング�
 
 1. 新しいブラウザタブで、`https://www.luis.ai` の Language Understanding ポータルを開きます。
 2. Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。Language Understanding ポータルに初めてサインインする場合は、アカウントの詳細にアクセスするためのアクセス許可をアプリに付与する必要がある場合があります。次に、Azure サブスクリプションと作成したオーサリングリ ソースを選択して、*ようこそ*手順を完了します。
-3. **「会話アプリ」** ページを開き、**「新しいアプリ」** の横にあるドロップダウン リストを表示して、**「LU としてインポート」** を選択します。
-この演習のラボ ファイルを含むプロジェクト フォルダー内の **10-luis-client** サブフォルダーを参照し、**Clock&period;lu** を選択します。次に、時計アプリの一意の名前を指定します。
+3. **「Conversation apps」** ページを開き、**「New app」** の横にあるドロップダウン リストを表示して、**「Import as LU」** を選択します。
+この演習のラボ ファイルを含むプロジェクト フォルダー内の **10-luis-client** サブフォルダーを参照し、**Clock&period;lu** を選択します。次に、この時計アプリ用の一意の名前を指定します。
 4. 効果的な Language Understanding アプリを作成するためのヒントが記載されたパネルが表示されたら、それを閉じます。
-5. Language Understanding ポータルの上部にある **「トレーニング」** を選択して、アプリをトレーニングします。
-6. Language Understanding ポータルの右上にある **「公開」 **を選択し、アプリを**本番スロット**に公開します。
-7. 公開が完了したら、Language Understanding ポータルの上部にある **「管理」** を選択します。
-8. **「設定」** ページで、**アプリ ID** をメモします。クライアント アプリケーションがアプリを使用するには、これが必要です。
-9. **「Azure リソース」** ページの **「予測リソース」** で、予測リソースがリストされていない場合は、Azure サブスクリプションに予測リソースを追加します。
+5. Language Understanding ポータルの上部にある **「Train」** を選択して、アプリをトレーニングします。
+6. Language Understanding ポータルの右上にある **「Publish」 **を選択し、アプリを**実稼働スロット**に公開します。
+7. 公開が完了したら、Language Understanding ポータルの上部にある **「MANAGE」** を選択します。
+8. **「Settings」** ページで、**アプリ ID** をメモします。クライアント アプリケーションがアプリを使用するには、これが必要です。
+9. **「Azure Resource」** ページの **「予測リソース」** で、予測リソースがリストされていない場合は、Azure サブスクリプションに予測リソースを追加します。
 10. 予測リソースの**プライマリ キー**、**セカンダリ キー**、および**エンドポイント URL** に注意してください。クライアント アプリケーションは、予測リソースに接続して認証されるために、エンドポイントとキーの 1 つを必要とします。
 
 ## Language Understanding SDK を使用する準備をする
@@ -88,12 +88,12 @@ pip install azure-cognitiveservices-language-luis==0.7.0
     - **C#**: Program.cs
     - **Python**: clock-client&period;py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Language Understanding 予測 SDK を使用するために必要な名前空間をインポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Language Understanding 予測 SDK を使用するために必要な名前空間をインポートします。
 
 **C#**
 
 ```C#
-// 名前空間をインポートする
+// Import namespaces
 using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime;
 using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime.Models;
 ```
@@ -101,7 +101,7 @@ using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime.Models;
 **Python**
 
 ```Python
-# 名前空間をインポートする
+# Import namespaces
 from azure.cognitiveservices.language.luis.runtime import LUISRuntimeClient
 from msrest.authentication import CognitiveServicesCredentials
 ```
@@ -115,7 +115,7 @@ from msrest.authentication import CognitiveServicesCredentials
 **C#**
 
 ```C#
-// LU アプリのクライアントを作成する
+// Create a client for the LU app
 var credentials = new Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime.ApiKeyServiceClientCredentials(predictionKey);
 var luClient = new LUISRuntimeClient(credentials) { Endpoint = predictionEndpoint };
 ```
@@ -123,17 +123,17 @@ var luClient = new LUISRuntimeClient(credentials) { Endpoint = predictionEndpoin
 **Python**
 
 ```Python
-# LU アプリのクライアントを作成する
+# Create a client for the LU app
 credentials = CognitiveServicesCredentials(lu_prediction_key)
 lu_client = LUISRuntimeClient(lu_prediction_endpoint, credentials)
 ```
 
-2. ユーザーが「quit」と入力するまで、**Main** 関数のコードはユーザー入力を求めるプロンプトを表示することに注意してください。このループ内で、コメント **「LU アプリを呼び出して意図とエンティティを取得する」** を見つけて、次のコードを追加します。
+2. ユーザーが「quit」と入力するまで、**Main** 関数のコードはユーザー入力を求めるプロンプトを表示することに注意してください。このループ内で、コメント **「Call the LU app to get intent and entities」** を見つけて、次のコードを追加します。
 
 **C#**
 
 ```C#
-// LU アプリを呼び出して意図とエンティティを取得する
+// Call the LU app to get intent and entities
 var slot = "Production";
 var request = new PredictionRequest { Query = userText };
 PredictionResponse predictionResponse = await luClient.Prediction.GetSlotPredictionAsync(luAppId, slot, request);
@@ -147,7 +147,7 @@ var entities = predictionResponse.Prediction.Entities;
 **Python**
 
 ```Python
-# LU アプリを呼び出して意図とエンティティを取得する
+# Call the LU app to get intent and entities
 request = { "query" : userText }
 slot = 'Production'
 prediction_response = lu_client.prediction.get_slot_prediction(lu_app_id, slot, request)
@@ -160,12 +160,12 @@ print('-----------------\n{}'.format(prediction_response.query))
 
 Language Understanding アプリを呼び出すと、予測が返されます。これには、入力発話で検出されたエンティティだけでなく、最上位の (最も可能性の高い) 意図も含まれます。クライアント アプリケーションは、その予測を使用して適切なアクションを決定および実行する必要があります。
 
-3. コメント **「適切なアクションを適用する」** を見つけ、次のコードを追加します。このコードは、アプリケーションでサポートされている意図 (**GetTime**、**GetDate**、および**GetDay**) をチェックします。また、適切な応答を生成するために既存の関数を呼び出す前に、関連するエンティティが検出されたかどうかを判断します。
+3. コメント **「Apply the appropriate action」** を見つけ、次のコードを追加します。このコードは、アプリケーションでサポートされている意図 (**GetTime**、**GetDate**、および**GetDay**) をチェックします。また、適切な応答を生成するために既存の関数を呼び出す前に、関連するエンティティが検出されたかどうかを判断します。
 
 **C#**
 
 ```C#
-// 適切なアクションを適用する
+// Apply the appropriate action
 switch (topIntent)
 {
     case "GetTime":
@@ -239,7 +239,7 @@ switch (topIntent)
 **Python**
 
 ```Python
-# 適切なアクションを適用する
+# Apply the appropriate action
 if top_intent == 'GetTime':
     location = 'local'
     # エンティティを確認する
