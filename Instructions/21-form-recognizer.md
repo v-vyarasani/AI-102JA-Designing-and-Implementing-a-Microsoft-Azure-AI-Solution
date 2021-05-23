@@ -231,7 +231,7 @@ python test-model.py
 **C#**
 
 ```C#
-// モデルをトレーニングする 
+// Train model 
 CustomFormModel model = await trainingClient
 .StartTrainingAsync(new Uri(trainingStorageUri), useTrainingLabels: true)
 .WaitForCompletionAsync();
@@ -240,7 +240,7 @@ CustomFormModel model = await trainingClient
 **Python**
 
 ```Python
-# モデルをトレーニングする 
+# Train model 
 poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=True)
 model = poller.result()
 ```
