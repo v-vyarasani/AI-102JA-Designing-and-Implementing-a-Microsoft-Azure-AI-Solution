@@ -152,30 +152,30 @@ features = [VisualFeatureTypes.description,
 **C#**
 
 ```C
-//  画像分析を取得する
+// Get image analysis
 using (var imageData = File.OpenRead(imageFile))
 {    
     var analysis = await cvClient.AnalyzeImageInStreamAsync(imageData, features);
 
-    // 画像キャプションを取得する
+    // get image captions
     foreach (var caption in analysis.Description.Captions)
     {
         Console.WriteLine($"Description: {caption.Text} (confidence: {caption.Confidence.ToString("P")})");
     }
 
-    //  画像タグを取得する
+    // Get image tags
 
 
-    // 画像カテゴリを取得する
+    // Get image categories
 
 
-    // 画像からブランドを取得する
+    // Get brands in the image
 
 
-    // 画像からオブジェクトを取得する
+    // Get objects in the image
 
 
-    // モデレーション評価を取得する
+    // Get moderation ratings
     
 
 }            
@@ -184,27 +184,27 @@ using (var imageData = File.OpenRead(imageFile))
 **Python**
 
 ```Python
-#  画像分析を取得する
+# Get image analysis
 with open(image_file, mode="rb") as image_data:
-    analysis = cv_client.analyze_image_in_stream（image_data、features）
+    analysis = cv_client.analyze_image_in_stream(image_data , features)
 
-# 画像の詳細を取得する
+# Get image description
 for caption in analysis.description.captions:
-    print("Description: '{}'（confidence： {:.2f}%)".format(caption.text, caption.confidence * 100))
+    print("Description: '{}' (confidence: {:.2f}%)".format(caption.text, caption.confidence * 100))
 
-#  画像タグを取得する
-
-
-# 画像カテゴリを取得する 
+# Get image tags
 
 
-# 画像からブランドを取得する
+# Get image categories 
 
 
-# 画像からオブジェクトを取得する
+# Get brands in the image
 
 
-# モデレーション評価を取得する
+# Get objects in the image
+
+
+# Get moderation ratings
 
 ```
     
@@ -235,7 +235,7 @@ python image-analysis.py images/street.jpg
 **C#**
 
 ```C
-//  画像タグを取得する
+// Get image tags
 if (analysis.Tags.Count > 0)
 {
     Console.WriteLine("Tags:");
@@ -249,7 +249,7 @@ if (analysis.Tags.Count > 0)
 **Python**
 
 ```Python
-#  画像タグを取得する
+# Get image tags
 if (len(analysis.tags) > 0):
     print("Tags: ")
     for tag in analysis.tags:
@@ -267,16 +267,16 @@ Computer Vision サービスは、画像の*カテゴリ*を提案でき、各�
 **C#**
 
 ```C
-// 画像カテゴリを取得する
+// Get image categories (including celebrities and landmarks)
 List<LandmarksModel> landmarks = new List<LandmarksModel> {};
 List<CelebritiesModel> celebrities = new List<CelebritiesModel> {};
 Console.WriteLine("Categories:");
 foreach (var category in analysis.Categories)
 {
-    // カテゴリを印刷する
+    // Print the category
     Console.WriteLine($" -{category.Name} (confidence: {category.Score.ToString("P")})");
 
-    // カテゴリからランドマークを取得する
+    // Get landmarks in this category
     if (category.Detail?.Landmarks != null)
     {
         foreach (LandmarksModel landmark in category.Detail.Landmarks)
@@ -288,7 +288,7 @@ foreach (var category in analysis.Categories)
         }
     }
 
-    // カテゴリから有名人を取得する
+    // Get celebrities in this category
     if (category.Detail?.Celebrities != null)
     {
         foreach (CelebritiesModel celebrity in category.Detail.Celebrities)
@@ -301,7 +301,7 @@ foreach (var category in analysis.Categories)
     }
 }
 
-// ランドマークがある場合はリストする
+// If there were landmarks, list them
 if (landmarks.Count > 0)
 {
     Console.WriteLine("Landmarks:");
@@ -311,13 +311,13 @@ if (landmarks.Count > 0)
     }
 }
 
-// 有名人がいる場合はリストする
+// If there were celebrities, list them
 if (celebrities.Count > 0)
 {
     Console.WriteLine("Celebrities:");
-    foreach（CelebritiesModel celebrity in celebrities）
+    foreach(CelebritiesModel celebrity in celebrities)
     {
-        Console.WriteLine($" -{celebrity.Name} (confidence: {celebrity.Confidence.ToString（" P "）}）"）;
+        Console.WriteLine($" -{celebrity.Name} (confidence: {celebrity.Confidence.ToString("P")})");
     }
 }
 ```
@@ -325,34 +325,34 @@ if (celebrities.Count > 0)
 **Python**
 
 ```Python
-# 画像カテゴリを取得する
+# Get image categories (including celebrities and landmarks)
 if (len(analysis.categories) > 0):
     print("Categories:")
     landmarks = []
     celebrities = []
     for category in analysis.categories:
-        # カテゴリを印刷する
+        # Print the category
         print(" -'{}' (confidence: {:.2f}%)".format(category.name, category.score * 100))
         if category.detail:
-            # カテゴリからランドマークを取得する
+            # Get landmarks in this category
             if category.detail.landmarks:
                 for landmark in category.detail.landmarks:
                     if landmark not in landmarks:
                         landmarks.append(landmark)
 
-            # カテゴリから有名人を取得する
+            # Get celebrities in this category
             if category.detail.celebrities:
                 for celebrity in category.detail.celebrities:
                     if celebrity not in celebrities:
                         celebrities.append(celebrity)
 
-    # ランドマークがある場合はリストする
+    # If there were landmarks, list them
     if len(landmarks) > 0:
         print("Landmarks:")
         for landmark in landmarks:
             print(" -'{}' (confidence: {:.2f}%)".format(landmark.name, landmark.confidence * 100))
 
-    # 有名人がいる場合はリストする
+    # If there were celebrities, list them
     if len(celebrities) > 0:
         print("Celebrities:")
         for celebrity in celebrities:
@@ -371,7 +371,7 @@ if (len(analysis.categories) > 0):
 **C#**
 
 ```C
-// 画像からブランドを取得する
+// Get brands in the image
 if (analysis.Brands.Count > 0)
 {
     Console.WriteLine("Brands:");
@@ -385,7 +385,7 @@ if (analysis.Brands.Count > 0)
 **Python**
 
 ```Python
-# 画像からブランドを取得する
+# Get brands in the image
 if (len(analysis.brands) > 0):
     print("Brands: ")
     for brand in analysis.brands:
@@ -403,12 +403,12 @@ if (len(analysis.brands) > 0):
 **C#**
 
 ```C
-// 画像からオブジェクトを取得する
+// Get objects in the image
 if (analysis.Objects.Count > 0)
 {
     Console.WriteLine("Objects in image:");
 
-    // 描画用に画像を準備する
+    // Prepare image for drawing
     Image image = Image.FromFile(imageFile);
     Graphics graphics = Graphics.FromImage(image);
     Pen pen = new Pen(Color.Cyan, 3);
@@ -417,17 +417,17 @@ if (analysis.Objects.Count > 0)
 
     foreach (var detectedObject in analysis.Objects)
     {
-        // オブジェクト名を印刷する
+        // Print object name
         Console.WriteLine($" -{detectedObject.ObjectProperty} (confidence: {detectedObject.Confidence.ToString("P")})");
 
-        // オブジェクトの境界ボックスを描画する
+        // Draw object bounding box
         var r = detectedObject.Rectangle;
-        Rectangle rect = new Rectangle（rX、rY、rW、rH）;
+        Rectangle rect = new Rectangle(r.X, r.Y, r.W, r.H);
         graphics.DrawRectangle(pen, rect);
         graphics.DrawString(detectedObject.ObjectProperty,font,brush,r.X, r.Y);
 
     }
-    // 注釈付き画像を保存する
+    // Save annotated image
     String output_file = "objects.jpg";
     image.Save(output_file);
     Console.WriteLine("  Results saved in " + output_file);   
@@ -437,26 +437,26 @@ if (analysis.Objects.Count > 0)
 **Python**
 
 ```Python
-# 画像からオブジェクトを取得する
+# Get objects in the image
 if len(analysis.objects) > 0:
     print("Objects in image:")
 
-    # 描画用に画像を準備する
+    # Prepare image for drawing
     fig = plt.figure(figsize=(8, 8))
     plt.axis('off')
     image = Image.open(image_file)
     draw = ImageDraw.Draw(image)
     color = 'cyan'
     for detected_object in analysis.objects:
-        # オブジェクト名を印刷する
+        # Print object name
         print(" -{} (confidence: {:.2f}%)".format(detected_object.object_property, detected_object.confidence * 100))
         
-        # オブジェクトの境界ボックスを描画する
+        # Draw object bounding box
         r = detected_object.rectangle
         bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
         draw.rectangle(bounding_box, outline=color, width=3)
         plt.annotate(detected_object.object_property,(r.x, r.y), backgroundcolor=color)
-    # 注釈付き画像を保存する
+    # Save annotated image
     plt.imshow(image)
     outputfile = 'objects.jpg'
     fig.savefig(outputfile)
@@ -474,7 +474,7 @@ if len(analysis.objects) > 0:
 **C#**
 
 ```C
-// モデレーション評価を取得する
+// Get moderation ratings
 string ratings = $"Ratings:\n -Adult: {analysis.Adult.IsAdultContent}\n -Racy: {analysis.Adult.IsRacyContent}\n -Gore: {analysis.Adult.IsGoryContent}";
 Console.WriteLine(ratings);
 ```
@@ -482,7 +482,7 @@ Console.WriteLine(ratings);
 **Python**
 
 ```Python
-# モデレーション評価を取得する
+# Get moderation ratings
 ratings = 'Ratings:\n -Adult: {}\n -Racy: {}\n -Gore: {}'.format(analysis.adult.is_adult_content,
                                                                     analysis.adult.is_racy_content,
                                                                     analysis.adult.is_gory_content)
@@ -505,10 +505,10 @@ print(ratings)
 // Generate a thumbnail
 using (var imageData = File.OpenRead(imageFile))
 {
-    // サムネイル データを取得する
+    // Get thumbnail data
     var thumbnailStream = await cvClient.GenerateThumbnailInStreamAsync(100, 100,imageData, true);
 
-    // サムネイル画像を保存する
+    // Save thumbnail image
     string thumbnailFileName = "thumbnail.png";
     using (Stream thumbnailFile = File.Create(thumbnailFileName))
     {
@@ -524,10 +524,10 @@ using (var imageData = File.OpenRead(imageFile))
 ```Python
 # Generate a thumbnail
 with open(image_file, mode="rb") as image_data:
-    # サムネイル データを取得する
+    # Get thumbnail data
     thumbnail_stream = cv_client.generate_thumbnail_in_stream(100, 100, image_data, True)
 
-# サムネイル画像を保存する
+# Save thumbnail image
 thumbnail_file_name = 'thumbnail.png'
 with open(thumbnail_file_name, "wb") as thumbnail_file:
     for chunk in thumbnail_stream:
