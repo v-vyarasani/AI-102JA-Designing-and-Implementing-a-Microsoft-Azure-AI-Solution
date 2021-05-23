@@ -78,7 +78,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 この演習では、Azure Cognitive Search REST インターフェイスを使用して、JSON リクエストを送信することでこれらのコンポーネントを作成します。
 
-1. Visual Studio Cod eの **23-custom-search-skill** フォルダーで、**create-search** フォルダーを展開し、**data_source.json** を選択します。このファイルには、**margies-custom-data**.という名前のデータソースの JSON 定義が含まれています。
+1. Visual Studio Codeの **23-custom-search-skill** フォルダーで、**create-search** フォルダーを展開し、**data_source.json** を選択します。このファイルには、**margies-custom-data**.という名前のデータソースの JSON 定義が含まれています。
 2. **YOUR_CONNECTION_STRING** プレースホルダーを Azure ストレージアカウントの接続文字列に置き換えます。これは次のようになります。
 
     ```
@@ -88,13 +88,13 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     *接続文字列は、Azureポータルのストレージアカウントの 「**アクセスキー**」 ページにあります。*
 
 3. 更新された JSON ファイルを保存して閉じます。
-4. **create-search** フォルダーで、**skillset.json** を開きます。このファイルには、**margies-custom-skillset** という名前のスキルセットの JSO N定義が含まれています。
+4. **create-search** フォルダーで、**skillset.json** を開きます。このファイルには、**margies-custom-skillset** という名前のスキルセットの JSON定義が含まれています。
 5. スキルセット定義の上部にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーをCognitive Services リソースのいずれかのキーに置き換えます。
 
     *キーは、Azure portal の Cognitive Services リソースの **「キーとエンドポイント」** ページにあります。*
 
 6. 更新された JSON ファイルを保存して閉じます。
-7. **create-search** フォルダーで、i**index.json**.を開きます。このファイルには**margies-custom-index**という名前のインデックスの JSON 定義が含まれています。
+7. **create-search** フォルダーで、**index.json**.を開きます。このファイルには**margies-custom-index**という名前のインデックスの JSON 定義が含まれています。
 8. インデックスの JSON を確認し、変更を加えずにファイルを閉じます。
 9. **create-search** フォルダーで、**indexer.json**.を開きます。このファイルには**margies-custom-indexer**という名前のインデックスの JSON 定義が含まれています。
 10. インデクサーの JSON を確認し、変更を加えずにファイルを閉じます。
@@ -141,12 +141,12 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
     ### **C#**
 
-    - **フォルダー**: **23-custom-search-skill/C-Sharp/wordcount** を参照います。
+    - **フォルダー**: **23-custom-search-skill/C-Sharp/wordcount** を参照します。
     - **言語**: C#
     - **テンプレート**: HTTP トリガー
     - **関数名**: wordcount
     - **名前空間**: margies.search
-    - **承認レベル**: 関数
+    - **承認レベル**: Functions
 
     ### **Python**
 
@@ -155,7 +155,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     - **仮想環境**: 仮想環境をスキップ
     - **テンプレート**: HTTP トリガー
     - **関数名**: wordcount
-    - **承認レベル**: 関数
+    - **承認レベル**: Functions
 
     ***launch.json** を 上書きするように求められた場合は、上書きしてください。*
 
@@ -188,7 +188,7 @@ namespace margies.search
     public static class wordcount
     {
 
-        //応答のためにクラスを定義する
+        //define classes for responses
         private class WebApiResponseError
         {
             public string message { get; set; }
@@ -212,7 +212,7 @@ namespace margies.search
             public List<WebApiResponseRecord> values { get; set; }
         }
 
-        //カスタム スキルの関数
+        //function for custom skill
         [FunctionName("wordcount")]
         public static IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequest req, ILogger log)
@@ -225,19 +225,19 @@ namespace margies.search
             string requestBody = new StreamReader(req.Body).ReadToEnd();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
 
-            // 検証
+            // Validation
             if (data?.values == null)
             {
                 return new BadRequestObjectResult(" Could not find values array");
             }
-            if (data?.values.HasValues == false || data？.values.First.HasValues == false）
+            if (data?.values.HasValues == false || data?.values.First.HasValues == false)
             {
                 return new BadRequestObjectResult("Could not find valid records in values array");
             }
 
-            WebApiEnricherResponse response = new WebApiEnricherResponse（）;
+            WebApiEnricherResponse response = new WebApiEnricherResponse();
             response.values = new List<WebApiResponseRecord>();
-            foreach（var record in data？.values）
+            foreach (var record in data?.values)
             {
                 recordId = record.recordId?.Value as string;
                 originalText = record.data?.text?.Value as string;
@@ -247,7 +247,7 @@ namespace margies.search
                     return new BadRequestObjectResult("recordId cannot be null");
                 }
 
-                // 応答をまとめる。
+                // Put together response.
                 WebApiResponseRecord responseRecord = new WebApiResponseRecord();
                 responseRecord.data = new Dictionary<string, object>();
                 responseRecord.recordId = recordId;
@@ -270,18 +270,18 @@ namespace margies.search
         public static List<string> Count(string text)
         {
             
-            //html エレメントを削除する
+            //remove html elements
             text=text.ToLowerInvariant();
             string html = RemoveHtmlTags(text);
             
-            //単語リストを分割する
+            //split into list of words
             List<string> list = html.Split(" ").ToList();
             
-            //英数文字以外を削除する
+            //remove any non alphabet characters
             var onlyAlphabetRegEx = new Regex(@"^[A-z]+$");
             list = list.Where(f => onlyAlphabetRegEx.IsMatch(f)).ToList();
 
-            //ストップ ワードを削除する
+            //remove stop words
             string[] stopwords = { "", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", 
                     "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", 
                     "yourselves", "he", "him", "his", "himself", "she", "she's", "her", 
@@ -305,11 +305,11 @@ namespace margies.search
                     "wasn't", "weren", "weren't", "won", "won't", "wouldn", "wouldn't"}; 
             list = list.Where(x => x.Length > 2).Where(x => !stopwords.Contains(x)).ToList();
             
-            //キーとカウント、さらにはカウントによる順番によって特徴のある単語を取得する
+            //get distict words by key and count, and then order by count.
             var keywords = list.GroupBy(x => x).OrderByDescending(x => x.Count());
             var klist = keywords.ToList();
 
-            // 上位 10 個の単語を返す
+            // return the top 10 words
             var numofWords = 10;
             if(klist.Count<10)
                 numofWords=klist.Count;
@@ -339,24 +339,24 @@ import azure.functions as func
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Wordcount function initiated.')
 
-    # 結果は "values" バッグになります
+    # The result will be a "values" bag
     result = {
         "values": []
     }
     statuscode = 200
 
-    # 単語のカウント内のこのリストから、単語を除外します
-    stopwords = [ ''、 'i'、 'me'、 'my'、 'myself'、 'we'、 'our'、 'ours'、 'ourselves'、 'you'、 
-                "you're"、 "you've" 、 "you'll"、 "you'd"、 'your'、 'yours'、 'yourself'、 
+    # We're going to exclude words from this list in the word counts
+    stopwords = ['', 'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 
+                "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 
                 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 
                 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 
                 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 
                 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was',
                 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 
-                'does'、 'did'、 ' '、' a '、' an '、' the '、' and '、' but '、' if '、' or '、 
-                ' because '、' as '、' until '、' while '、' of '、' at '、' by '、' for '、' with '、 
-                ' about '、' Against '、' between '、' into '、' through '、' during '、' before ' 、 
-                ^after'、 'above'、 'below'、 'to'、 'from'、 'up'、 'down'、 'in'、 'out'、 
+                'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 
+                'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 
+                'about', 'against', 'between', 'into', 'through', 'during', 'before', 
+                'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 
                 'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 
                 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 
                 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 
@@ -370,10 +370,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     try:
         values = req.get_json().get('values')
-        logging.info（values）
+        logging.info(values)
 
-        for rec in values：
-            # このレコードのベーシックな JSON 応答を作成する
+        for rec in values:
+            # Construct the basic JSON response for this record
             val = {
                     "recordId": rec['recordId'],
                     "data": {
@@ -383,40 +383,40 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                     "warnings": None
                 }
             try:
-                # 入力レコードから処理されるテキストを取得する
+                # get the text to be processed from the input record
                 txt = rec['data']['text']
-                # 数値を削除する
+                # remove numeric digits
                 txt = ''.join(c for c in txt if not c.isdigit())
-                # 句読点と小文字を削除する
+                # remove punctuation and make lower case
                 txt = ''.join(c for c in txt if c not in punctuation).lower()
-                # ストップワードを削除する
+                # remove stopwords
                 txt = ' '.join(w for w in txt.split() if w not in stopwords)
-                # 単語をカウントして、出現個数の多い上位 10 を取得する
+                # Count the words and get the most common 10
                 wordcount = Counter(txt.split()).most_common(10)
                 words = [w[0] for w in wordcount]
-                # このテキスト レコードの出力に上位 10 個の単語を追加する
+                # Add the top 10 words to the output for this text record
                 val["data"]["text"] = words
             except:
-                # このテキスト レコードではエラーが発生するため、エラーと警告のリストを追加する
+                # An error occured for this text record, so add lists of errors and warning
                 val["errors"] =[{"message": "An error occurred processing the text."}]
                 val["warnings"] = [{"message": "One or more inputs failed to process."}]
             finally:
-                # このレコードの数値を応答に追加する
+                # Add the value for this record to the response
                 result["values"].append(val)
     except Exception as ex:
         statuscode = 500
-        # グローバル エラーが発生したため、エラー応答が返される
+        # A global error occurred, so return an error response
         val = {
                 "recordId": None,
                 "data": {
                     "text":None
                 },
-                "errors": [{"message "：ex.args}]、
-                "warnings": [{" message "： "The request failed to process."}]
+                "errors": [{"message": ex.args}],
+                "warnings": [{"message": "The request failed to process."}]
             }
         result["values"].append(val)
     finally:
-        # 応答を返す
+        # Return the response
         return func.HttpResponse(body=json.dumps(result), mimetype="application/json", status_code=statuscode)
 ```
     
@@ -426,7 +426,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     ### **C#**
 
     - **Subscription** (必要な場合): Azure サブスクリプションを選択します。
-    - **関数**: Azureで新しい関数アプリを作成する (詳細)
+    - **関数**: Create a new Function App in Azure (Advanced)
     - **関数アプリ名**: グローバルに一意な名前を入力します。
     - **Runtime**: .NET Core 3.1
     - **OS**: Linux
@@ -434,21 +434,21 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     - **リソース グループ**: Azure Cognitive Search リソースを含むリソースグループ。
         - 注記: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
     - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ数。
-    - **Application Insights**: 今はしない
+    - **Application Insights**: Skip for now
 
     *Visual Studio Code は、関数プロジェクトの作成時に保存された v**vscode** フォルダーの構成設定に基づいて、コンパイルされたバージョンの関数を (**bin** ーに) 展開します。*
 
     ### **Python**
 
     - **Subscription** (必要な場合): Azure サブスクリプションを選択します。
-    - **関数**: Azureで新しい関数アプリを作成する (詳細)
+    - **関数**: Create a new Function App in Azure (Advanced)
     - **関数アプリ名**: グローバルに一意な名前を入力します。
     - **Runtime**: Python 3.8
     - **ホスティング プラン**: Consumption
     - **リソース グループ**: Azure Cognitive Search リソースを含むリソースグループ。
         - 注記: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
     - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ数。
-    - **Application Insights**: 今はしない
+    - **Application Insights**: Skip for now
 
 8. Visual Studio Codeが関数をデプロイするのを待ちます。展開が完了すると、通知が表示されます。
 
