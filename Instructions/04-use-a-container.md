@@ -64,7 +64,7 @@ Cognitive Services API の多くは、*コンテナー*にパッケージ化し�
             | -------------- | --- | ----- |
             | はい | ApiKey | *Cognitive Services リソースのいずれかのキー* |
             | はい | Billing | *Cognitive Services リソースのエンドポイント URI* |
-            | いいえ | EULA | 受け入れ |
+            | いいえ | Eula | accept |
 
         - **コマンドの上書き**: [ ]
     - **タグ**:
