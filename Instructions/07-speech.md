@@ -70,14 +70,14 @@ lab:
 4. **speaking-clock** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
 
     - **C#**: Program.cs
-    - **Python**: speaking-clock&period;py
+    - **Python**: speaking-clock.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
     ```C#
-    // 名前空間をインポートする
+    // Import namespaces
     using Microsoft.CognitiveServices.Speech;
     using Microsoft.CognitiveServices.Speech.Audio;
     ```
@@ -85,16 +85,16 @@ lab:
     **Python**
     
     ```Python
-    # 名前空間をインポートする
+    # Import namespaces
     import azure.cognitiveservices.speech as speech_sdk
     ```
 
-5. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードがすでに提供されていることに注意してください。Cognitive Servicesリソースの **SpeechConfig** を作成するには、これらの変数を使用する必要があります。コメント **「音声サービスを構成する」** の下に次のコードを追加します。
+5. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードがすでに提供されていることに注意してください。Cognitive Servicesリソースの **SpeechConfig** を作成するには、これらの変数を使用する必要があります。コメント **「Configure speech service」** の下に次のコードを追加します。
 
     **C#**
     
     ```C#
-    // 音声サービスを構成する
+    // Configure speech service
     speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
     Console.WriteLine("Ready to use speech service in " + speechConfig.Region);
     ```
@@ -102,7 +102,7 @@ lab:
     **Python**
     
     ```Python
-    # 音声サービスを構成する
+    # Configure speech service
     speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
     print('Ready to use speech service in:', speech_config.region)
     ```
@@ -128,33 +128,37 @@ lab:
 Cognitive Services リソースに音声サービス用の **SpeechConfig** ができたので、**Speech-to-text** API を使用して音声を認識し、テキストに転写することができます。
 
 1. プログラムの **Main** 関数で、コードが **TranscribeCommand** 関数を使用して音声入力を受け入れることに注意してください。
-2. **TranscribeCommand** 関数のコメント **「音声認識を構成する」** の下に、次のコードを追加して、入力用のデフォルトのシステムマイクを使用して音声を認識および転写するために使用できる **SpeechRecognizer** クライアントを作成します。
+2. **TranscribeCommand** 関数のコメント **「Configure speech recognition」** の下に、次のコードを追加して、入力用のデフォルトのシステムマイクを使用して音声を認識および転写するために使用できる **SpeechRecognizer** クライアントを作成します。
 
     **C#**
-    
+
     ```C#
-    // 音声認識を構成する
-    using AudioConfig audioConfig = AudioConfig.FromDefaultMicrophoneInput();
+    // Configure speech recognition
+    string audioFile = "time.wav";
+    SoundPlayer wavPlayer = new SoundPlayer(audioFile);
+    wavPlayer.Play();
+    using AudioConfig audioConfig = AudioConfig.FromWavFileInput(audioFile);
     using SpeechRecognizer speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
     ```
-    
+
     **Python**
-    
+
     ```Python
-    # 音声認識を構成する
-    audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
+    # Configure speech recognition
+    audioFile = 'time.wav'
+    playsound(audioFile)
+    audio_config = speech_sdk.AudioConfig(filename=audioFile)
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
     ```
     
     > **注**: ***AudioConfig** オブジェクトを変更してファイルパスを参照することにより、音声ファイルからの音声入力を認識することもできます。*
 
-3. **TranscribeCommand** 関数のコメント **「音声入力を処理する」** の下に、音声入力をリッスンする次のコードを追加します。コマンドを返す関数の最後にあるコードを置き換えないように注意してください
+3. **TranscribeCommand** 関数のコメント **「Process speech input」** の下に、音声入力をリッスンする次のコードを追加します。コマンドを返す関数の最後にあるコードを置き換えないように注意してください
 
     **C#**
     
     ```C#
-    // 音声入力を処理する
-    Console.WriteLine("Say 'stop' to end...");
+    // Process speech input
     SpeechRecognitionResult speech = await speechRecognizer.RecognizeOnceAsync();
     if (speech.Reason == ResultReason.RecognizedSpeech)
     {
@@ -176,8 +180,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
     **Python**
     
     ```Python
-    # 音声入力を処理する
-    print('Say "stop" to end...')
+    # Process speech input
     speech = speech_recognizer.recognize_once_async().get()
     if speech.reason == speech_sdk.ResultReason.RecognizedSpeech:
         command = speech.text
@@ -215,30 +218,30 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
 speaking clock アプリケーションは話し言葉の入力を受け入れますが、実際には話しません。音声合成用のコードを追加して修正しましょう。
 
 1. プログラムの **Main** 関数で、コードが **TellTime** 関数を使用してユーザーに現在の時刻を通知することに注意してください。
-2. **TellTime**関数のコメント **「音声合成を構成する」** の下に、次のコードを追加して、音声出力の生成に使用できる **SpeechSynthesizer** クライアントを作成します。
+2. **TellTime**関数のコメント **「Configure speech synthesis」** の下に、次のコードを追加して、音声出力の生成に使用できる **SpeechSynthesizer** クライアントを作成します。
 
     **C#**
     
     ```C#
-    // 音声合成を構成する
+    // Configure speech synthesis
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
     **Python**
     
     ```Python
-    # 音声合成を構成する
+    # Configure speech synthesis
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
     
     > **注**: *デフォルトのオーディオ構成では、出力にデフォルトのシステム オーディオ デバイスが使用されるため、**AudioConfig** を明示的に指定する必要はありません。オーディオ出力をファイルにリダイレクトする必要がある場合は、ファイルパスを指定して **AudioConfig** を使用できます。*
 
-3. **TellTime** 関数のコメント **「音声出力を合成する」** の下に、次のコードを追加して音声出力を生成します。応答を出力する関数の最後にあるコードを置き換えないように注意してください。
+3. **TellTime** 関数のコメント **「Synthesize spoken output」** の下に、次のコードを追加して音声出力を生成します。応答を出力する関数の最後にあるコードを置き換えないように注意してください。
 
     **C#**
     
     ```C#
-    // 音声出力を合成する
+    // Synthesize spoken output
     SpeechSynthesisResult speak = await speechSynthesizer.SpeakTextAsync(responseText);
     if (speak.Reason != ResultReason.SynthesizingAudioCompleted)
     {
@@ -249,7 +252,7 @@ speaking clock アプリケーションは話し言葉の入力を受け入れ�
     **Python**
     
     ```Python
-    # 音声出力を合成する
+    # Synthesize spoken output
     speak = speech_synthesizer.speak_text_async(response_text).get()
     if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(speak.reason)
@@ -277,12 +280,12 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
 
 > **注**: ニューラル音声と標準音声のリストについては、Speech サービスのドキュメントの[言語と音声のサポート](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#text-    to-speech)を参照してください。  標準音声、ニューラル音声、およびカスタム音声の可用性は地域によって異なります。詳細については、[音声サービスでサポートされている地域] (https://docs.microsoft.com/azure/cognitive-services/speech-service/regions#standard-and-neural-voices) を参照してください。
 
-1. **TellTime** 関数のコメント **「音声合成を構成する」** で、**SpeechSynthesizer** クライアントを作成する前に、次のようにコードを変更して代替音声を指定します。
+1. **TellTime** 関数のコメント **「Configure speech synthesis」** で、**SpeechSynthesizer** クライアントを作成する前に、次のようにコードを変更して代替音声を指定します。
 
    **C#**
 
     ```C#
-    // 音声合成を構成する
+    // Configure speech synthesis
     speechConfig.SpeechSynthesisVoiceName = "en-GB-George"; // add this
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
@@ -290,7 +293,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     **Python**
     
     ```Python
-    # 音声合成を構成する
+    # Configure speech synthesis
     speech_config.speech_synthesis_voice_name = 'en-GB-George' # add this
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
@@ -315,18 +318,18 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
 
 音声合成アップ言語 (SSML) を使用すると、XML ベースの形式を使用して音声を合成する方法をカスタマイズできます。
 
-1. **TellTime** 関数で、コメント **「音声出力を合成する」** の下にある現在のすべてのコードを次のコードに置き換えます (コメント **Print the response** の下にコードを残します)。
+1. **TellTime** 関数で、コメント **「Synthesize spoken output」** の下にある現在のすべてのコードを次のコードに置き換えます (コメント **Print the response** の下にコードを残します)。
 
    **C#**
 
     ```C#
-    // 音声出力を合成する
+    // Synthesize spoken output
     string responseSsml = $@"
-        <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='ja-jp'>
+        <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>
             <voice name='en-GB-Susan'>
                 {responseText}
                 <break strength='weak'/>
-                Say stop to end!
+                Time to end this lab!
             </voice>
         </speak>";
     SpeechSynthesisResult speak = await speechSynthesizer.SpeakSsmlAsync(responseSsml);
@@ -339,13 +342,13 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     **Python**
     
     ```Python
-    # 音声出力を合成する
+    # Synthesize spoken output
     responseSsml = " \
-        <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='ja-jp'> \
+        <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'> \
             <voice name='en-GB-Susan'> \
                 {} \
                 <break strength='weak'/> \
-                Say stop to end! \
+                Time to end this lab! \
             </voice> \
         </speak>".format(response_text)
     speak = speech_synthesizer.speak_ssml_async(responseSsml).get()

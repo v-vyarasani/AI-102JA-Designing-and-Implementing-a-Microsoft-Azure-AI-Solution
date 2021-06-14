@@ -65,12 +65,10 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
     - **C#**: Program.cs
     - **Python**: read-text&period;py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
-
-**C#**
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
 ```C#
-// 名前空間をインポートする
+// import namespaces
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 ```
@@ -78,7 +76,7 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 **Python**
 
 ```Python
-# 名前空間をインポートする
+# import namespaces
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes
 from msrest.authentication import CognitiveServicesCredentials
@@ -89,7 +87,7 @@ from msrest.authentication import CognitiveServicesCredentials
 **C#**
 
 ```C#
-// Computer Vision クライアントを認証する
+// Authenticate Computer Vision client
 ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
 cvClient = new ComputerVisionClient(credentials)
 {
@@ -100,7 +98,7 @@ cvClient = new ComputerVisionClient(credentials)
 **Python**
 
 ```Python
-# Computer Vision クライアントを認証する
+# Authenticate Computer Vision client
 credential = CognitiveServicesCredentials(cog_key) 
 cv_client = ComputerVisionClient(cog_endpoint, credential)
 ```
@@ -116,12 +114,12 @@ cv_client = ComputerVisionClient(cog_endpoint, credential)
 **C#**
 
 ```C#
-// OCR API を使用して画像内のテキストを読みこむ
+// Use OCR API to read text in image
 using (var imageData = File.OpenRead(imageFile))
 {    
     var ocrResults = await cvClient.RecognizePrintedTextInStreamAsync(detectOrientation:false, image:imageData);
 
-    // 描画用に画像を準備する
+    // Prepare image for drawing
     Image image = Image.FromFile(imageFile);
     Graphics graphics = Graphics.FromImage(image);
     Pen pen = new Pen(Color.Magenta, 3);
@@ -130,12 +128,12 @@ using (var imageData = File.OpenRead(imageFile))
     {
         foreach(var line in region.Lines)
         {
-            // テキスト行の位置を表示する
+            // Show the position of the line of text
             int[] dims = line.BoundingBox.Split(",").Select(int.Parse).ToArray();
             Rectangle rect = new Rectangle(dims[0], dims[1], dims[2], dims[3]);
             graphics.DrawRectangle(pen, rect);
 
-            // テキスト表の単語を読む
+            // Read the words in the line of text
             string lineText = "";
             foreach(var word in line.Words)
             {
@@ -145,7 +143,7 @@ using (var imageData = File.OpenRead(imageFile))
         }
     }
 
-    // テキストの位置がハイライトされた画像を保存する
+    // Save the image with the text locations highlighted
     String output_file = "ocr_results.jpg";
     image.Save(output_file);
     Console.WriteLine("Results saved in " + output_file);
@@ -155,11 +153,11 @@ using (var imageData = File.OpenRead(imageFile))
 **Python**
 
 ```Python
-# OCR API を使用して画像内のテキストを読みこむ
+# Use OCR API to read text in image
 with open(image_file, mode="rb") as image_data:
     ocr_results = cv_client.recognize_printed_text_in_stream(image_data)
 
-# 描画用に画像を準備する
+# Prepare image for drawing
 fig = plt.figure(figsize=(7, 7))
 img = Image.open(image_file)
 draw = ImageDraw.Draw(img)
@@ -168,17 +166,17 @@ draw = ImageDraw.Draw(img)
 for region in ocr_results.regions:
     for line in region.lines:
 
-        # テキスト行の位置を表示する
+        # Show the position of the line of text
         l,t,w,h = list(map(int, line.bounding_box.split(',')))
         draw.rectangle(((l,t), (l+w, t+h)), outline='magenta', width=5)
 
-        # テキスト表の単語を読む
+        # Read the words in the line of text
         line_text = ''
         for word in line.words:
             line_text += word.text + ' '
         print(line_text.rstrip())
 
-# テキストの位置がハイライトされた画像を保存する
+# Save the image with the text locations highlighted
 plt.axis('off')
 plt.imshow(img)
 outputfile = 'ocr_results.jpg'
@@ -219,16 +217,16 @@ python read-text.py
 **C#**
 
 ```C#
-// Read API を使用してテキスを読み込む
+// Use Read API to read text in image
 using (var imageData = File.OpenRead(imageFile))
 {    
     var readOp = await cvClient.ReadInStreamAsync(imageData);
 
-    // 結果を確認できるよう、非同期オペレーション ID を取得する
+    // Get the async operation ID so we can check for the results
     string operationLocation = readOp.OperationLocation;
     string operationId = operationLocation.Substring(operationLocation.Length - 36);
 
-    // 非同期操作が終了するまで待機する
+    // Wait for the asynchronous operation to complete
     ReadOperationResult results;
     do
     {
@@ -238,7 +236,7 @@ using (var imageData = File.OpenRead(imageFile))
     while ((results.Status == OperationStatusCodes.Running ||
             results.Status == OperationStatusCodes.NotStarted));
 
-    // オペレーションが正常に行われたら、行ごとにテキストを処理する
+    // If the operation was successfuly, process the text line by line
     if (results.Status == OperationStatusCodes.Succeeded)
     {
         var textUrlFileResults = results.AnalyzeResult.ReadResults;
@@ -256,22 +254,22 @@ using (var imageData = File.OpenRead(imageFile))
 **Python**
 
 ```Python
-# Read API を使用してテキスを読み込む
+# Use Read API to read text in image
 with open(image_file, mode="rb") as image_data:
     read_op = cv_client.read_in_stream(image_data, raw=True)
 
-    # 結果を確認できるよう、非同期オペレーション ID を取得する
+    # Get the async operation ID so we can check for the results
     operation_location = read_op.headers["Operation-Location"]
     operation_id = operation_location.split("/")[-1]
 
-    # 非同期操作が終了するまで待機する
+    # Wait for the asynchronous operation to complete
     while True:
         read_results = cv_client.get_read_result(operation_id)
         if read_results.status not in [OperationStatusCodes.running, OperationStatusCodes.not_started]:
             break
         time.sleep(1)
 
-    # オペレーションが正常に行われたら、行ごとにテキストを処理する
+    # If the operation was successfuly, process the text line by line
     if read_results.status == OperationStatusCodes.succeeded:
         for page in read_results.analyze_result.read_results:
             for line in page.lines:

@@ -68,12 +68,12 @@ lab:
     - **C#**: Program.cs
     - **Python**: text-analysis&period;py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Text Analytics SDK を使用するために必要な名前空間インポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Text Analytics SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
     ```C#
-    // 名前空間をインポートする
+    // import namespaces
     using Azure;
     using Azure.AI.TextAnalytics;
     ```
@@ -81,17 +81,17 @@ lab:
     **Python**
 
     ```Python
-    # 名前空間をインポートする
+    # import namespaces
     from azure.core.credentials import AzureKeyCredential
     from azure.ai.textanalytics import TextAnalyticsClient
     ```
 
-5. **Main** 関数で、構成ファイルから Cognitive Services のエンドポイントとキーを読み込むためのコードが既に提供されていることに注意してください。次に、「エンドポイントとキーを使用してクライアントを作成する」というコメントを見つけ、次のコードを追加して、Text Analysis API のクライアントを作成します。
+5. **Main** 関数で、構成ファイルから Cognitive Services のエンドポイントとキーを読み込むためのコードが既に提供されていることに注意してください。次に、「Create client using endpoint and key」というコメントを見つけ、次のコードを追加して、Text Analysis API のクライアントを作成します。
 
     **C#**
 
     ```C#
-    //エンドポイントとキーを使用してクライアントを作成する
+    // Create client using endpoint and key
     AzureKeyCredential credentials = new AzureKeyCredential(cogSvcKey);
     Uri endpoint = new Uri(cogSvcEndpoint);
     TextAnalyticsClient CogClient = new TextAnalyticsClient(endpoint, credentials);
@@ -100,7 +100,7 @@ lab:
     **Python**
 
     ```Python
-    #エンドポイントとキーを使用してクライアントを作成する
+    # Create client using endpoint and key
     credential = AzureKeyCredential(cog_key)
     cog_client = TextAnalyticsClient(endpoint=cog_endpoint, credential=credential)
     ```
@@ -130,7 +130,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **C#**
     
     ```C
-    //  言語を取得する
+    // Get language
     DetectedLanguage detectedLanguage = CogClient.DetectLanguage(text);
     Console.WriteLine($"\nLanguage: {detectedLanguage.Name}");
     ```
@@ -138,7 +138,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **Python**
     
     ```Python
-    #  言語を取得する
+    # Get language
     detectedLanguage = cog_client.detect_language(documents=[text])[0]
     print('\nLanguage: {}'.format(detectedLanguage.primary_language.name))
     ```
@@ -170,7 +170,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **C#**
     
     ```C
-    //  センチメントを取得する
+    // Get sentiment
     DocumentSentiment sentimentAnalysis = CogClient.AnalyzeSentiment(text);
     Console.WriteLine($"\nSentiment: {sentimentAnalysis.Sentiment}");
     ```
@@ -178,7 +178,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **Python**
     
     ```Python
-    #  センチメントを取得する
+    #  Get sentiment
     sentimentAnalysis = cog_client.analyze_sentiment(documents=[text])[0]
     print("\nSentiment: {}".format(sentimentAnalysis.sentiment))
     ```
@@ -208,7 +208,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **C#**
 
     ```C
-    // キー フレーズを取得する
+    // Get key phrases
     KeyPhraseCollection phrases = CogClient.ExtractKeyPhrases(text);
     if (phrases.Count > 0)
     {
@@ -223,7 +223,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **Python**
     
     ```Python
-    # キー フレーズを取得する
+    # Get key phrases
     phrases = cog_client.extract_key_phrases(documents=[text])[0].key_phrases
     if len(phrases) > 0:
         print("\nKey Phrases:")
@@ -256,7 +256,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **C#**
     
     ```C
-    // エンティティを取得する
+    // Get entities
     CategorizedEntityCollection entities = CogClient.RecognizeEntities(text);
     if (entities.Count > 0)
     {
@@ -271,7 +271,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **Python**
     
     ```Python
-    # エンティティを取得する
+    # Get entities
     entities = cog_client.recognize_entities(documents=[text])[0].entities
     if len(entities) > 0:
         print("\nEntities")
@@ -304,7 +304,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **C#**
     
     ```C
-    //リンク付けられているエンティティを取得する
+    // Get linked entities
     LinkedEntityCollection linkedEntities = CogClient.RecognizeLinkedEntities(text);
     if (linkedEntities.Count > 0)
     {
@@ -319,7 +319,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **Python**
     
     ```Python
-    #リンク付けられているエンティティを取得する
+    # Get linked entities
     entities = cog_client.recognize_linked_entities(documents=[text])[0].entities
     if len(entities) > 0:
         print("\nLinks")
