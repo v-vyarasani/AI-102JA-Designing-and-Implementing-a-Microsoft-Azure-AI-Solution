@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Cognitive Services の概要'
     module: 'モジュール 2 - Cognitive Services を使用した AI アプリの開発'
@@ -6,14 +6,14 @@ lab:
 
 # Cognitive Services の概要
 
-この演習では、Azureサブスクリプションで **Cognitive Services** リソースを作成し、それをクライアント アプリケーションから使用することで、Cognitive Services の使用を開始します。この演習の目標は、特定のサービスに関する専門知識を習得することではなく、開発者として Cognitive Services をプロビジョニングおよび操作するための一般的なパターンに精通することです。
+この演習では、Azure サブスクリプションで **Cognitive Services** リソースを作成し、それをクライアント アプリケーションから使用することで、Cognitive Services の使用を開始します。この演習の目標は、特定のサービスに関する専門知識を習得することではなく、開発者として Cognitive Services をプロビジョニングおよび操作するための一般的なパターンに精通することです。
 
 ## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コードのリポジトリをこのラボで作業している環境にまだ複製していない場合は、次の手順に従って複製してください。それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -23,7 +23,7 @@ lab:
 
 Azure Cognitive Services は、アプリケーションに組み込むことができる人工知能機能をカプセル化するクラウドベースのサービスです。特定の API (**Text Analytics** や **Computer Vision** など) に個別の Cognitive Services リソースをプロビジョニングすることも、単一のエンドポイントとキーを介して複数の Cognitive Services API へのアクセスを提供する一般的な **Cognitive Services** リソースをプロビジョニングすることもできます。この場合、単一の **Cognitive Services** リソースを使用します。
 
-1. `https;//portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+1. `https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **&#65291;「リソースの作成」** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がない可能性があります - 提供されているものを使用してください)*
@@ -52,7 +52,7 @@ Cognitive Services API は REST ベースであるため、HTTP 経由で JSON �
 4. **rest-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#**: Program.cs
-    - **Python**: rest-client&period;py
+    - **Python**: rest-client.py
 
     コード ファイルを開き、含まれているコードを確認して、次の詳細に注意してください。
     - HTTP 通信を可能にするために、さまざまな名前空間がインポートされます
@@ -76,7 +76,7 @@ Cognitive Services API は REST ベースであるため、HTTP 経由で JSON �
     ```
 
 6. プロンプトが表示されたら、テキストを入力し、サービスによって検出された言語を確認します。これは、JSON 応答で返されます。たとえば、「Hello」、「Bonjour」、「Hola」と入力してみてください。
-7. アプリケーションのテストが終了したら、「quit」と入力してプログラムを終了します。
+7. アプリケーションのテストが終了したら、「quit」と入力してプログラムを停止します。
 
 ## SDK の使用
 
@@ -106,11 +106,11 @@ Cognitive Services のREST API を直接使用するコードを記述できま�
 4. **sdk-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#**: Program.cs
-    - **Python**: sdk-client&period;py
+    - **Python**: sdk-client.py
 
     コード ファイルを開き、含まれているコードを確認して、次の詳細に注意してください。
     - インストールした SDK の名前空間がインポートされます
-    - **Main** 関数のコードは、Cognitive Services リソースのエンドポイントとキーを取得します。これらはSDK で使用され、Text Analytics サービスのクライアントを作成します。
+    - **Main** 関数のコードは、Cognitive Services リソースのエンドポイントとキーを取得します。これらは SDK で使用され、Text Analytics サービスのクライアントを作成します。
     - **GetLanguage** 関数は、SDK を使用してサービスのクライアントを作成し、クライアントを使用して入力されたテキストの言語を検出します。
 5. **sdk-client** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
@@ -131,6 +131,6 @@ Cognitive Services のREST API を直接使用するコードを記述できま�
 
 > **注**: Unicode 文字セットを必要とする一部の言語は、この単純なコンソール アプリケーションでは認識されない場合があります。
 
-## 詳細情報
+## 詳細
 
 Azure Cognitive Services の詳細については、[Cognitive Services のドキュメント](https://docs.microsoft.com/azure/cognitive-services/what-are-cognitive-services)を参照してください。

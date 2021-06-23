@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '画像内のテキストの読み取り'
     module: 'モジュール 11 - 画像およびドキュメント内のテキストの読み取り'
@@ -13,7 +13,7 @@ lab:
 まだ行っていない場合は、このコースのコード リポジトリを複製する必要があります。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -24,7 +24,7 @@ lab:
 サブスクリプションにまだない場合は、**Cognitive Services** リソースをプロビジョニングする必要があります。
 
 1. `https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **&#65291;「リソースの作成」** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
+2. **&#65291;[リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がない可能性があります - 提供されているものを使用してください)*
     - **リージョン**: *利用可能な任意のリージョンを選択します*
@@ -63,9 +63,11 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 4. **read-text** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
 
     - **C#**: Program.cs
-    - **Python**: read-text&period;py
+    - **Python**: read-text.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+
+**C#**
 
 ```C#
 // import namespaces
@@ -82,7 +84,7 @@ from azure.cognitiveservices.vision.computervision.models import OperationStatus
 from msrest.authentication import CognitiveServicesCredentials
 ```
 
-5. クライアント・アプリケーションのコードファイルで **Main** 関数では、構成設定を読み込むためのコードが提供されていることに注意してください。次に、コメント **「Computer Vision クライアントを認証する」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+5. クライアント・アプリケーションのコードファイルで **Main** 関数では、構成設定を読み込むためのコードが提供されていることに注意してください。次に、コメント**「Authenticate Computer Vision client」**を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
 
 **C#**
 
@@ -211,7 +213,7 @@ python read-text.py
 **Read** API は、テキスト認識を開始する要求が送信される非同期操作モデルを使用します。その後、リクエストから返された操作 ID を使用して、進行状況を確認し、結果を取得できます。
 
 1. アプリケーションのコードファイルの **Main** 関数で、ユーザーがメニュー オプション **2** を選択した場合に実行されるコードを調べます。このコードは **GetTextRead** 関数を呼び出し、パスを PDF ドキュメント ファイルに渡します。
-2. **read-text/images** フォルダーで、**Rome.pdf**を 右クリックし、**「ファイルエクスプローラーで表示」** を選択します。次に、ファイル エクスプローラーで、PDF ファイルを開いて表示します。
+2. **read-text/images** フォルダーで、**Rome.pdf**を 右クリックし、**[ファイルエクスプローラーで表示]** を選択します。次に、ファイル エクスプローラーで、PDF ファイルを開いて表示します。
 3. Visual Studio Code のコードファイルに戻り、**GetTextRead** 関数を見つけ、コンソールにメッセージを出力する既存のコードの下に、次のコードを追加します。
 
 **C#**
@@ -315,6 +317,6 @@ python read-text.py
 
 4. メッセージが表示されたら、**3** を入力し、ドキュメントから抽出されたテキストである出力を確認します。
 
-## 詳細情報
+## 詳細
 
 **Computer Vision** サービスを使用してテキストを読み取る方法の詳細については、[Computer Vision のドキュメント](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-recognizing-text)を参照してください。

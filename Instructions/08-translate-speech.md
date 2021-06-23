@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '音声の翻訳'
     module: 'モジュール4 - 音声対応アプリケーションの構築'
@@ -8,14 +8,14 @@ lab:
 
 **Speech** サービスには、話し言葉の翻訳に使用できる**音声翻訳** API が含まれています。たとえば、現地の言語を話さない場所を旅行するときに使用できる翻訳アプリケーションを開発するとします。「駅はどこ？」または「薬局を探す必要があります」などを自国語で話し、現地語に翻訳してもらいます。
 
-> **注**: この演習では、マイクとスピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。
+**注**: この演習では、スピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。最良のエクスペリエンスのため、マイクも必要です。一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
 
 ## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -65,14 +65,14 @@ lab:
 4. **translator** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#**: Program.cs
-    - **Python**: translator&period;py
+    - **Python**: translator.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、 **「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
     ```C#
-    // 名前空間をインポートする
+    // Import namespaces
     using Microsoft.CognitiveServices.Speech;
     using Microsoft.CognitiveServices.Speech.Audio;
     using Microsoft.CognitiveServices.Speech.Translation;
@@ -81,18 +81,18 @@ lab:
     **Python**
     
     ```Python
-    # 名前空間をインポートする
+    # Import namespaces
     import azure.cognitiveservices.speech as speech_sdk
     ```
 
-5. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードがすでに提供されていることに注意してください。これらの変数を使用して、音声入力の翻訳に使用する Cognitive Services リソースの **SpeechTranslationConfig** を作成する必要があります。コメント **「翻訳を構成する」** の下に次のコードを追加します。
+5. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードがすでに提供されていることに注意してください。これらの変数を使用して、音声入力の翻訳に使用する Cognitive Services リソースの **SpeechTranslationConfig** を作成する必要があります。コメント**「Configure translation」**の下に次のコードを追加します。
 
     **C#**
     
     ```C#
-    // 翻訳を構成する
+    // Configure translation
     translationConfig = SpeechTranslationConfig.FromSubscription(cogSvcKey, cogSvcRegion);
-    translationConfig.SpeechRecognitionLanguage = "ja-jp";
+    translationConfig.SpeechRecognitionLanguage = "en-US";
     translationConfig.AddTargetLanguage("fr");
     translationConfig.AddTargetLanguage("es");
     translationConfig.AddTargetLanguage("hi");
@@ -102,28 +102,28 @@ lab:
     **Python**
     
     ```Python
-    # 翻訳を構成する
+    # Configure translation
     translation_config = speech_sdk.translation.SpeechTranslationConfig(cog_key, cog_region)
-    translation_config.speech_recognition_language = 'ja-jp'
+    translation_config.speech_recognition_language = 'en-US'
     translation_config.add_target_language('fr')
     translation_config.add_target_language('es')
     translation_config.add_target_language('hi')
     print('Ready to translate from',translation_config.speech_recognition_language)
     ```
 
-6. **SpeechTranslationConfig** を使用して音声をテキストに翻訳しますが、**SpeechConfig** を使用して翻訳を音声に合成します。コメント **「音声を認識する」** の下に次のコードを追加します。
+6. **SpeechTranslationConfig** を使用して音声をテキストに翻訳しますが、**SpeechConfig** を使用して翻訳を音声に合成します。コメント**「Configure speech」**の下に次のコードを追加します。
 
     **C#**
     
     ```C#
-    // 音声を認識する
+    // Configure speech
     speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
     ```
     
     **Python**
     
     ```Python
-    # 音声を認識する
+    # Configure speech
     speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
     ```
 
@@ -141,21 +141,21 @@ lab:
     python translator.py
     ```
 
-8. C# を使用している場合は、非同期メソッドで **await** 演算子を使用することに関する警告を無視できます。これは後で修正します。コードは、ja-jp から変換する準備ができているというメッセージを表示する必要があります。ENTER を押してプログラムを終了します。
+8. C# を使用している場合は、非同期メソッドで **await** 演算子を使用することに関する警告を無視できます。これは後で修正します。コードは、en-US から変換する準備ができているというメッセージを表示する必要があります。ENTER を押してプログラムを終了します。
 
 ## 音声翻訳の実装
 
 認知サービス リソースに音声サービス用の **SpeechTranslationConfig** が用意されたので、**Speech translation** APIを使用して音声を認識および翻訳できます。
 
-1. プログラムの **Main** 関数で、コードが **Translate** 関数を使用して音声入力を翻訳していることに注意してください。
-2. **Translate** 関数のコメント **「音声を翻訳する」** の下に、次のコードを追加して、入力にデフォルトのシステムマイクを使用して音声を認識および翻訳するために使用できる **TranslationRecognizer** クライアントを作成します。
+### マイクが機能する場合
 
-    > **注**: *ファイル パスを参照するように **AudioConfig** オブジェクトを変更することにより、オーディオ ファイルからの音声入力を翻訳することもできます。*
+1. プログラムの **Main** 関数で、コードが **Translate** 関数を使用して音声入力を翻訳していることに注意してください。
+2. **Translate** 関数のコメント**「Translate speech」**の下に、次のコードを追加して、入力にデフォルトのシステムマイクを使用して音声を認識および翻訳するために使用できる **TranslationRecognizer** クライアントを作成します。
 
     **C#**
     
     ```C#
-    // 音声を翻訳する
+    // Translate speech
     using AudioConfig audioConfig = AudioConfig.FromDefaultMicrophoneInput();
     using TranslationRecognizer translator = new TranslationRecognizer(translationConfig, audioConfig);
     Console.WriteLine("Speak now...");
@@ -169,7 +169,7 @@ lab:
     **Python**
     
     ```Python
-    # 音声を翻訳する
+    # Translate speech
     audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
     translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config)
     print("Speak now...")
@@ -181,7 +181,77 @@ lab:
 
     > **注**: アプリケーションのコードは、1 回の呼び出しで入力を 3 つの言語すべてに翻訳します。特定の言語の翻訳のみが表示されますが、結果の **translations** コレクションでターゲット言語コードを指定することにより、任意の翻訳を取得できます。
 
-3. 変更を保存して、**translator** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
+3. 下の「**プログラムを実行する**」セクションにスキップします
+
+### または、ファイルからの温泉入力を使用します
+
+1. ターミナル ウィンドウで、次のコマンドを入力して、音声ファイルの再生に使用できるライブラリをインストールします。
+
+    **C#**
+
+    ```
+    dotnet add package System.Windows.Extensions --version 4.6.0 
+    ```
+
+    **Python**
+
+    ```
+    pip install playsound==1.2.2
+    ```
+
+2. プログラムのコード ファイルで、既存の名前空間のインポートの下に、次のコードを追加して、インストールしたライブラリをインポートします。
+
+    **C#**
+
+    ```C#
+    using System.Media;
+    ```
+
+    **Python**
+
+    ```Python
+    from playsound import playsound
+    ```
+
+3. プログラムの **Main** 関数で、コードが **Translate** 関数を使用して音声入力を翻訳していることに注意してください。**Translate** 関数のコメント **「Translate speech」** の下に、次のコードを追加して、ファイルからの音声を認識して、翻訳するために使用できる **TranslationRecognizer** クライアントを作成します。
+
+    **C#**
+    
+    ```C#
+    // Translate speech
+    string audioFile = "station.wav";
+    SoundPlayer wavPlayer = new SoundPlayer(audioFile);
+    wavPlayer.Play();
+    using AudioConfig audioConfig = AudioConfig.FromWavFileInput(audioFile);
+    using TranslationRecognizer translator = new TranslationRecognizer(translationConfig, audioConfig);
+    Console.WriteLine("Getting speech from file...");
+    TranslationRecognitionResult result = await translator.RecognizeOnceAsync();
+    Console.WriteLine($"Translating '{result.Text}'");
+    translation = result.Translations[targetLanguage];
+    Console.OutputEncoding = Encoding.UTF8;
+    Console.WriteLine(translation);
+    ```
+    
+    **Python**
+    
+    ```Python
+    # Translate speech
+    audioFile = 'station.wav'
+    playsound(audioFile)
+    audio_config = speech_sdk.AudioConfig(filename=audioFile)
+    translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config)
+    print("Getting speech from file...")
+    result = translator.recognize_once_async().get()
+    print('Translating "{}"'.format(result.text))
+    translation = result.translations[targetLanguage]
+    print(translation)
+    ```
+
+    > **注**: アプリケーションのコードは、1 回の呼び出しで入力を 3 つの言語すべてに翻訳します。特定の言語の翻訳のみが表示されますが、結果の **translations** コレクションでターゲット言語コードを指定することにより、任意の翻訳を取得できます。
+
+### プログラムを実行する
+
+1. 変更を保存して、**translator** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
     **C#**
     
@@ -195,7 +265,7 @@ lab:
     python translator.py
     ```
 
-4. プロンプトが表示されたら、有効な言語コード (*fr*、*es*、または*hi*) を入力してから、マイクに向かってはっきりと話し、「where is the station?」と言います。または海外旅行の際に使用する可能性のあるその他のフレーズを言います。プログラムは、話された入力を書き起こし、指定した言語 (フランス語、スペイン語、またはヒンディー語) に翻訳します。このプロセスを繰り返し、アプリケーションでサポートされている各言語を試してください。終了したら、Enter キーを押してプログラムを終了します。
+2. プロンプトが表示されたら、有効な言語コード (*fr*、*es*、または*hi*) を入力してから、ない句を使用している場合は、マイクに向かってはっきりと話し、「where is the station?」と言います。または海外旅行の際に使用する可能性のあるその他のフレーズを言います。プログラムは、話された入力を書き起こし、指定した言語 (フランス語、スペイン語、またはヒンディー語) に翻訳します。このプロセスを繰り返し、アプリケーションでサポートされている各言語を試してください。終了したら、Enter キーを押してプログラムを終了します。
 
     > **注**: TranslationRecognizer を使用すると、約 5 秒で話すことができます。音声入力が検出されない場合は、「一致なし」の結果が生成されます。
     >
@@ -205,12 +275,12 @@ lab:
 
 これまでのところ、アプリケーションは音声入力をテキストに翻訳します。旅行中に誰かに助けを求める必要がある場合は、これで十分かもしれません。ただし、適切な声で翻訳を声に出して話してもらう方がよいでしょう。
 
-1. **Translate** 機能では、コメント **「翻訳を合成する」** の下に次のコードを追加して、デフォルトのスピーカーから音声として翻訳を合成するために **SpeechSynthesizer** クライアントを使用します。
+1. **Translate** 機能では、コメント**「Synthesize translation」**の下に次のコードを追加して、デフォルトのスピーカーから音声として翻訳を合成するために **SpeechSynthesizer** クライアントを使用します。
 
     **C#**
     
     ```C#
-    // 翻訳を合成する
+    // Synthesize translation
     var voices = new Dictionary<string, string>
                     {
                         ["fr"] = "fr-FR-Julie",
@@ -229,7 +299,7 @@ lab:
     **Python**
     
     ```Python
-    # 翻訳を合成する
+    # Synthesize translation
     voices = {
             "fr": "fr-FR-Julie",
             "es": "es-ES-Laura",
@@ -260,6 +330,6 @@ lab:
 
     > **注** *この例では、**SpeechTranslationConfig** を使用して音声をテキストに翻訳してから、**SpeechConfig**を使用して翻訳を音声として合成しました。実際、**SpeechTranslationConfig** を使用して翻訳を直接合成できますが、これは単一の言語に翻訳する場合にのみ機能し、スピーカーに直接送信されるのではなく、通常はファイルとして保存されるオーディオストリームになります。*
 
-## 詳細情報
+## 詳細
 
 **Speech translation** API の使用の詳細については、[音声翻訳のドキュメント](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-speech-translation)を参照してください。

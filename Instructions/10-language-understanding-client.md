@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Language Understanding クライアント アプリケーションの作成'
     module: 'モジュール 5 - Language Understanding ソリューションの作成'
@@ -13,7 +13,7 @@ Language Understanding サービスを使用すると、アプリケーション
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -32,7 +32,7 @@ Azure サブスクリプションに Language Understanding オーサリング�
     - **オーサリングの場所**: *希望する場所を選択します*
     - **オーサリングの価格レベル**: F0
     - **予測の場所**: *オーサリング場所と<u>同じ場所</u>を選択します*
-    - **予測の価格レベル**: F0 (*F0が利用できない場合はS0を選択します*)
+    - **予測の価格レベル**: F0 (* F0が利用できない場合はS0を選択します*)
 
 3. リソースが作成されるのを待ち、2 つの Language Understanding リソースがプロビジョニングされることに注意してください。1 つはオーサリング用で、もう 1 つは予測用です。作成したリソース グループに移動すると、これらの両方を表示できます。
 
@@ -42,14 +42,14 @@ Azure サブスクリプションに Language Understanding オーサリング�
 
 1. 新しいブラウザタブで、`https://www.luis.ai` の Language Understanding ポータルを開きます。
 2. Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。Language Understanding ポータルに初めてサインインする場合は、アカウントの詳細にアクセスするためのアクセス許可をアプリに付与する必要がある場合があります。次に、Azure サブスクリプションと作成したオーサリングリ ソースを選択して、*ようこそ*手順を完了します。
-3. **「Conversation apps」** ページを開き、**「New app」** の横にあるドロップダウン リストを表示して、**「Import as LU」** を選択します。
-この演習のラボ ファイルを含むプロジェクト フォルダー内の **10-luis-client** サブフォルダーを参照し、**Clock&period;lu** を選択します。次に、この時計アプリ用の一意の名前を指定します。
+3. **「会話アプリ」** ページを開き、**「新しいアプリ」** の横にあるドロップダウン リストを表示して、**「LU としてインポート」** を選択します。
+この演習のラボ ファイルを含むプロジェクト フォルダー内の **10-luis-client** サブフォルダーを参照し、**Clock.lu** を選択します。次に、時計アプリの一意の名前を指定します。
 4. 効果的な Language Understanding アプリを作成するためのヒントが記載されたパネルが表示されたら、それを閉じます。
-5. Language Understanding ポータルの上部にある **「Train」** を選択して、アプリをトレーニングします。
-6. Language Understanding ポータルの右上にある **「Publish」 **を選択し、アプリを**実稼働スロット**に公開します。
-7. 公開が完了したら、Language Understanding ポータルの上部にある **「MANAGE」** を選択します。
-8. **「Settings」** ページで、**アプリ ID** をメモします。クライアント アプリケーションがアプリを使用するには、これが必要です。
-9. **「Azure Resource」** ページの **「予測リソース」** で、予測リソースがリストされていない場合は、Azure サブスクリプションに予測リソースを追加します。
+5. Language Understanding ポータルの上部にある **「トレーニング」** を選択して、アプリをトレーニングします。
+6. Language Understanding ポータルの右上にある **「公開」 **を選択し、アプリを**本番スロット**に公開します。
+7. 公開が完了したら、Language Understanding ポータルの上部にある **「管理」** を選択します。
+8. **「設定」** ページで、**アプリ ID** をメモします。クライアント アプリケーションがアプリを使用するには、これが必要です。
+9. **「Azure リソース」** ページの **「予測リソース」** で、予測リソースがリストされていない場合は、Azure サブスクリプションに予測リソースを追加します。
 10. 予測リソースの**プライマリ キー**、**セカンダリ キー**、および**エンドポイント URL** に注意してください。クライアント アプリケーションは、予測リソースに接続して認証されるために、エンドポイントとキーの 1 つを必要とします。
 
 ## Language Understanding SDK を使用する準備をする
@@ -67,7 +67,7 @@ Azure サブスクリプションに Language Understanding オーサリング�
 dotnet add package Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime --version 3.0.0
 ```
 
-***ランタイム** (予測) パッケージに加えて、Language Understanding モデルを作成および管理するためのコードを記述するために使用できる **オーサリング** パッケージがあります。*
+***ランタイム** (予測) パッケージに加えて、Language Understanding モデルを作成および管理するためのコードを記述するために使用できる**オーサリング** パッケージがあります。*
 
 **Python**
 
@@ -86,9 +86,9 @@ pip install azure-cognitiveservices-language-luis==0.7.0
 4. **clock-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#**: Program.cs
-    - **Python**: clock-client&period;py
+    - **Python**: clock-client.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Language Understanding 予測 SDK を使用するために必要な名前空間をインポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Language Understanding 予測 SDK を使用するために必要な名前空間をインポートします。
 
 **C#**
 
@@ -110,7 +110,7 @@ from msrest.authentication import CognitiveServicesCredentials
 
 これで、SDK を使用して Language Understanding アプリから予測を取得するコードを実装する準備が整いました。
 
-1. **Main** 関数では、構成ファイルからアプリ ID、予測エンドポイント、およびキーを読み込むためのコードが既に提供されていることに注意してください。次に、コメント **「Create a client for the LU app」** を見つけ、次のコードを追加して、Language Understanding アプリの予測クライアントを作成します。
+1. **Main** 関数では、構成ファイルからアプリ ID、予測エンドポイント、およびキーを読み込むためのコードが既に提供されていることに注意してください。次に、コメント**「Create a client for the LU app」**を見つけ、次のコードを追加して、Language Understanding アプリの予測クライアントを作成します。
 
 **C#**
 
@@ -123,12 +123,12 @@ var luClient = new LUISRuntimeClient(credentials) { Endpoint = predictionEndpoin
 **Python**
 
 ```Python
-# Create a client for the LU app
+# LU アプリのクライアントを作成する
 credentials = CognitiveServicesCredentials(lu_prediction_key)
 lu_client = LUISRuntimeClient(lu_prediction_endpoint, credentials)
 ```
 
-2. ユーザーが「quit」と入力するまで、**Main** 関数のコードはユーザー入力を求めるプロンプトを表示することに注意してください。このループ内で、コメント **「Call the LU app to get intent and entities」** を見つけて、次のコードを追加します。
+2. ユーザーが「quit」と入力するまで、**Main** 関数のコードはユーザー入力を求めるプロンプトを表示することに注意してください。このループ内で、コメント**「Call the LU app to get intent and entities」**を見つけて、次のコードを追加します。
 
 **C#**
 
@@ -160,7 +160,7 @@ print('-----------------\n{}'.format(prediction_response.query))
 
 Language Understanding アプリを呼び出すと、予測が返されます。これには、入力発話で検出されたエンティティだけでなく、最上位の (最も可能性の高い) 意図も含まれます。クライアント アプリケーションは、その予測を使用して適切なアクションを決定および実行する必要があります。
 
-3. コメント **「Apply the appropriate action」** を見つけ、次のコードを追加します。このコードは、アプリケーションでサポートされている意図 (**GetTime**、**GetDate**、および**GetDay**) をチェックします。また、適切な応答を生成するために既存の関数を呼び出す前に、関連するエンティティが検出されたかどうかを判断します。
+3. コメント**「Apply the appropriate action」**を見つけ、次のコードを追加します。このコードは、アプリケーションでサポートされている意図 (**GetTime**、**GetDate**、および**GetDay**) をチェックします。また、適切な応答を生成するために既存の関数を呼び出す前に、関連するエンティティが検出されたかどうかを判断します。
 
 **C#**
 
@@ -170,20 +170,20 @@ switch (topIntent)
 {
     case "GetTime":
         var location = "local";
-        // エンティティを確認する
+        // Check for entities
         if (entities.Count > 0)
         {
-            // 場所のエンティティを確認する
+            // Check for a location entity
             if (entities.ContainsKey("Location"))
             {
-                //エンティティの JSON を取得する
+                //Get the JSON for the entity
                 var entityJson = JArray.Parse(entities["Location"].ToString());
-                // ML エンティティは文字列で、一番上の項目を取得する
+                // ML entities are strings, get the first one
                 location = entityJson[0].ToString();
             }
         }
 
-        // 指定した型のファセットを取得する
+        // Get the time for the specified location
         var getTimeTask = Task.Run(() => GetTime(location));
         string timeResponse = await getTimeTask;
         Console.WriteLine(timeResponse);
@@ -191,19 +191,19 @@ switch (topIntent)
 
     case "GetDay":
         var date = DateTime.Today.ToShortDateString();
-        // エンティティを確認する
+        // Check for entities
         if (entities.Count > 0)
         {
-            // データ エンティティを確認する
+            // Check for a Date entity
             if (entities.ContainsKey("Date"))
             {
-                //エンティティの JSON を取得する
+                //Get the JSON for the entity
                 var entityJson = JArray.Parse(entities["Date"].ToString());
-                // Regex  エンティティは文字列で、一番上の項目を取得する
+                // Regex entities are strings, get the first one
                 date = entityJson[0].ToString();
             }
         }
-        // 指定した日付の「日」を取得する
+        // Get the day for the specified date
         var getDayTask = Task.Run(() => GetDay(date));
         string dayResponse = await getDayTask;
         Console.WriteLine(dayResponse);
@@ -211,26 +211,26 @@ switch (topIntent)
 
     case "GetDate":
         var day = DateTime.Today.DayOfWeek.ToString();
-        // エンティティを確認する
+        // Check for entities
         if (entities.Count > 0)
         {
-            // Weekday エンティティを確認する
+            // Check for a Weekday entity
             if (entities.ContainsKey("Weekday"))
             {
-                //エンティティの JSON を取得する
+                //Get the JSON for the entity
                 var entityJson = JArray.Parse(entities["Weekday"].ToString());
-                // エンティティ リストを列挙する
+                // List entities are lists
                 day = entityJson[0][0].ToString();
             }
         }
-        // 指定した日の日付を取得する
+        // Get the date for the specified day
         var getDateTask = Task.Run(() => GetDate(day));
         string dateResponse = await getDateTask;
         Console.WriteLine(dateResponse);
         break;
 
     default:
-        // 他のインテント (例: "None") が予測されました
+        // Some other intent (for example, "None") was predicted
         Console.WriteLine("Try asking me for the time, the day, or the date.");
         break;
 }
@@ -242,39 +242,39 @@ switch (topIntent)
 # Apply the appropriate action
 if top_intent == 'GetTime':
     location = 'local'
-    # エンティティを確認する
+    # Check for entities
     if len(entities) > 0:
-        # 場所のエンティティを確認する
+        # Check for a location entity
         if 'Location' in entities:
-            # ML エンティティは文字列で、一番上の項目を取得する
+            # ML entities are strings, get the first one
             location = entities['Location'][0]
-    # 指定した型のファセットを取得する
+    # Get the time for the specified location
     print(GetTime(location))
 
 elif top_intent == 'GetDay':
     date_string = date.today().strftime("%m/%d/%Y")
-    # エンティティを確認する
+    # Check for entities
     if len(entities) > 0:
-        # データ エンティティを確認する
+        # Check for a Date entity
         if 'Date' in entities:
-            # Regex  エンティティは文字列で、一番上の項目を取得する
+            # Regex entities are strings, get the first one
             date_string = entities['Date'][0]
-    # 指定した日付の「日」を取得する
+    # Get the day for the specified date
     print(GetDay(date_string))
 
 elif top_intent == 'GetDate':
     day = 'today'
-    # エンティティを確認する
+    # Check for entities
     if len(entities) > 0:
-        # Weekday エンティティを確認する
+        # Check for a Weekday entity
         if 'Weekday' in entities:
-            # エンティティ リストを列挙する
+            # List entities are lists
             day = entities['Weekday'][0][0]
-    # 指定した日の日付を取得する
+    # Get the date for the specified day
     print(GetDate(day))
 
 else:
-    # 他のインテント (例: "None") が予測されました
+    # Some other intent (for example, "None") was predicted
     print('Try asking me for the time, the day, or the date.')
 ```
     
@@ -316,6 +316,6 @@ python clock-client.py
 
 6. テストが終了したら、*quit* と入力します。
 
-## 詳細情報
+## 詳細
 
 Language Understanding クライアントの作成の詳細については、[開発者向けドキュメント](https://docs.microsoft.com/azure/cognitive-services/luis/developer-reference-resource)を参照してください。

@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'テキストの翻訳'
     module: 'モジュール 3 - 自然言語処理の概要'
@@ -15,7 +15,7 @@ lab:
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -47,11 +47,11 @@ lab:
     - **C#**: appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの認証**キー**と、それがデプロイされている**場所** (エンドポイントでは<u>ない</u>) を含めます。変更を保存します。
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの認証**キー**と、それがデプロイされている**場所** (エンドポイントでは<u>ない</u>) を含めます。Cognitive Services リソース用に、「**キーとエンドポイント**」 ページからこれらの両方をコピーする必要があります。変更を保存します。
 3. **text-translation** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
 
     - **C#**: Program.cs
-    - **Python**: text-translation&period;py
+    - **Python**: text-translation.py
 
     コード ファイルを開き、含まれているコードを調べます。
 
@@ -77,67 +77,67 @@ lab:
 Translator サービスは、翻訳されるテキストのソース言語を自動的に検出できますが、テキストが書かれている言語を明示的に検出することもできます。
 
 1. コード ファイルで、**GetLanguage** 関数を見つけます。この関数は、現在、すべてのテキスト値に対して「en」を返します。
-2. **GetLanguage** 関数のコメント **「Use the Translator detect function」** の下に、次のコードを追加して、Translator の REST API を使用して、指定されたテキストの言語を検出します。言語を返す関数の最後にあるコードを置き換えないように注意してください。
+2. **GetLanguage** 関数のコメント**「Use the Translator detect function」**の下に、次のコードを追加して、Translator の REST API を使用して、指定されたテキストの言語を検出します。言語を返す関数の最後にあるコードを置き換えないように注意してください。
 
-    **C#**
-    
-    ```C#
-    // Use the Translator detect function
-    object[] body = new object[] { new { Text = text } };
-    var requestBody = JsonConvert.SerializeObject(body);
-    using (var client = new HttpClient())
+**C#**
+
+```C#
+// Use the Translator detect function
+object[] body = new object[] { new { Text = text } };
+var requestBody = JsonConvert.SerializeObject(body);
+using (var client = new HttpClient())
+{
+    using (var request = new HttpRequestMessage())
     {
-        using (var request = new HttpRequestMessage())
-        {
-            // Build the request
-            string path = "/detect?api-version=3.0";
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(translatorEndpoint + path);
-            request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            request.Headers.Add("Ocp-Apim-Subscription-Key", cogSvcKey);
-            request.Headers.Add("Ocp-Apim-Subscription-Region", cogSvcRegion);
+        // Build the request
+        string path = "/detect?api-version=3.0";
+        request.Method = HttpMethod.Post;
+        request.RequestUri = new Uri(translatorEndpoint + path);
+        request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        request.Headers.Add("Ocp-Apim-Subscription-Key", cogSvcKey);
+        request.Headers.Add("Ocp-Apim-Subscription-Region", cogSvcRegion);
 
-            // Send the request and get response
-            HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
-            // Read response as a string
-            string responseContent = await response.Content.ReadAsStringAsync();
+        // Send the request and get response
+        HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
+        // Read response as a string
+        string responseContent = await response.Content.ReadAsStringAsync();
 
-            // Parse JSON array and get language
-            JArray jsonResponse = JArray.Parse(responseContent);
-            language = (string)jsonResponse[0]["language"]; 
-        }
+        // Parse JSON array and get language
+        JArray jsonResponse = JArray.Parse(responseContent);
+        language = (string)jsonResponse[0]["language"]; 
     }
-    ```
-    
-    **Python**
+}
+```
 
-    ```Python
-    # Use the Translator detect function
-    path = '/detect'
-    url = translator_endpoint + path
+**Python**
 
-    # Build the request
-    params = {
-        'api-version': '3.0'
-    }
+```Python
+# Use the Translator detect function
+path = '/detect'
+url = translator_endpoint + path
 
-    headers = {
-    'Ocp-Apim-Subscription-Key': cog_key,
-    'Ocp-Apim-Subscription-Region': cog_region,
-    'Content-type': 'application/json'
-    }
+# Build the request
+params = {
+    'api-version': '3.0'
+}
 
-    body = [{
-        'text': text
-    }]
+headers = {
+'Ocp-Apim-Subscription-Key': cog_key,
+'Ocp-Apim-Subscription-Region': cog_region,
+'Content-type': 'application/json'
+}
 
-    # Send the request and get response
-    request = requests.post(url, params=params, headers=headers, json=body)
-    response = request.json()
+body = [{
+    'text': text
+}]
 
-    # Parse JSON array and get language
-    language = response[0]["language"]
-    ```
+# Send the request and get response
+request = requests.post(url, params=params, headers=headers, json=body)
+response = request.json()
+
+# Parse JSON array and get language
+language = response[0]["language"]
+```
 
 3. 変更を保存して、**text-translation** フォルダーの統合ターミナルに戻り、次のコマンドを入力します。
 
@@ -162,67 +162,67 @@ Translator サービスは、翻訳されるテキストのソース言語を自
 1. コード ファイルで、現在すべてのテキスト値に対して空の文字列を返す **Translate** 関数を見つけます。
 2. **Translate** 関数のコメント **「Use the Translator translate function」** の下に、次のコードを追加して、Translator の REST API を使用し、指定されたテキストをソース言語から英語に翻訳します。関数の最後にあるコードを置き換えないように注意してください。
 
-    **C#**
+**C#**
 
-    ```C#
-    // Use the Translator translate function
-    object[] body = new object[] { new { Text = text } };
-    var requestBody = JsonConvert.SerializeObject(body);
-    using (var client = new HttpClient())
+```C#
+// Use the Translator translate function
+object[] body = new object[] { new { Text = text } };
+var requestBody = JsonConvert.SerializeObject(body);
+using (var client = new HttpClient())
+{
+    using (var request = new HttpRequestMessage())
     {
-        using (var request = new HttpRequestMessage())
-        {
-            // Build the request
-            string path = "/translate?api-version=3.0&from=" + sourceLanguage + "&to=en" ;
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(translatorEndpoint + path);
-            request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            request.Headers.Add("Ocp-Apim-Subscription-Key", cogSvcKey);
-            request.Headers.Add("Ocp-Apim-Subscription-Region", cogSvcRegion);
+        // Build the request
+        string path = "/translate?api-version=3.0&from=" + sourceLanguage + "&to=en" ;
+        request.Method = HttpMethod.Post;
+        request.RequestUri = new Uri(translatorEndpoint + path);
+        request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        request.Headers.Add("Ocp-Apim-Subscription-Key", cogSvcKey);
+        request.Headers.Add("Ocp-Apim-Subscription-Region", cogSvcRegion);
 
-            // Send the request and get response
-            HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
-            // Read response as a string
-            string responseContent = await response.Content.ReadAsStringAsync();
+        // Send the request and get response
+        HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
+        // Read response as a string
+        string responseContent = await response.Content.ReadAsStringAsync();
 
-            // Parse JSON array and get translation
-            JArray jsonResponse = JArray.Parse(responseContent);
-            translation = (string)jsonResponse[0]["translations"][0]["text"];  
-        }
+        // Parse JSON array and get translation
+        JArray jsonResponse = JArray.Parse(responseContent);
+        translation = (string)jsonResponse[0]["translations"][0]["text"];  
     }
-    ```
+}
+```
 
-    **Python**
-    
-    ```Python
-    # Use the Translator translate function
-    path = '/translate'
-    url = translator_endpoint + path
+**Python**
 
-    # Build the request
-    params = {
-        'api-version': '3.0',
-        'from': source_language,
-        'to': ['en']
-    }
+```Python
+# Use the Translator translate function
+path = '/translate'
+url = translator_endpoint + path
 
-    headers = {
-        'Ocp-Apim-Subscription-Key': cog_key,
-        'Ocp-Apim-Subscription-Region': cog_region,
-        'Content-type': 'application/json'
-    }
+# Build the request
+params = {
+    'api-version': '3.0',
+    'from': source_language,
+    'to': ['en']
+}
 
-    body = [{
-        'text': text
-    }]
+headers = {
+    'Ocp-Apim-Subscription-Key': cog_key,
+    'Ocp-Apim-Subscription-Region': cog_region,
+    'Content-type': 'application/json'
+}
 
-    # Send the request and get response
-    request = requests.post(url, params=params, headers=headers, json=body)
-    response = request.json()
+body = [{
+    'text': text
+}]
 
-    # Parse JSON array and get translation
-    translation = response[0]["translations"][0]["text"]
-    ```
+# Send the request and get response
+request = requests.post(url, params=params, headers=headers, json=body)
+response = request.json()
+
+# Parse JSON array and get translation
+translation = response[0]["translations"][0]["text"]
+```
 
 3. 変更を保存して、**text-translation** フォルダーの統合ターミナルに戻り、次のコマンドを入力します。
 
@@ -240,6 +240,6 @@ Translator サービスは、翻訳されるテキストのソース言語を自
 
 4. 英語以外のレビューは英語に翻訳されていることに注意して、出力を観察します。
 
-## 詳細情報
+## 詳細
 
 **Translator** サービスの使用の詳細については、[Translator のドキュメント](https://docs.microsoft.com/azure/cognitive-services/translator/)を参照してください。

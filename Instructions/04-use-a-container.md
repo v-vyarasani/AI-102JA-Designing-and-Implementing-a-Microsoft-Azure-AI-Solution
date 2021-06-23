@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Cognitive Services コンテナーの使用'
     module: 'モジュール 2 - Cognitive Services を使用した AI アプリの開発'
@@ -15,7 +15,7 @@ Cognitive Services API の多くは、*コンテナー*にパッケージ化し�
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -40,7 +40,7 @@ Cognitive Services API の多くは、*コンテナー*にパッケージ化し�
 
 一般的に使用される多くの Cognitive Services API は、コンテナー イメージで利用できます。完全なリストについては、[Cognitive Services のドキュメント](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services)を確認してください。この演習では、Text Analytics *言語検出* API のコンテナー イメージを使用します。ただし、原則は利用可能なすべての画像で同じです。
 
-1. Azure portal の**ホーム** ページで、**「リソースの作成」** ボタンを選択し、*Container Instances* を検索して、次の設定で **Container Instances** リソースを作成します。
+1. Azure portal の 「**ホーム**」 ページで、**「リソースの作成」** ボタンを選択し、*Container Instances* を検索して、次の設定で **Container Instances** リソースを作成します。
 
     - **基本**:
         - **サブスクリプション**: *お使いの Azure サブスクリプション*
@@ -48,23 +48,23 @@ Cognitive Services API の多くは、*コンテナー*にパッケージ化し�
         - **コンテナー名**: *一意の名前を入力します*
         - **リージョン**: *利用可能な任意のリージョンを選択します*
         - **イメージ ソース**: Docker Hub またはその他のレジストリ
-        - **イメージ タイプ**: Public
+        - **イメージ タイプ**: 公開
         - **イメージ**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.012840001-amd64`
         - **OS タイプ**: Linux
         - **サイズ**: 1 vcpu、4 GBメモリ
     - **ネットワーク**:
-        - **ネットワーク タイプ**: Public
+        - **ネットワーク タイプ**: 公開
         - **DNS 名ラベル**: *コンテナー エンドポイントの一意の名前を入力します*
-        - **ポート**: *TCP ポートを 80 から **5000*** に変更します
+        - **ポート**: * TCP ポートを 80 から **5000*** に変更します
     - **詳細**:
         - **再起動ポリシー**: 失敗時
         - **環境変数**:
 
-            | セキュアとしてマーク | Key | 値 |
+            | セキュアとしてマーク | キー | 値 |
             | -------------- | --- | ----- |
             | はい | ApiKey | *Cognitive Services リソースのいずれかのキー* |
-            | はい | Billing | *Cognitive Services リソースのエンドポイント URI* |
-            | いいえ | Eula | accept |
+            | はい | 課金 | *Cognitive Services リソースのエンドポイント URI* |
+            | なし | Eula | 受け入れ |
 
         - **コマンドの上書き**: [ ]
     - **タグ**:
@@ -82,7 +82,7 @@ Cognitive Services API の多くは、*コンテナー*にパッケージ化し�
     > docker run --rm -it -p 5000:5000 --memory 4g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/language Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
     > ```
     >
-    > コマンドは上の画像を検索しますローカルマシンが見つからない場合は、*mcr&period;microsoft&period;com* イメージ レジストリからプルして、Docker インスタンスにデプロイします。デプロイが完了すると、コンテナーが起動し、ポート 5000 で着信要求をリッスンします。
+    > コマンドは上の画像を検索しますローカルマシンが見つからない場合は、*mcr.microsoft.com* イメージ レジストリからプルして、Docker インスタンスにデプロイします。デプロイが完了すると、コンテナーが起動し、ポート 5000 で着信要求をリッスンします。
 
 ## コンテナーを使用する
 
@@ -101,13 +101,13 @@ Cognitive Services API の多くは、*コンテナー*にパッケージ化し�
 
 4. コマンドが 2 つの入力ドキュメント (英語とフランス語である必要があります) で検出された言語に関する情報を含む JSON ドキュメントを返すことを確認します。
 
-## クリーンアップ
+## クリーン アップ
 
 Container Instances の実験が終了したら、それを削除する必要があります。
 
 1. Azure portal で、この演習用のリソースを作成したリソース グループを開きます。
 2. Container Instances リソースを選択して削除します。
 
-## 詳細情報
+## 詳細
 
 Cognitive Services のコンテナー化の詳細については、[Cognitive Services コンテナーのドキュメント](https://docs.microsoft.com/azure/cognitive-services/containers/)を参照してください。

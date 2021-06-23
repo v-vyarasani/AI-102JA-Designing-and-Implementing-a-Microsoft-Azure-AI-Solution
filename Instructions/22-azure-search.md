@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Azure Cognitive Search ソリューションの作成'
     module: 'モジュール 12 - ナレッジ マイニング ソリューションの作成'
@@ -35,13 +35,13 @@ Margie'sTravel　用に作成するソリューションには、Azure　サブ�
 
 ### Azure Cognitive Search リソースを作成する
 
-1. `https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **&#652991;「リソースの作成」** ボタンを選択し、*search*,を検索して、次の設定で **Azure Cognitive Search** リソースを作成します。
+1. ブラウザータブで、`https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+2. **&#「リソースの作成」** ボタンを選択し、*search*,を検索して、次の設定で **Azure Cognitive Search** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *新しいリソースグループを作成します（制限付きサブスクリプションを使用している場合は、新しいリソースを作成する権限がない可能性がありますリソースグループ-提供されているものを使用）*
     - **サービス名**: *一意の名前を入力します*
     - **場所**: *場所を選択します - Azure CognitiveSearchリソースとCognitiveServicesリソースは同じ場所にある必要があることに注意してください*
-    - **価格レベル**: Basic
+    - **価格レベル**: 基本
 
 3. デプロイが完了するのを待ってから、デプロイされたリソースに移動します。
 4. Azure portal の Azure Cognitive Search リソースのブレードの **「概要」** ページを確認します。ここでは、ビジュアル インターフェイスを使用して、検索ソリューションのさまざまなコンポーネントを作成、テスト、管理、および監視できます。データソース、インデックス、インデクサー、スキルセットを含みます。
@@ -50,7 +50,7 @@ Margie'sTravel　用に作成するソリューションには、Azure　サブ�
 
 サブスクリプションにまだない場合は、**Cognitive Services** リソースをプロビジョニングする必要があります。検索ソリューションはこれを使用して、AI によって生成されたインサイトでデータストア内のデータを充実させます。
 
-1. Azure portal　の 「ホーム」 ページに戻り、**&#65291;「リソースの作成」** ボタンを選択し、*Cognitive Service*s を検索し、次の設定で **Cognitive Services** リソースを作成します。
+1. Azure portal　の 「ホーム」 ページに戻り、**&#65291;「リソースの作成」** ボタンを選択し、*Cognitive Services* を検索し、次の設定で **Cognitive Services** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *リソースと同じリソースグループ*
     - **リージョン**: *Azure Cognitive Searchリソースと同じ場所*
@@ -63,10 +63,10 @@ Margie'sTravel　用に作成するソリューションには、Azure　サブ�
 
 1. Azure portalの 「ホーム」 ページに戻り、**&#65291;「リソースの作成」** ボタンを選択し、*ストレージ アカウント*を検索して、次の設定で**ストレージ アカウント** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
-    - **リソース グループ**: *Azure Cognitive Search および Cognitive Services リソースと同じリソースグループ*
+    - **リソース グループ**: ** Azure Cognitive Search および Cognitive Services リソースと同じリソースグループ*
     - **ストレージ アカウント名**: *一意の名前を入力します*
-    - **場所**: *使用可能な場所を選択します*
-    - **パフォーマンス**: Standard
+    - **リージョン**: *利用可能な任意のリージョンを選択します*
+    - **パフォーマンス**: 標準
     - **アカウントの種類**: ストレージ V2
     - **レプリケーション**: ローカル冗長ストレージ (LRS)
 2. デプロイが完了するのを待ってから、デプロイされたリソースに移動します。
@@ -79,7 +79,7 @@ Margie'sTravel　用に作成するソリューションには、Azure　サブ�
 
 必要なリソースが揃ったので、いくつかのドキュメントを　Azure　Storage　アカウントにアップロードできます。
 
-1. Visual Studio Code　の　**「エクスプローラー」** ペインで、**22-create-a-search-solution** フォルダーを展開し、**UploadFiles.cmd** を選択します。
+1. Visual Studio Code　の　**「エクスプローラー」** ペインで、**22-create-a-search-solution** フォルダーを展開し、**UploadDocs.cmd** を選択します。
 2. バッチファイルを編集して、**YOUR_SUBSCRIPTION_ID**、**YOUR_AZURE_STORAGE_ACCOUNT_NAME**、および　**YOUR_AZURE_STORAGE_KEY** プレースホルダーを、以前に作成したストレージ アカウントの適切なサブスクリプション ID、Azure ストレージ アカウント名、および Azure ストレージアカウント キーの値に置き換えます。
 3. 変更を保存してから、**22-create-a-search-solution** フォルダーを右クリックして、統合ターミナルを開きます。
 4. 次のコマンドを入力して、Azure CLI を使用して Azure サブスクリプションにサインインします。
@@ -103,15 +103,15 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 1. Azure portalで、Azure Cognitive　Search　リソースを参照します。次に、**「概要」**　ページで、**「データのインポート」**　を選択します。
 2. **「データへの接続」**　ページの　**「データ ソース」**　リストで、　**「Azure Blob　Storage」**　を選択します。次に、次の値を使用してデータ ストアの詳細を入力します。
     - **データ ソース**: Azure Blob Storage
-    - **データソース名**: margies-data
+    - **データソース名**: margies-dataする
     - **抽出データ**: コンテンツとメタデータ
     - **解析モード**: 既定
-    - **接続文字列**: ***「既存の接続を選択」** を選択します。次に、ストレージアカウントを選択し、 **margies** コンテナーを選択します。*
+    - **接続文字列**: ***「既存の接続を選択」** を選択します。次に、ストレージアカウントを選択し、最後に UploadDocs.cmd スクリプトによって作成された **margies** コンテナーを選択します。*
     - **Azure マネージド ID を使用して認証する**: 未選択
     - **コンテナ名**: margies
     - **Blob フォルダー**: *これは空白のままにします*
-    - **説明**: Margie's Travel の Web サイトのパンフレットとレビュー
-3. 次のステップに進みます (*コグニティブスキルを追加します*)。
+    - **説明**: Margie's Travel の Web サイトのパンフレットとレビュー。
+3. 次のステップに進みます (*認知スキルを追加します*)。
 4. **「Cognitive Services のアタッチ」** セクションで、Cognitive Services リソースを選択します。
 5. **「エンリッチメントの追加」** セクションで、次の手順を行います。
     - **スキルセット名**を　**margies-skillset**　に変更します。
@@ -122,47 +122,47 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
         | Cognitive Skill | パラメーター | フィールド名 |
         | --------------- | ---------- | ---------- |
-        | 場所の名前を抽出 | | locations |
-        | キー フレーズを抽出 | | keyphrases |
-        | 言語の検出 | | language |
-        | 画像からタグを生成する | | imageTags |
-        | 画像からキャプションを生成する | | imageCaptions |
+        | 抽出場所の名前 | | locations |
+        | キー フレーズを抽出する | | キーフレーズ |
+        | 言語を検出する | | language |
+        | 画像からタグを生成します | | imageTags |
+        | 画像からキャプションを生成します | | imageCaption |
 
-6. (後で変更することが困難な場合があるため)、選択をダブルチェックします。次に、次のステップ (*対象インデックスのカスタマイズ*) に進みます。
+6. (後で変更することが困難な場合があるため)、選択をダブルチェックします。次に、次のステップ (*ターゲット インデックスのカスタマイズ*) に進みます。
 7. **インデックス名**を **margies-index** に変更します。
-8. **キー**が **metadata_storage_path** に設定されていることを確認し、**Suggester名**と**検索モード**を空白のままにします。
+8. **キー**が **metadata_storage_path** に設定されていることを確認し、**サジェスタ名**と**検索モード**を空白のままにします。
 9. インデックス フィールドに次の変更を加え、他のすべてのフィールドはデフォルト設定のままにします (**重要**: テーブル全体を表示するには、右にスクロールする必要がある場合があります)
 
     | フィールド名 | 取得可能 | フィルター可能 | 並べ替え可能 | ファセット可能 | 検索可能 |
     | ---------- | ----------- | ---------- | -------- | --------- | ---------- |
-    | metadata_storage_size | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | |
-    | metadata_storage_last_modified | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | |
-    | metadata_storage_name | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
-    | metadata_author | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
-    | locations | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
-    | keyphrases | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
-    | language | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | | |
+    | metadata_storage_size | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; | | |
+    | metadata_storage_last_modified | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; | | |
+    | metadata_storage_name | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; |
+    | metadata_author | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; |
+    | 場所 | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | | | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; |
+    | キーフレーズ | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | | | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; |
+    | 言語 | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; | | | |
 
 11. 選択内容を再確認し、特に注意して、各フィールドで正しい**取得可能**、**フィルター可能**、**並べ替え可能**、**ファセット可能**、および**検索可能**オプションが選択されていることを確認します (後で変更するのは難しい場合があります)。次に、次の手順 (*インデクサーの作成*) に進みます。
-12. **インデクサー名**を　**margies-indexer**に変更します。
-13. **スケジュール**は **1度**に設定したままにします。
+12. **インデクサー名**を　**margies-indexer**.変更します。
+13. **スケジュール**は **1 回**に設定したままにします。
 14. **「詳細」** オプションを展開し、**「Base-64 エンコード キー」** オプションが選択されていることを確認します (通常、キーをエンコードするとインデックスがより効率的になります)。
 15. **「送信」** を選択して、データ ソース、スキルセット、インデックス、およびインデクサーを作成します。インデクサーは自動的に実行され、インデックス作成パイプラインを実行します。これ
-    1. データソースからドキュメント メタデータ フィールドとコンテンツを抽出します 
+    1. データソースからドキュメント メタデータ フィールドとコンテンツを抽出します
     2. コグニティブ スキルのスキルセットを実行して、追加の強化フィールドを生成します
     3. 抽出されたフィールドをインデックスにマップします。
-16. Azure Cognitive Searc　hリソースの　**「概要」**　ページの下半分で、**「インデクサー」** タブを表示します。このタブには、新しく作成された **margies-indexer**が表示されます。数分待ってから、**「ステータス」** が成功を示すまで **「更新」** をクリックします。
+16. Azure Cognitive Searc　hリソースの　**「概要」**　ページの下半分で、**「インデクサー」** タブを表示します。このタブには、新しく作成された **margies-indexer**.が表示されます。数分待ってから、**「ステータス」** が成功を示すまで **「更新」** をクリックします。
 
 ## インデックスを検索する
 
 インデックスができたので、検索できます。
 
 1. Azure Cognitive Search リソースの **「概要」** ページの上部で、**「検索エクスプローラー」** を選択します。
-2. 検索エクスプローラーの **「クエリ文字列」** ボックスに`*` (単一のアスタリスク) と入力し、**「検索」** を選択します。
+2. 検索エクスプローラーの **「クエリ文字列」** ボックスに「*」 (単一のアスタリスク) と入力し、**「検索」** を選択します。
 
     このクエリは、インデックス内のすべてのドキュメントを JSON 形式で取得します。結果を調べて、選択した認知スキルによって抽出されたドキュメント コンテンツ、メタデータ、および強化されたデータを含む各ドキュメントのフィールドをメモします。
 
-3. クエリ文字列を`search=*&$count=true`に変更し、検索を送信します。
+3. クエリ文字列を「search = *＆$ count = true」に変更し、検索を送信します。
 
     今回の結果には、検索によって返されたドキュメントの数を示す　**@odata.count** ftフィールドが結果の上部に含まれています。
 
@@ -172,7 +172,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     search=*&$count=true&$select=metadata_storage_name,metadata_author,locations
     ```
 
-    今回の結果には、ファイル名、作成者、およびドキュメントの内容に記載されている場所のみが含まれます。ファイル名と作成者は、ソースドキュメントから抽出された　**metadata_content_name**　フィールドと　**metadata_author**　フィールドにあります。**「場所」** フィールドは、認知スキルによって生成されました。
+    今回の結果には、ファイル名、作成者、およびドキュメントの内容に記載されている場所のみが含まれます。ファイル名と作成者は、ソースドキュメントから抽出された　**metadata_storage_name**　フィールドと　**metadata_author**　フィールドにあります。**「場所」** フィールドは、認知スキルによって生成されました。
 
 5. 次に、次のクエリ文字列を試してください。
 
@@ -198,7 +198,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
 ### Azure Cognitive Search リソースのエンドポイントとキーを取得する
 
-1. Azureポータルで、Azure CognitiveSearchリソースの **「概要」** ページに戻ります。ページの上部で、リソースの　**URL** (**https://resource_name.search.windows.net** のようになります) を見つけてクリップボードにコピーします。
+1. Azure portal で、Azure CognitiveSearchリソースの **「概要」** ページに戻ります。ページの上部で、リソースの　**URL** (**https://resource_name.search.windows.net** のようになります) を見つけてクリップボードにコピーします。
 2. Visual Studio Code の 「エクスプローラー」 ペインで、**22-create-a-search-solution** フォルダーとその **modify-search** サブフォルダーを展開し、**modify-search.cmd** を選択して開きます。このスクリプト ファイルを使用して、JSON を Azure Cognitive Service REST インターフェイスに送信する *cURL* コマンドを実行します。
 3. **modify-search.cmd** で、**YOUR_SEARCH_URL** プレースホルダーをクリップボードにコピーした URL に置き換えます。
 4. Azure portal で、Azure Cognitive Search リソースの **「キー」** ページを表示し、**プライマリ管理者キー**をクリップボードにコピーします。
@@ -207,7 +207,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
 ### スキルセットを確認および変更する
 
-1. Visual studio Code　の　**modify-search**　フォルダーで、**skillset.json**　を開きます。これは、**margies-skillset**　の　JSON　定義を示しています。
+1. Visual studio Code　の　**modify-search**　フォルダーで、s**skillset.json**　を開きます。これは、**margies-skillset**　の　JSON　定義を示しています。
 2. スキルセット定義の上部にある　**cognitiveServices**　オブジェクトに注意してください。このオブジェクトは、Cognitive　Services　リソースをスキルセットに接続するために使用されます。
 3. Azure portal　で、Cognitive Services　リソース (Azure Cognitive Search リソースではあり<u>ません</u>。) を開き、その**キー** ページを表示します。次に、**キー 1** をクリップボードにコピーします。
 4. Visual Studio Code の **skillset.json** で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーをクリップボードにコピーした Cognitive Services キーに置き換えます。
@@ -304,7 +304,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     modify-search
     ```
 
-3. スクリプトが終了したら、Azure portal　の　Azure Cognitive Search　リソースの　「**概要」** ページに戻り、**「インデクサー」**　ページを表示します。定期的に **「更新**」 を選択して、インデックス作成操作の進行状況を追跡します。完了するまでに 1 分ほどかかる場合があります。
+3. スクリプトが終了したら、Azure portal　の　Azure Cognitive Search　リソースの　「**概要」** () ページに戻り、**「インデクサー」**　ページを表示します。定期的に **「更新**」 を選択して、インデックス作成操作の進行状況を追跡します。完了するまでに 1 分ほどかかる場合があります。
 
     *感情を評価するには大きすぎるいくつかのドキュメントに対して、いくつかの警告がある場合があります。多くの場合、感情分析は、ドキュメント全体ではなく、ページまたは文レベルで実行されます。ただし、この場合のシナリオでは、ほとんどのドキュメント（特にホテルのレビュー）は、有用なドキュメントレベルの感情スコアを評価するのに十分なほど短いものです。*
 
@@ -355,15 +355,15 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     - **C#**: appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Azure Cognitive Search リソースの**エンドポイント**と**クエリ キー**を反映します。  変更を保存します。
+    構成ファイルを開き、含まれている構成値を更新して、Azure Cognitive Search リソースの**エンドポイント**と**クエリ キー**を反映します。変更を保存します。
 
 ### インデックスを検索するためのコードの探索
 
-**margies-travel** フォルダーには、検索機能を含む Web アプリケーション (Microsoft C# *ASP&period;NET Razor* Web アプリケーションまたはPython F*Flask* アプリケーション) のコード ファイルが含まれています。
+**margies-travel** フォルダーには、検索機能を含む Web アプリケーション (Microsoft C# *ASP.NET Razor* Web アプリケーションまたはPython F*Flask* アプリケーション) のコード ファイルが含まれています。
 
 1. 選択したプログラミング言語に応じて、次のコードファイルを Web アプリケーションで開きます
     - **C#**:Pages/Index.cshtml.cs
-    - **Python**: app&period;py
+    - **Python**: app.py
 2. コード ファイルの上部にあるコメント「**Import search namespaces**」を見つけ、Azure Cognitive Search　SDK　で機能するようにインポートされた名前空間をメモします。
 3. **search_query**　関数で、コメント　**search_query**　を見つけ、コードが　Azure Cognitive　Search　リソースのエンドポイントとクエリ　キーを使用して　**SearchClient**　オブジェクトを作成することに注意してください
 4. **search_query** 関数、コメント「**Submit search query**」を検索し、コードを確認して、次のオプションを使用して、指定されたテキストの検索を送信します
@@ -372,7 +372,7 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     - 結果は、提供されたフィルター式に一致するドキュメントのみを含むようにフィルター処理されます。
     - 結果は、指定された並べ替え順序に並べ替えられます。
     - **metadata_author**　フィールドの各離散値は、フィルタリング用の事前定義された値を表示するために使用できるa *ファセット*として返されます。
-    - 検索語が強調表示された **merged_content** フィールドと **imageCaption** フィールドの最大3つの抽出が結果に含まれます。
+    - 検索語が強調表示された **merged_content** フィールドと　**imageCaption** フィールドの最大 3 つの抽出が結果に含まれます。
     - 結果には、指定されたフィールドのみが含まれます。
 
 ### 検索結果をレンダリングするためのコードを探索する
@@ -381,9 +381,9 @@ Web アプリには、検索結果を処理およびレンダリングするた�
 
 1. 選択したプログラミング言語に応じて、次のコードファイルを Web アプリケーションで開きます
     - **C#**:Pages/Index.cshtml
-    - **Python**: templates/search&period;html
+    - **Python**: templates/search.html
 2. コードを調べて、検索結果が表示されるページをレンダリングします。次の点に注意してください。
-    - ページは、ユーザーが新しい検索を送信するために使用できる検索フォームで始まります (Python バージョンのアプリケーションでは、このフォームは **base&period;html** テンプレートで定義されています)。これはページの先頭で参照されます。
+    - ページは、ユーザーが新しい検索を送信するために使用できる検索フォームで始まります (Python バージョンのアプリケーションでは、このフォームは **base.html** テンプレートで定義されています)。これはページの先頭で参照されます。
     - 次に、2 番目のフォームがレンダリングされ、ユーザーは検索結果を絞り込むことができます。このフォームのコードは、次の通りです。
         - 検索結果からドキュメントの数を取得して表示します。
         - **metadata_author** フィールドのファセット値を取得し、フィルタリングのオプションリストとして表示します。
@@ -413,21 +413,21 @@ Web アプリには、検索結果を処理およびレンダリングするた�
     flask run
     ```
 
-2. アプリが正常に起動したときに表示されるメッセージで、実行中の Web アプリケーション (*http://localhost:5000/* または*http://127.0.0.1:5000/* ) へのリンクをたどって、Webブラウザで Margies Travel サイトを開きます。
-3. Margie's Travelの Web サイトで、検索ボックスに **London hotel** と入力し、**「Search」**　をクリックします。
+2. アプリが正常に起動したときに表示されるメッセージで、実行中の Web アプリケーション (*http://localhost:5000/*または*http://127.0.0.1:5000/ *) へのリンクをたどって、Webブラウザで Margies Travel サイトを開きます。
+3. Margie's Travelの Web サイトで、検索ボックスに **London hotel** と入力し、**「検索」**　をクリックします。
 4. 検索結果を確認します。これらには、ファイル名 (ファイル URL へのハイパーリンク付き)、検索語 (*London* および *hotel*) が強調されたファイル コンテンツの抽出、およびインデックス フィールドからのファイルの他の属性が含まれます。
-5. 結果ページには、結果を絞り込むことができるいくつかのユーザーインターフェイス要素が含まれていることに注意してください。下記を含みます。
+5. 結果ページには、結果を絞り込むことができるいくつかのユーザーインターフェイス要素が含まれていることに注意してください。これらには以下が含まれます。
     - **metadata_author**　フィールドのファセット値に基づく*フィルター*。これは、*ファセット* フィールドを使用して、ユーザー インターフェイスで潜在的なフィルター値として表示できる離散値の小さなセットを含む*ファセット* -  フィールドのリストを返す方法を示しています。
     - 指定されたフィールドと並べ替え方向（昇順または降順）に基づいて結果を*並べ替える*機能。既定の順序は*関連性*に基づいており、インデックス　フィールドの検索用語の頻度と重要性を評価する*スコアリング プロファイル*に基づいて　**search.score()** 値として計算されます。
-6. **Reviewer** フィルターと 「**Positive to negative**の並べ替え」 オプションを選択し、**「Refine Results」を選択します。**
+6. **レビューア** フィルターと 「**ポジティブからネガティブへ**の並べ替え」 オプションを選択し、**「結果の絞り込み」を選択します。**
 7. 結果がレビューのみを含むようにフィルタリングされ、感情の降順で並べ替えられていることを確認します。
-8. **「Search」** ボックスに、「**quiet hotel in New York**」の新しい検索を入力して、結果を確認します。
+8. **「検索」** ボックスに、「**quiet hotel in New York**」の新しい検索を入力して、結果を確認します。
 9. 次の検索用語を試してください。
     - **Tower of London** (この用語が一部のドキュメントで*キー フレーズ*として識別されていることに注意してください)。
     - **skyscraper** (この単語はどのドキュメントの実際のコンテンツにも表示されませんが、一部のドキュメントの画像用に生成された*画像のキャプション*と*画像タグ*に含まれていることに注意してください)。
     - **Mojave desert** (この用語が一部のドキュメントで*場所*として識別されていることに注意してください)。
-10. Margie's Travel Web サイトを含むブラウザータブを閉じて、Visual Studio Codeに戻ります。次に、**margies-travel** フォルダー　(dotnet または flask アプリケーションが実行されている) の Python ターミナルで、Ctrl+C を入力してアプリを停止します。
+10. Margie's Travel Web サイトを含むブラウザータブを閉じて、Visual Studio　Codeに戻ります。次に、**margies-travel** フォルダー　(dotnet または flask アプリケーションが実行されている) の Python ターミナルで、Ctrl+C を入力してアプリを停止します。
 
-## 詳細情報
+## 詳細
 
 Azure Cognitive Search の詳細については、[Azure Cognitive Searchのドキュメントを](https://docs.microsoft.com/azure/search/search-what-is-azure-search)参照してください。

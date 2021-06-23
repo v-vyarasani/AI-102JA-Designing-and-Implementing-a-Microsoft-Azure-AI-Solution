@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '顔の検出、分析、認識'
     module: 'モジュール 10 - 顔の検出、分析、認識'
@@ -6,14 +6,14 @@ lab:
 
 # 顔の検出、分析、認識
 
-人間の顔を検出、分析、認識する機能は、AI のコア機能です。この演習では、画像内の顔を操作するために使用できる 2 つの Azure Cognitive Services である **Computer Vision** サービスと **Face** サービスについて説明します。
+人間の顔を検出、分析、認識する機能は、AI のコア機能です。この演習では、画像内の顔を操作するために使用できる 2 つの Azure Cognitive Services である **Computer Vision **サービスと **Face** サービスについて説明します。
 
 ## このコースのリポジトリを複製する
 
 まだ行っていない場合は、このコースのコード リポジトリを複製する必要があります。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -24,7 +24,7 @@ lab:
 サブスクリプションにまだない場合は、**Cognitive Services** リソースをプロビジョニングする必要があります。
 
 1. `https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **&#65291;「リソースの作成」** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
+2. **&#65291;[リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がない可能性があります - 提供されているものを使用してください)*
     - **リージョン**: *利用可能な任意のリージョンを選択します*
@@ -43,29 +43,30 @@ lab:
 1. Visual Studio Code の**エクスプローラー** ペインで、**19-iface** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
 2. **computer-vision** フォルダーを右クリックして、統合ターミナルを開きます。次に、言語設定に適したコマンドを実行して、Computer Vision SDK パッケージをインストールします。
 
-**C#**
+    **C#**
 
-```
-dotnet add package Microsoft.Azure.CognitiveServices.Vision.ComputerVision --version 6.0.0
-```
+    ```
+    dotnet add package Microsoft.Azure.CognitiveServices.Vision.ComputerVision --version 6.0.0
+    ```
 
-**Python**
+    **Python**
 
-```
-pip install azure-cognitiveservices-vision-computervision==0.7.0
-```
+    ```
+    pip install azure-cognitiveservices-vision-computervision==0.7.0
+    ```
     
 3. **computer-vision** フォルダーの内容を表示し、構成設定用のファイルが含まれていることに注意してください。
     - **C#**: appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。変更を保存します。
-4. **computer-vision** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
+4. 構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。変更を保存します。
+
+5. **computer-vision** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
 
     - **C#**: Program.cs
-    - **Python**: detect-faces&period;py
+    - **Python**: detect-faces.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+6. コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
     **C#**
 
@@ -95,7 +96,7 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 
 これで、SDK を使用して Computer Vision サービスを呼び出し、画像内の顔を検出する準備が整いました。
 
-1. クライアント アプリケーションのコード ファイル (**Program.cs** または **detect-faces&period;py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント **「Authenticate Computer Vision client」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+1. クライアント アプリケーションのコード ファイル (**Program.cs** または **detect-faces.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント**「Authenticate Computer Vision client」**を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
 
     **C#**
 
@@ -118,7 +119,7 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 
 2. **Main** 関数で、追加したコードの下で、コードが画像ファイルへのパスを指定し、**AnalyzeFaces** という名前の関数に画像パスを渡すことに注意してください。この関数はまだ完全には実装されていません。
 
-3. **AnalyzeFaces** 関数のコメント **「Specify features to be retrieved (faces)」** の下に、次のコードを追加します。
+3. **AnalyzeFaces** 関数のコメン**「Specify features to be retrieved (faces)」**の下に、次のコードを追加します。
 
     **C#**
 
@@ -136,8 +137,8 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
     # Specify features to be retrieved (faces)
     features = [VisualFeatureTypes.faces]
     ```
-    
-4. **AnalyzeFaces** 関数のコメント **「Get image analysis」** の下に、次のコードを追加します。
+
+4. **AnalyzeFaces** 関数のコメント**「Get image analysis」**の下に、次のコードを追加します。
 
 **C#**
 
@@ -211,7 +212,7 @@ with open(image_file, mode="rb") as image_data:
 
         print('Results saved in', outputfile)
 ```
-    
+
 5. 変更を保存し、**computer-vision** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
     **C#**
@@ -252,13 +253,14 @@ with open(image_file, mode="rb") as image_data:
     - **C#**: appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。変更を保存します。
-4. **face-api** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
+4. 構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。変更を保存します。
+
+5. **face-api** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
 
     - **C#**: Program.cs
-    - **Python**: analyze-faces&period;py
+    - **Python**: analyze-faces.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces**」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+6. コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
     **C#**
 
@@ -277,7 +279,7 @@ with open(image_file, mode="rb") as image_data:
     from msrest.authentication import CognitiveServicesCredentials
     ```
 
-5. **Main** 関数では、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント **「Authenticate Face client」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、**FaceClient** オブジェクトを作成および認証します
+7. **Main** 関数では、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント**「Authenticate Face client」**を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、**FaceClient** オブジェクトを作成および認証します
 
     **C#**
 
@@ -298,14 +300,14 @@ with open(image_file, mode="rb") as image_data:
     face_client = FaceClient(cog_endpoint, credentials)
     ```
 
-6. **Main** 関数で、追加したコードの下に、コード内の関数を呼び出して Face サービスの機能を調べることができるメニューがコードに表示されることに注意してください。この演習の残りの部分では、これらの関数を実装します。
+8. **Main** 関数で、追加したコードの下に、コード内の関数を呼び出して Face サービスの機能を調べることができるメニューがコードに表示されることに注意してください。この演習の残りの部分では、これらの関数を実装します。
 
 ## 顔の検出と分析
 
 Face サービスの最も基本的な機能の 1 つは、画像内の顔を検出し、年齢、感情表現、髪の色、眼鏡の存在などの属性を決定することです。
 
 1. アプリケーションのコードファイルの **Main** 関数で、ユーザーがメニュー オプション **1** を選択した場合に実行されるコードを調べます。このコードは **DetectFaces** 関数を呼び出し、パスを画像ファイルに渡します。
-2. コードファイルで **DetectFaces** 関数を見付け、コメント **「Specify facial features to be retrieved」** の下に、次のコードを追加します。
+2. コードファイルで **DetectFaces** 関数を見付け、コメント**「Specify facial features to be retrieved」**の下に、次のコードを追加します。
 
     **C#**
 
@@ -328,7 +330,7 @@ Face サービスの最も基本的な機能の 1 つは、画像内の顔を検
                 FaceAttributeType.glasses]
     ```
 
-3. **DetectFaces** 関数で、追加したコードの下に、コメント「**DetectFaces**」を見つけて、次のコードを追加します。
+3. **DetectFaces** 関数で、追加したコードの下に、コメント「**Get faces**」を見つけて、次のコードを追加します。
 
 **C#**
 
@@ -439,7 +441,7 @@ with open(image_file, mode="rb") as image_data:
     dotnet run
     ```
 
-    *The C# output may display warnings about asynchronous functions now using the **await** operator. You can ignore these.*
+    *C# 出力には、**await** 演算子を使用している非同期関数に関する警告が表示される場合があります。これらは無視してかまいません。*
 
     **Python**
 
@@ -580,19 +582,19 @@ with open(image_2, mode="rb") as image_data:
 3. **CompareFaces** 関数に追加したコードを調べます。画像 1 で最初の顔を見つけ、**face_to_match.jpg** という名前の新しい画像ファイルで注釈を付けます。次に、画像 2 のすべての顔を検索し、それらの顔 ID を使用して画像 1 に類似した顔を検索します。類似した顔に注釈が付けられ、**matched_faces.jpg** という名前の新しい画像に保存されます。
 4. 変更を保存して **face-api** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-*C# 出力には、**await** 演算子を使用している非同期関数に関する警告が表示される場合があります。これらは無視してかまいません。*
+    *C# 出力には、**await** 演算子を使用している非同期関数に関する警告が表示される場合があります。これらは無視してかまいません。*
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
     
 5. プロンプトが表示されたら、**2** を入力して出力を確認します。次に、コードファイルと同じフォルダーに生成された **face_to_match.jpg** ファイルと **matched_faces.jpg** ファイルを表示して、一致した顔を確認します。
 6. メニュー オプション **2** の **Main** 関数のコードを編集して **person2.jpg** と **people.jpg** を比較し、プログラムを再実行して結果を表示します。
@@ -681,7 +683,7 @@ for person_name in image_folders:
         img_stream = open(img_path, "rb")
         face_client.person_group_person.add_face_from_stream(group_id, person.person_id, img_stream)
 
-# Train the model
+# モデルをトレーニングする
 print('Training model...')
 face_client.person_group.train(group_id)
 
@@ -700,19 +702,19 @@ for person in people:
     - グループ内の名前付きの人のリストを取得して表示します。
 5. 変更を保存して **face-api** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-*C# 出力には、**await** 演算子を使用している非同期関数に関する警告が表示される場合があります。これらは無視してかまいません。*
+    *C# 出力には、**await** 演算子を使用している非同期関数に関する警告が表示される場合があります。これらは無視してかまいません。*
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
 
 6. プロンプトが表示されたら、**3** と入力して出力を確認し、作成された **PersonGroup** に 2 人が含まれていることに注意してください。
 
@@ -841,19 +843,19 @@ with open(image_file, mode="rb") as image_data:
 3. **RecognizeFaces** 関数に追加したコードを調べます。画像内の顔を見つけて、ID のリストを作成します。次に、people グループを使用して、顔 ID のリストで顔を識別しようとします。認識された顔には、識別された人物の名前が注釈として付けられ、結果は **recognized_faces.jpg** に保存されます。
 4. 変更を保存して **face-api** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-*C# 出力には、**await** 演算子を使用している非同期関数に関する警告が表示される場合があります。これらは無視してかまいません。*
+    *C# 出力には、**await** 演算子を使用している非同期関数に関する警告が表示される場合があります。これらは無視してかまいません。*
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
 
 5. プロンプトが表示されたら、**4** を入力して出力を確認します。次に、コード ファイルと同じフォルダーに生成された **recognized_faces.jpg** ファイルを表示して、識別された人物を確認します。
 6. メニューオプション **4** の **Main** 関数のコードを編集して **people2.jpg** の顔を認識し、プログラムを再実行して結果を表示します。同じ人が認識されるべきです。
@@ -863,7 +865,7 @@ python analyze-faces.py
 顔認識は、身元の確認によく使用されます。Face サービスを使用すると、画像内の顔を別の顔と比較したり、**PersonGroup** に登録されている人物から確認したりできます。
 
 1. アプリケーションのコードファイルの **Main** 関数で、ユーザーがメニュー オプション **5** を選択した場合に実行されるコードを調べます。このコードは **VerifyFace** 関数を呼び出し、画像ファイル (**person1.jpg**) へのパスと、顔の識別に使用される **PeopleGroup** の ID を渡します。
-2. コード ファイルで **VerifyFace** 関数を見付け、コメント **「ユーザー グループからユーザー ID を取得する」** の下 (結果を出力するコードの上) に次のコードを追加します。
+2. コード ファイルで **VerifyFace** 関数を見付け、コメント**「Get the ID of the person from the people group」**の下 (結果を出力するコードの上) に次のコードを追加します。
 
 **C#**
 
@@ -917,26 +919,25 @@ for person in people:
                     result = 'Verified'
 ```
 
-
 3. **VerifyFace** 関数に追加したコードを調べます。指定された名前のグループ内の人の ID を検索します。人物が存在する場合、コードは画像の最初の顔の顔 ID を取得します。最後に、画像に顔がある場合、コードは指定された人物の ID に対して顔を検証します。
 4. 変更を保存して **face-api** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
 
 5. プロンプトが表示されたら、**5** を入力して結果を確認します。
 6. メニュー オプション **5** の **Main** 関数のコードを編集して、名前と画像 **person1.jpg** および **person2.jpg** のさまざまな組み合わせを試してみてください。
 
-## 詳細情報
+## 詳細
 
 顔検出に **Computer Vision** サービスを使用する方法の詳細については、[Computer Vision](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-detecting-faces) のドキュメントを参照してください。
 
