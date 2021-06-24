@@ -19,7 +19,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -29,7 +29,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 > **注**: 以前に **[Azure Cognitive Search ソリューションの作成] (22-azure-search.md)** の演習を完了し、サブスクリプションにこれらの Azure リソースが残っている場合は、このセクションをスキップして、**「検索ソリューションの作成」** セクションから開始できます。それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
 
-1. `https;//portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+1. 新しい Wev ブラウザー、`https://portal.azure.com` で Azure portalを開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. サブスクリプションの**リソース グループ**を表示します。
 3. リソース グループが提供されている制限付きサブスクリプションを使用している場合は、リソース グループを選択してそのプロパティを表示します。それ以外の場合は、選択した名前で新しいリソース グループを作成し、作成されたらそのグループに移動します。
 4. リソース グループの **「概要」** ページで、**サブスクリプション ID** と**場所**をメモします。これらの値は、後続の手順でリソース グループの名前とともに必要になります。
@@ -101,14 +101,14 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
     *キーは、Azure portal の Cognitive Services リソースの **「キーとエンドポイント」** ページにあります。*
 
 6. スキルセット内のスキルのコレクションの最後に、**define-projection** という名前の **Microsoft.Skills.Util.ShaperSkill** スキルを見つけます。このスキルは、インデクサーによって処理される各ドキュメントのナレッジ ストアにパイプラインが保持されるプロジェクションに使用される、強化されたデータの JSON 構造を定義します。
-7. スキル セット ファイルの下部に、knowledgeStore定義が含まれていることを確認します。**knowledgeStore**定義には、ナレッジ ストアが作成される Azure Storage アカウントの接続文字列と、**projections**のコレクションが含まれています。このスキル セットには、次の 3 つの*プロジェクション グループ*が含まれます。
+7. スキル セット ファイルの下部に、ナレッジ ストア定義が含まれていることを確認します。**ナレッジ ストア**定義には、ナレッジ ストアが作成される Azure Storage アカウントの接続文字列と、**プロジェクション**のコレクションが含まれています。このスキル セットには、次の 3 つの*プロジェクション グループ*が含まれます。
     - スキル セット内のシェイパー スキルの **knowledge_projection** 出力に基づく*オブジェクト* プロジェクションを含むグループ。
     - ドキュメントから抽出された画像データの**normalized_images**コレクションに基づく*ファイル* プロジェクションを含むグループ。
     - 次の*テーブル* プロジェクションを含むグループ。
         - **KeyPhrases**: 自動生成されたキー列と、シェーパー スキルの **knowledge_projection/key_phrases/** コレクション出力にマップされた **keyPhrase** 列が含まれます。
         - **Locations**: 自動生成されたキー列と、シェーパー スキルの **knowledge_projection/key_phrases/** コレクション出力にマップされた **location** 列が含まれます。
         - **ImageTags**: 自動生成されたキー列と、シェーパー スキルの **knowledge_projection/image_tags/** コレクション出力にマップされた **tag** 列が含まれます。
-        - **Docs**: 自動生成されたキー列と、テーブルにまだ割り当てられていないシェイパー スキルからのすべての **knowledge_projection/image_tags/** 出力値が含まれます。
+        - **Docs**: 自動生成されたキー列と、テーブルにまだ割り当てられていないシェイパー スキルからのすべての **knowledge_projection** 出力値が含まれます。
 8. **storageConnectionString** 値の **YOUR_CONNECTION_STRING** プレースホルダーを、ストレージ アカウントの接続文字列に置き換えます。
 9. 更新された JSON ファイルを保存して閉じます。
 10. **create-search** フォルダーで、i**index.json**.を開きます。このファイルには、**margies-knowledge-index** という名前のインデックスの JSON 定義が含まれています。
@@ -120,7 +120,7 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
 
 検索ソリューションコンポーネントを定義する JSON オブジェクトを準備したので、JSON ドキュメントを REST インターフェイスに送信して作成できます。
 
-1. **create-search** フォルダーで、**create-search.cmd**を開きます。このバッチ スクリプトは、cURL ユーティリティを使用して、Azure Cognitive Search リソースの REST インターフェイスに JSON 定義を送信します。
+1. **create-search** フォルダーで、**create-search.cmd**.を開きます。このバッチ スクリプトは、cURL ユーティリティを使用して、Azure Cognitive Search リソースの REST インターフェイスに JSON 定義を送信します。
 2. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure Cognitive Search リソースの **Url** と**管理キー**の 1 つに置き換えます。
 
     *これらの値は、Azure portal の Azure Cognitive Search リソースの **「概要」** ページと **「キー」** ページにあります。*
@@ -199,8 +199,8 @@ Margie's Travel スキルセットで定義されている*オブジェクト* �
 
 スキル セットで定義された*テーブル* プロジェクションは、強化されたデータのリレーショナル スキーマを形成します。
 
-1. Azure portal のストレージ エクスプローラー インターフェイスで、**テーブル** を展開します。
-2. **docs** テーブルを選択して、その列を表示します。列には、いくつかの標準の Azure Storage テーブル列が含まれています。これらを非表示にするには、**「列オプション」** を変更して、次の列のみを選択します。
+1. Azure portal のストレージ エクスプローラー インターフェイスで、**TABLES** を展開します。
+2. **Docs** テーブルを選択して、その列を表示します。列には、いくつかの標準の Azure Storage テーブル列が含まれています。これらを非表示にするには、**「列オプション」** を変更して、次の列のみを選択します。
     - **document_id** (インデックス作成プロセスによって自動的に生成されるキー列)
     - **file_id** (エンコードされたファイル URL)
     - **file_name** (ドキュメント メタデータから抽出されたファイル名)
@@ -214,6 +214,6 @@ Margie's Travel スキルセットで定義されている*オブジェクト* �
 
 *テーブル* プロジェクションを作成する機能により、リレーショナル スキーマをクエリする分析およびレポート ソリューションを構築できます。たとえば、Microsoft PowerBI を使用します。自動生成されたキー列を使用して、クエリでテーブルを結合できます。たとえば、特定のドキュメントに記載されているすべての場所を返すことができます。
 
-## 詳細情報
+## 詳細
 
 Azure Cognitive Search を使用したナレッジ ストアの作成の詳細については、[Azure Cognitive Search のドキュメント](https://docs.microsoft.com/azure/search/knowledge-store-concept-intro)を参照してください。

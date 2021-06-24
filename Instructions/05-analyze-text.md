@@ -15,7 +15,7 @@ lab:
 **AI-102-AIEngineer** コードのリポジトリをこのラボで作業している環境にまだ複製していない場合は、次の手順に従って複製してください。それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -42,7 +42,7 @@ lab:
 
 > **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。以下の手順で、希望する言語に適したアクションを実行します。
 
-1. Visual Studio Code の**エクスプローラー** ペインで、**05-analyze-text** フォルダーを参照し、言語の設定に応じて、**C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
+1. Visual Studio Code の 「**エクスプローラー**」 ペインで、**05-analyze-text** フォルダーを参照し、言語の設定に応じて、**C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
 2. **text-analysis** フォルダーを右クリックして、統合ターミナルを開きます。次に、言語設定に適合するコマンドを実行して、Text Analytics SDK パッケージをインストールします。
     
     **C#**
@@ -66,9 +66,9 @@ lab:
 4. **text-analysis** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
 
     - **C#**: Program.cs
-    - **Python**: text-analysis&period;py
+    - **Python**: text-analysis.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Text Analytics SDK を使用するために必要な名前空間インポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Text Analytics SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
@@ -86,7 +86,7 @@ lab:
     from azure.ai.textanalytics import TextAnalyticsClient
     ```
 
-5. **Main** 関数で、構成ファイルから Cognitive Services のエンドポイントとキーを読み込むためのコードが既に提供されていることに注意してください。次に、「Create client using endpoint and key」というコメントを見つけ、次のコードを追加して、Text Analysis API のクライアントを作成します。
+5. **Main** 関数で、構成ファイルから Cognitive Services のエンドポイントとキーを読み込むためのコードが既に提供されていることに注意してください。次に、「エンドポイントとキーを使用してクライアントを作成する」というコメントを見つけ、次のコードを追加して、Text Analysis API のクライアントを作成します。
 
     **C#**
 
@@ -143,7 +143,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     print('\nLanguage: {}'.format(detectedLanguage.primary_language.name))
     ```
 
-    > **注**: *この例では、各レビューが個別に分析され、ファイルごとにサービスが個別に呼び出されます。別のアプローチは、ドキュメントのコレクションを作成し、それらを 1 回の呼び出しでサービスに渡すことです。どちらのアプローチでも、サービスからの応答はドキュメントのコレクションで構成されます。そのため、上記の Python コードでは、応答 ([0]) の最初の (そして唯一の) ドキュメントのインデックスが指定されています。*
+    > **注**: *この例では、各レビューが個別に分析され、ファイルごとにサービスが個別に呼び出されます。別のアプローチは、ドキュメントのコレクションを作成し、それらを 1 回の呼び出しでサービスに渡すことです。どちらのアプローチでも、サービスからの応答はドキュメントのコレクションで構成されます。そのため、上記の Python コードでは、応答 (「0」) の最初の (そして唯一の) ドキュメントのインデックスが指定されています。*
 
 6. 変更を保存して、**text-analysis** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
@@ -178,7 +178,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
     **Python**
     
     ```Python
-    #  Get sentiment
+    # Get sentiment
     sentimentAnalysis = cog_client.analyze_sentiment(documents=[text])[0]
     print("\nSentiment: {}".format(sentimentAnalysis.sentiment))
     ```
@@ -343,6 +343,6 @@ Text Analytics API のクライアントを作成したので、それを使用�
 
 3. 出力を確認します。識別されたリンクされたエンティティに注意してください。
 
-## 詳細情報
+## 詳細
 
 **Text Analytics** サービスの使用の詳細については、[Text Analytics のドキュメント](https://docs.microsoft.com/azure/cognitive-services/text-analytics/)を参照してください。

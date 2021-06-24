@@ -15,7 +15,7 @@ Cognitive Services へのアクセスは通常、認証キーを介して制御�
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -109,16 +109,16 @@ Cognitive Services リソースのキーのリストが返されます。**key1*
 最初に、Key Vault を作成して Cognitive Services キーの*シークレット*を追加する必要があります。
 
 1. Cognitive Services リソースの **key1** 値をメモします (またはクリップボードにコピーします)。
-2. Azure portal の**ホーム** ページで、**「リソースの作成」** ボタンを選択し、*Key Vault* を検索して、次の設定で **Key Vault** リソースを作成します。
+2. Azure portal の**ホーム** ページで、**[リソースの作成]** ボタンを選択し、*Key Vault* を検索して、次の設定で **Key Vault** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *Cognitive Services リソースと同じリソース グループ*
     - **Key Vault 名**: *一意の名前を入力します*
     - **リージョン**: *Cognitive Services リソースと同じリージョン*
     - **価格レベル**: 標準
 3. デプロイが完了するのを待ってから、Key Vault リソースに移動します。
-4. 左側のナビゲーション ペインで、**「シークレット」** (「設定」セクション) を選択します。
+4. 左側のナビゲーション ペインで、**「シークレット」** (「設定」セクションの) を選択します。
 5. **「+生成/インポート」** を選択し、次の設定で新しいシークレットを追加します。
-    - **アップロード オプション**: 
+    - **アップロード オプション**: マニュアル
     - **名前**: Cognitive-Services-Key *(後でこの名前に基づいてシークレットを取得するコードを実行するため、これを正確に一致させることが重要です)*
     - **値**: ***key1** Cognitive Services キー*
 
@@ -195,7 +195,7 @@ Key Vault 内のシークレットにアクセスするには、アプリケー�
 4. **keyvault-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#**: Program.cs
-    - **Python**: keyvault-client&period;py
+    - **Python**: keyvault-client.py
 
     コード ファイルを開き、含まれているコードを確認して、次の詳細に注意してください。
     - インストールした SDK の名前空間がインポートされます
@@ -216,8 +216,8 @@ Key Vault 内のシークレットにアクセスするには、アプリケー�
     ```
 
 6. プロンプトが表示されたら、テキストを入力し、サービスによって検出された言語を確認します。たとえば、「Hello」、「Bonjour」、「Hola」と入力してみてください。
-7. アプリケーションのテストが終了したら、「quit」と入力してプログラムを停止します。
+7. アプリケーションのテストが終了したら、「quit」と入力してプログラムを終了します。
 
-## 詳細情報
+## 詳細
 
 Cognitive Services のセキュリティ保護の詳細については、[Cognitive Servicesのセキュリティ ドキュメント](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-security)を参照してください。

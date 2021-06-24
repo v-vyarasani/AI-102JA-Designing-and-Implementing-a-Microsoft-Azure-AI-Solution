@@ -15,7 +15,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -25,7 +25,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 > **注**: 以前に **Azure Cognitive Search ソリューションの作成 (22-azure-search.md)** の演習を完了し、サブスクリプションにこれらの Azure リソースが残っている場合は、このセクションをスキップして、**「検索ソリューションの作成」** セクションから開始できます。それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
 
-1. `https;//portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
+1. 新しい Wev ブラウザー、`https://portal.azure.com` で Azure portalを開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. サブスクリプションの**リソース グループ**を表示します。
 3. リソース グループが提供されている制限付きサブスクリプションを使用している場合は、リソース グループを選択してそのプロパティを表示します。それ以外の場合は、選択した名前で新しいリソース グループを作成し、作成されたらそのグループに移動します。
 4. リソース グループの **「概要」** ページで、**サブスクリプション ID** と**場所**をメモします。これらの値は、後続の手順でリソース グループの名前とともに必要になります。
@@ -74,11 +74,11 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 - Azure ストレージ コンテナー内のドキュメントを参照する**データ ソース**。
 - ドキュメントから AI で生成されたフィールドを抽出するスキルの強化パイプラインを定義する**スキルセット**。
 - 検索可能なドキュメントレコードのセットを定義する**インデックス**。
-- データソースからドキュメントを抽出し、スキルセットを適用して、インデックスにデータを入力するインデクサー。データソースからドキュメントを抽出し、スキルセットを適用して、インデックスにデータを入力するインデクサー。 
+- データ ソースからドキュメントを抽出し、スキル セットを適用して、インデックスにデータを入力する**インデクサー**。
 
 この演習では、Azure Cognitive Search REST インターフェイスを使用して、JSON リクエストを送信することでこれらのコンポーネントを作成します。
 
-1. Visual Studio Codeの **23-custom-search-skill** フォルダーで、**create-search** フォルダーを展開し、**data_source.json** を選択します。このファイルには、**margies-custom-data**.という名前のデータソースの JSON 定義が含まれています。
+1. Visual Studio Cod eの **23-custom-search-skill** フォルダーで、**create-search** フォルダーを展開し、**data_source.json** を選択します。このファイルには、**margies-custom-data**.という名前のデータソースの JSON 定義が含まれています。
 2. **YOUR_CONNECTION_STRING** プレースホルダーを Azure ストレージアカウントの接続文字列に置き換えます。これは次のようになります。
 
     ```
@@ -88,13 +88,13 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     *接続文字列は、Azureポータルのストレージアカウントの 「**アクセスキー**」 ページにあります。*
 
 3. 更新された JSON ファイルを保存して閉じます。
-4. **create-search** フォルダーで、**skillset.json** を開きます。このファイルには、**margies-custom-skillset** という名前のスキルセットの JSON定義が含まれています。
+4. **create-search** フォルダーで、**skillset.json** を開きます。このファイルには、**margies-custom-skillset** という名前のスキルセットの JSO N定義が含まれています。
 5. スキルセット定義の上部にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーをCognitive Services リソースのいずれかのキーに置き換えます。
 
     *キーは、Azure portal の Cognitive Services リソースの **「キーとエンドポイント」** ページにあります。*
 
 6. 更新された JSON ファイルを保存して閉じます。
-7. **create-search** フォルダーで、**index.json**.を開きます。このファイルには**margies-custom-index**という名前のインデックスの JSON 定義が含まれています。
+7. **create-search** フォルダーで、i**index.json**.を開きます。このファイルには**margies-custom-index**という名前のインデックスの JSON 定義が含まれています。
 8. インデックスの JSON を確認し、変更を加えずにファイルを閉じます。
 9. **create-search** フォルダーで、**indexer.json**.を開きます。このファイルには**margies-custom-indexer**という名前のインデックスの JSON 定義が含まれています。
 10. インデクサーの JSON を確認し、変更を加えずにファイルを閉じます。
@@ -141,12 +141,12 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
     ### **C#**
 
-    - **フォルダー**: **23-custom-search-skill/C-Sharp/wordcount** を参照します。
+    - **フォルダー**: **23-custom-search-skill/C-Sharp/wordcount** を参照います。
     - **言語**: C#
     - **テンプレート**: HTTP トリガー
     - **関数名**: wordcount
     - **名前空間**: margies.search
-    - **承認レベル**: Functions
+    - **承認レベル**: 機能
 
     ### **Python**
 
@@ -155,13 +155,13 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     - **仮想環境**: 仮想環境をスキップ
     - **テンプレート**: HTTP トリガー
     - **関数名**: wordcount
-    - **承認レベル**: Functions
+    - **承認レベル**: 機能
 
     ***launch.json** を 上書きするように求められた場合は、上書きしてください。*
 
 3. **エクスプローラ**ー (**&#128461;**) タブに戻り、**wordcount** フォルダーに Azure 関数のコード ファイルが含まれていることを確認します。
 
-    * Pythonを選択した場合、コードファイルは **wordcount** という名前のサブフォルダーにある可能性があります。
+    *Pythonを選択した場合、コードファイルは **wordcount** という名前のサブフォルダーにある可能性があります。*
 
 4. 関数のメイン コード ファイルは自動的に開かれているはずです。そうでない場合は、選択した言語に適したファイルを開きます。
     - **C#**: wordcount.cs
@@ -421,34 +421,34 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 ```
     
 6. 更新したファイルを保存します。
-7. コードファイルを含む **wordcount** フォルダーを右クリックし、**「関数アプリにデプロ**イ」 を選択します。次に、次の言語固有の設定で関数をデプロイします (プロンプトが表示されたら Azure にサインインします)
+7. コードファイルを含む **wordcount** フォルダーを右クリックし、**「関数アプリにデプロイ**」 を選択します。次に、次の言語固有の設定で関数をデプロイします (プロンプトが表示されたら Azure にサインインします)
 
     ### **C#**
 
     - **Subscription** (必要な場合): Azure サブスクリプションを選択します。
-    - **関数**: Create a new Function App in Azure (Advanced)
+    - **関数**: Azureで新しい関数アプリを作成する (詳細)
     - **関数アプリ名**: グローバルに一意な名前を入力します。
     - **Runtime**: .NET Core 3.1
     - **OS**: Linux
-    - **ホスティング プラン**: Consumption
+    - **ホスティング プラン**: 消費
     - **リソース グループ**: Azure Cognitive Search リソースを含むリソースグループ。
-        - 注記: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
+        - 注: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
     - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ数。
-    - **Application Insights**: Skip for now
+    - **Application Insights**: 今はしない
 
     *Visual Studio Code は、関数プロジェクトの作成時に保存された v**vscode** フォルダーの構成設定に基づいて、コンパイルされたバージョンの関数を (**bin** ーに) 展開します。*
 
     ### **Python**
 
     - **Subscription** (必要な場合): Azure サブスクリプションを選択します。
-    - **関数**: Create a new Function App in Azure (Advanced)
+    - **関数**: Azureで新しい関数アプリを作成する (詳細)
     - **関数アプリ名**: グローバルに一意な名前を入力します。
     - **Runtime**: Python 3.8
-    - **ホスティング プラン**: Consumption
+    - **ホスティング プラン**: 消費
     - **リソース グループ**: Azure Cognitive Search リソースを含むリソースグループ。
-        - 注記: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
+        - 注: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
     - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ数。
-    - **Application Insights**: Skip for now
+    - **Application Insights**: 今はしない
 
 8. Visual Studio Codeが関数をデプロイするのを待ちます。展開が完了すると、通知が表示されます。
 
@@ -493,10 +493,10 @@ Azure にデプロイしたので、Azureポー タルで関数をテストで�
         "recordId": "a1",
         "data": {
             "text": [
-            "tiger"、
-            "burning"、
-            "bright"、
-            "darkness"、
+            "tiger",
+            "burning",
+            "bright",
+            "darkness",
             "night"
             ]
         },
@@ -572,6 +572,6 @@ Azure にデプロイしたので、Azureポー タルで関数をテストで�
 
     このクエリは、*Las Vegas* に言及しているすべてのドキュメントの **url** フィールドと **top_words** フィールドを取得します。
 
-## 詳細情報
+## 詳細
 
 Azure Cognitive Search のカスタム スキルの作成の詳細については、[Azure Cognitive Searchのドキュメント](https://docs.microsoft.com/azure/search/cognitive-search-custom-skill-interface)を参照してください。

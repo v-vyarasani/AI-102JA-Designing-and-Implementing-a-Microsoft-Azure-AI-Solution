@@ -8,12 +8,14 @@ lab:
 
 音声サービスを Language Understanding サービスと統合して、音声入力からユーザーの意図をインテリジェントに判断できるアプリケーションを作成できます。
 
+> **注**: この演習は、マイクがあると適切に行うことができます。一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
+
 ## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -38,161 +40,228 @@ Azure サブスクリプションに Language Understanding オーサリング�
 
 ## Language Understanding アプリを準備する
 
-前の演習の**Clock**アプリを既にお持ちの場合は、`https://www.luis.ai` の Language Understanding ポータルで開きます。それ以外の場合は、次の手順に従って作成してください。
+前の演習の**時計**アプリを既にお持ちの場合は、`https://www.luis.ai` の Language Understanding ポータルで開きます。それ以外の場合は、次の手順に従って作成してください。
 
 1. 新しいブラウザタブで、`https://www.luis.ai` の Language Understanding ポータルを開きます。
 2. Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。Language Understanding ポータルに初めてサインインする場合は、アカウントの詳細にアクセスするためのアクセス許可をアプリに付与する必要がある場合があります。次に、Azure サブスクリプションと作成したオーサリングリ ソースを選択して、*ようこそ*手順を完了します。
-3. **「Conversation apps」** ページを開き、**「New app」** の横にあるドロップダウン リストを表示して、**「Import as LU」** を選択します。
-この演習のラボ ファイルを含むプロジェクト フォルダー内の **11-luis-speech** サブフォルダーを参照し、**Clock&period;lu** を選択します。次に、時計アプリの一意の名前を指定します。
+3. **「会話アプリ」** ページを開き、**「新しいアプリ」** の横にあるドロップダウン リストを表示して、**「LU としてインポート」** を選択します。
+この演習のラボ ファイルを含むプロジェクト フォルダー内の **11-luis-speech**サブフォルダーを参照し、**Clock.lu** を選択します。次に、時計アプリの一意の名前を指定します。
 4. 効果的な Language Understanding アプリを作成するためのヒントが記載されたパネルが表示されたら、それを閉じます。
 
 ## *音声プライミング*でアプリをトレーニングして公開する
 
-1. アプリがまだトレーニングされていない場合は、Language Understanding ポータルの上部にある **「Train」** を選択して、アプリをトレーニングします。
-2. Language Understanding ポータルの右上にある **「Publish」** を選択します。次に、**「実稼働スロット」** を選択し、設定を変更して**音声プライミング**を有効にします (これにより、音声認識のパフォーマンスが向上します)。
-3. 公開が完了したら、Language Understanding ポータルの上部にある **「MANAGE」** を選択します。
-4. **「Settings」** ページで、**アプリ ID** をメモします。クライアント アプリケーションがアプリを使用するには、これが必要です。
+1. アプリがまだトレーニングされていない場合は、Language Understanding ポータルの上部にある **「トレーニング」** を選択して、アプリをトレーニングします。
+2. Language Understanding ポータルの右上にある **「公開」** を選択します。次に、**「本番スロット」** を選択し、設定を変更して**音声プライミング**を有効にします (これにより、音声認識のパフォーマンスが向上します)。
+3. 公開が完了したら、Language Understanding ポータルの上部にある **「管理」** を選択します。
+4. **「設定」** ページで、**アプリ ID** をメモします。クライアント アプリケーションがアプリを使用するには、これが必要です。
 5. **「Azure リソース」** ページの **「予測リソース」** で、予測リソースがリストされていない場合は、Azure サブスクリプションに予測リソースを追加します。
 6. 予測リソースの**プライマリ キー**、**セカンダリ キー**、および**場所L** (エンドポイントでは<u>ありません</u>) に注意してください。Speech SDK クライアント アプリケーションは、予測リソースに接続して認証されるために、場所とキーの 1 つを必要とします。
 
-## Language Understanding を備えた Speech SDK を使用する準備をする
+## Language Understanding 用クライアント アプリケーションを構成する
 
-この演習では、クロック Language Understanding アプリを使用して音声ユーザー入力から意図を予測する、部分的に実装されたクライアント アプリケーションを完成させます。
+この演習では、音声入力を受け入れ、Language Understanding アプリを使用して、ユーザーに意図を予測するクライアント アプリケーションを作成します。
 
-> **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。以下の手順で、希望する言語に適したアクションを実行します。
+> **注**: この演習では、**C#** または **Python** 用の SDK のいずれかに使用することを選択できます。以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**11-luis-speech** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-2. **speaking-clock-client** フォルダーを右クリックして、統合ターミナルを開きます。次に、言語設定に適したコマンドを実行して、Language Understanding SDK パッケージをインストールします
-
-**C#**
-
-```
-dotnet add package Microsoft.CognitiveServices.Speech --version 1.14.0
-```
-
-**Python**
-
-```
-pip install azure-cognitiveservices-speech==1.14.0
-```
-
-3. **speaking-clock-client** フォルダーの内容を表示し、構成設定用のファイルが含まれていることに注意してください。
+2. **speaking-clock-client** フォルダーの内容を表示し、構成設定用のファイルが含まれていることに注意してください。
     - **C#**: appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、Language Understanding アプリの**アプリ ID** を含めます。**場所** (完全なエンドポイントでは<u>ありません</u> - たとえば、*eastus*) とその予測リソースの**キー**の 1 つ (Language Understanding ポータルのアプリの **「MANAGE」** ページから)。
+    構成ファイルを開き、含まれている構成値を更新して、Language Understanding アプリの**アプリ ID** を含めます。**場所** (完全なエンドポイントでは<u>ありません</u> - たとえば、*eastus*) とその予測リソースの**キー**の 1 つ (Language Understanding ポータルのアプリの **「管理」** ページから)。
 
-4. **speaking-clock-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
+## SDK パッケージのインストール
+
+Speech SDK を Language Understanding と共に使用するには、使用するプログラム言語用の Speech SDK を印刷インストールする必要があります。
+
+1. Visual Studio で、**speaking-clock-client** フォルダーを右クリックして、統合ターミナルを開きます。次に、言語設定に適したコマンドを実行して、Language Understanding SDK パッケージをインストールします
+
+    **C#**
+
+    ```
+    dotnet add package Microsoft.CognitiveServices.Speech --version 1.14.0
+    ```
+
+    **Python**
+
+    ```
+    pip install azure-cognitiveservices-speech==1.14.0
+    ```
+
+2. また、システムに動作するマイクが<u>ない</u>場合は、アプリケーションに音声入力を提供するために、音声ファイルを使用する必要があります。この場合は、次のコマンドを使用して、プログラムが音声ファイルを再生できるように、次のパッケージをインストールします (マイクを使用する場合は、これをスキップできます)。
+
+    **C#**
+
+    ```
+    dotnet add package System.Windows.Extensions --version 4.6.0 
+    ```
+
+    **Python**
+
+    ```
+    pip install playsound==1.2.2
+    ```
+
+3. **speaking-clock-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#**: Program.cs
-    - **Python**: speaking-clock-client&period;py
+    - **Python**: speaking-clock-client.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
+4. コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
-**C#**
+    **C#**
 
-```C#
-// Import namespaces
-using Microsoft.CognitiveServices.Speech;
-using Microsoft.CognitiveServices.Speech.Intent;
-```
+    ```C#
+    // Import namespaces
+    using Microsoft.CognitiveServices.Speech;
+    using Microsoft.CognitiveServices.Speech.Audio;
+    using Microsoft.CognitiveServices.Speech.Intent;
+    ```
 
-**Python**
+    **Python**
 
-```Python
-# Import namespaces
-import azure.cognitiveservices.speech as speech_sdk
-```
-    
+    ```Python
+    # Import namespaces
+    import azure.cognitiveservices.speech as speech_sdk
+    ```
+
+5. また、システムに動作するマイクが<u>ない</u>場合、既存の名前空間の下に、次のコードをインポートして追加して、音声ファイルを再生するために使用するライブラリをインポートします。
+
+    **C#**
+
+    ```C#
+    using System.Media;
+    ```
+
+    **Python**
+
+    ```Python
+    from playsound import playsound
+    ```
+
+## *IntentRecognizer* を作成する
+
+**IntentRecognizer** クラスは、音声入力からLanguage Understanding 予測を取得するために使用できるクライアント オブジェクトを提供します。
+
+1. **Main** 関数では、構成ファイルからアプリ ID、予測リージョン、およびキーを読み込むためのコードが既に提供されていることに注意してください。次にコメント「**Configure speech service and get intent recognizer**」を見つけ、音声入力にマイクまたは音声ファイルを使用するかに応じて、次のコードを追加します。
+
+    ### **機能するマイクがある場合:**
+
+    **C#**
+
+    ```C#
+    // Configure speech service and get intent recognizer
+    SpeechConfig speechConfig = SpeechConfig.FromSubscription(predictionKey, predictionRegion);
+    AudioConfig audioConfig = AudioConfig.FromDefaultMicrophoneInput();
+    IntentRecognizer recognizer = new IntentRecognizer(speechConfig, audioConfig);
+    ```
+
+    **Python**
+
+    ```Python
+    # Configure speech service and get intent recognizer
+    speech_config = speech_sdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
+    audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
+    recognizer = speech_sdk.intent.IntentRecognizer(speech_config, audio_config)
+    ```
+
+    ### **音声ファイルを使用する場合:**
+
+    **C#**
+
+    ```C#
+    // Configure speech service and get intent recognizer
+    string audioFile = "time-in-london.wav";
+    SoundPlayer wavPlayer = new SoundPlayer(audioFile);
+    wavPlayer.Play();
+    System.Threading.Thread.Sleep(2000);
+    SpeechConfig speechConfig = SpeechConfig.FromSubscription(predictionKey, predictionRegion);
+    AudioConfig audioConfig = AudioConfig.FromWavFileInput(audioFile);
+    IntentRecognizer recognizer = new IntentRecognizer(speechConfig, audioConfig);
+    ```
+
+    **Python**
+
+    ```Python
+    # Configure speech service and get intent recognizer
+    audioFile = 'time-in-london.wav'
+    playsound(audioFile)
+    speech_config = speech_sdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
+    audio_config = speech_sdk.AudioConfig(filename=audioFile)
+    recognizer = speech_sdk.intent.IntentRecognizer(speech_config, audio_config)
+    ```
+
 ## 音声入力から予測意図を取得する
 
 音声入力から予測意図を取得するコードを実装する準備が整いました。
 
-1. **Main** 関数では、構成ファイルからアプリ ID、予測リージョン、およびキーを読み込むためのコードが既に提供されていることに注意してください。そして、コメント **「Configure speech service and get intent recognizer」** を見つけ、次のコードを追加して、Language Understanding 予測リソースの詳細を使用して、**Speech SDKSpeechConfig** と **IntentRecognizer** を作成します。
+1. 追加したコードのすぐ下に、コメント **「Get the model from the AppID and add the intents we want to use」** を見つけ、使用する意図を追加し、次のコードを追加して、(アプリ ID に基づいて) Language Understanding モデルを取得し、認識機能に識別させたい意図を指定します。
 
-**C#**
+    **C#**
 
-```C#
-// Configure speech service and get intent recognizer
-SpeechConfig speechConfig = SpeechConfig.FromSubscription(predictionKey, predictionRegion);
-IntentRecognizer recognizer = new IntentRecognizer(speechConfig);
-```
+    ```C#
+    // Get the model from the AppID and add the intents we want to use
+    var model = LanguageUnderstandingModel.FromAppId(luAppId);
+    recognizer.AddIntent(model, "GetTime", "time");
+    recognizer.AddIntent(model, "GetDate", "date");
+    recognizer.AddIntent(model, "GetDay", "day");
+    recognizer.AddIntent(model, "None", "none");
+    ```
 
-**Python**
+    *各インテントに文字列ベースのIDを指定できることに注意してくださいを*
 
-```Python
-# Configure speech service and get intent recognizer
-speech_config = speech_sdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
-recognizer = speech_sdk.intent.IntentRecognizer(speech_config)
-```
-    
-2. 追加したコードのすぐ下に、コメント **「Get the model from the AppID and add the intents we want to use」** を見つけ、使用する意図を追加し、次のコードを追加して、(アプリ ID に基づいて) Language Understanding モデルを取得し、認識機能に識別させたい意図を指定します。
+    **Python**
 
-**C#**
+    ```Python
+    # Get the model from the AppID and add the intents we want to use
+    model = speech_sdk.intent.LanguageUnderstandingModel(app_id=lu_app_id)
+    intents = [
+        (model, "GetTime"),
+        (model, "GetDate"),
+        (model, "GetDay"),
+        (model, "None")
+    ]
+    recognizer.add_intents(intents)
+    ```
 
-```C#
-// Get the model from the AppID and add the intents we want to use
-var model = LanguageUnderstandingModel.FromAppId(luAppId);
-recognizer.AddIntent(model, "GetTime", "time");
-recognizer.AddIntent(model, "GetDate", "date");
-recognizer.AddIntent(model, "GetDay", "day");
-recognizer.AddIntent(model, "None", "none");
-```
+2. このループ内で、コメント **「Process speech input」** を見つけ、次のコードを追加します。このコードは、レコグナイザーを使用して、音声入力を使用して Language Understanding サービスを非同期的に呼び出し、応答を取得します。応答に予測された意図が含まれている場合、音声クエリ、予測された意図、および完全な JSON 応答が表示されます。それ以外の場合、コードは返された理由に基づいて応答を処理します。
 
-*各インテントに文字列ベースのIDを指定できることに注意してくださいを*
-
-**Python**
-
-```Python
-# Get the model from the AppID and add the intents we want to use
-model = speech_sdk.intent.LanguageUnderstandingModel(app_id=lu_app_id)
-intents = [
-    (model, "GetTime"),
-    (model, "GetDate"),
-    (model, "GetDay"),
-    (model, "None")
-]
-recognizer.add_intents(intents)
-```
-
-3. **Main** のコードは、ユーザーが「stop」と言うまで継続的にループすることに注意してください。このループ内で、コメント **「Process speech input」** を見つけ、次のコードを追加します。このコードは、レコグナイザーを使用して、音声入力を使用して Language Understanding サービスを非同期的に呼び出し、応答を取得します。応答に予測された意図が含まれている場合、音声クエリ、予測された意図、および完全な JSON 応答が表示されます。それ以外の場合、コードは返された理由に基づいて応答を処理します。
-    
 **C#**
 
 ```C
 // Process speech input
+string intent = "";
 var result = await recognizer.RecognizeOnceAsync().ConfigureAwait(false);
 if (result.Reason == ResultReason.RecognizedIntent)
 {
-    // 意図が認識されました
+    // Intent was identified
     intent = result.IntentId;
     Console.WriteLine($"Query: {result.Text}");
     Console.WriteLine($"Intent Id: {intent}.");
     string jsonResponse = result.Properties.GetProperty(PropertyId.LanguageUnderstandingServiceResponse_JsonResult);
     Console.WriteLine($"JSON Response:\n{jsonResponse}\n");
     
-    // 最初のエントリを取得する (該当する場合)
+    // Get the first entity (if any)
 
-    // 適切なアクションを適用する
+    // Apply the appropriate action
     
 }
 else if (result.Reason == ResultReason.RecognizedSpeech)
 {
-    // 音声は認識されましたが特定された意図はありませんでした。
+    // Speech was recognized, but no intent was identified.
     intent = result.Text;
     Console.Write($"I don't know what {intent} means.");
 }
 else if (result.Reason == ResultReason.NoMatch)
 {
-    // 音声が認識されませんでした。
+    // Speech wasn't recognized
     Console.WriteLine($"Sorry. I didn't understand that.");
 }
 else if (result.Reason == ResultReason.Canceled)
 {
-    // 問題が発生した場合
+    // Something went wrong
     var cancellation = CancellationDetails.FromResult(result);
     Console.WriteLine($"CANCELED: Reason={cancellation.Reason}");
-
     if (cancellation.Reason == CancellationReason.Error)
     {
         Console.WriteLine($"CANCELED: ErrorCode={cancellation.ErrorCode}");
@@ -205,6 +274,7 @@ else if (result.Reason == ResultReason.Canceled)
 
 ```Python
 # Process speech input
+intent = ''
 result = recognizer.recognize_once_async().get()
 if result.reason == speech_sdk.ResultReason.RecognizedIntent:
     intent = result.intent_id
@@ -213,32 +283,32 @@ if result.reason == speech_sdk.ResultReason.RecognizedIntent:
     json_response = json.loads(result.intent_json)
     print("JSON Response:\n{}\n".format(json.dumps(json_response, indent=2)))
     
-    # 最初のエントリを取得する (該当する場合)
+    # Get the first entity (if any)
     
-    # 適切なアクションを適用する
+    # Apply the appropriate action
     
 elif result.reason == speech_sdk.ResultReason.RecognizedSpeech:
-    # 音声は認識されましたが特定された意図はありませんでした。
+    # Speech was recognized, but no intent was identified.
     intent = result.text
     print("I don't know what {} means.".format(intent))
 elif result.reason == speech_sdk.ResultReason.NoMatch:
-    # 音声が認識されませんでした。
+    # Speech wasn't recognized
     print("Sorry. I didn't understand that.")
 elif result.reason == speech_sdk.ResultReason.Canceled:
-    # 問題が発生した場合
+    # Something went wrong
     print("Intent recognition canceled: {}".format(result.cancellation_details.reason))
     if result.cancellation_details.reason == speech_sdk.CancellationReason.Error:
         print("Error details: {}".format(result.cancellation_details.error_details))
 ```
-    
+
 これまでに追加したコードは*意図*を識別しますが、一部の意図は*エンティティ*を参照できるため、サービスから返される JSON からエンティティ情報を抽出するコードを追加する必要があります。
 
-4. 追加したコードで、コメント **「最初のエントリを取得する (該当する場合)」** を見つけ、その下に次のコードを追加します。
+3. 追加したコードで、コメント **「Get the first entity (if any)」** を見つけ、その下に次のコードを追加します。
 
 **C#**
 
 ```C
-// 最初のエントリを取得する (該当する場合)
+// Get the first entity (if any)
 JObject jsonResults = JObject.Parse(jsonResponse);
 string entityType = "";
 string entityValue = "";
@@ -247,14 +317,14 @@ if (jsonResults["entities"].HasValues)
     JArray entities = new JArray(jsonResults["entities"][0]);
     entityType = entities[0]["type"].ToString();
     entityValue = entities[0]["entity"].ToString();
-    Console.WriteLine（entityType + "： " + entityValue);
+    Console.WriteLine(entityType + ": " + entityValue);
 }
 ```
 
 **Python**
 
 ```Python
-# 最初のエントリを取得する (該当する場合)
+# Get the first entity (if any)
 entity_type = ''
 entity_value = ''
 if len(json_response["entities"]) > 0:
@@ -262,44 +332,44 @@ if len(json_response["entities"]) > 0:
     entity_value = json_response["entities"][0]["entity"]
     print(entity_type + ': ' + entity_value)
 ```
-        
+    
 コードは、言語理解アプリを使用して、入力発話で検出されたエンティティだけでなく、インテントも予測するようになりました。クライアント アプリケーションは、その予測を使用して適切なアクションを決定および実行する必要があります。
 
-5. 追加したコードの下に、 **「適切なアクションを適用する」** というコメントを見つけ、次のコードを追加します。このコードは、アプリケーションでサポートされている意図 (**GetTime**、**GetDate**、および **GetDay**) をチェックし、適切な応答を生成するために既存の関数を呼び出す前に、関連するエンティティが検出されたかどうかを判断します。
+4. 追加したコードの下に、**「Apply the appropriate action」** というコメントを見つけ、次のコードを追加します。このコードは、アプリケーションでサポートされている意図 (**GetTime**、**GetDate**、および **GetDay**) をチェックし、適切な応答を生成するために既存の関数を呼び出す前に、関連するエンティティが検出されたかどうかを判断します。
 
 **C#**
 
 ```C#
-// 適切なアクションを適用する
+// Apply the appropriate action
 switch (intent)
 {
     case "time":
         var location = "local";
-        // エンティティを確認する
+        // Check for entities
         if (entityType == "Location")
         {
             location = entityValue;
         }
-        // 指定した型のファセットを取得する
+        // Get the time for the specified location
         var getTimeTask = Task.Run(() => GetTime(location));
         string timeResponse = await getTimeTask;
         Console.WriteLine(timeResponse);
         break;
     case "day":
         var date = DateTime.Today.ToShortDateString();
-        // エンティティを確認する
+        // Check for entities
         if (entityType == "Date")
         {
             date = entityValue;
         }
-        // 指定した日付の「日」を取得する
+        // Get the day for the specified date
         var getDayTask = Task.Run(() => GetDay(date));
         string dayResponse = await getDayTask;
         Console.WriteLine(dayResponse);
         break;
     case "date":
         var day = DateTime.Today.DayOfWeek.ToString();
-        // エンティティを確認する
+        // Check for entities
         if (entityType == "Weekday")
         {
             day = entityValue;
@@ -310,7 +380,7 @@ switch (intent)
         Console.WriteLine(dateResponse);
         break;
     default:
-        // 他のインテント (例: "None") が予測されました
+        // Some other intent (for example, "None") was predicted
         Console.WriteLine("You said " + result.Text.ToLower());
         if (result.Text.ToLower().Replace(".", "") == "stop")
         {
@@ -327,34 +397,34 @@ switch (intent)
 **Python**
 
 ```Python
-# 適切なアクションを適用する
+# Apply the appropriate action
 if intent == 'GetTime':
     location = 'local'
-    # エンティティを確認する
+    # Check for entities
     if entity_type == 'Location':
         location = entity_value
-    # 指定した型のファセットを取得する
+    # Get the time for the specified location
     print(GetTime(location))
 
 elif intent == 'GetDay':
     date_string = date.today().strftime("%m/%d/%Y")
-    # エンティティを確認する
+    # Check for entities
     if entity_type == 'Date':
         date_string = entity_value
-    # 指定した日付の「日」を取得する
+    # Get the day for the specified date
     print(GetDay(date_string))
 
 elif intent == 'GetDate':
     day = 'today'
-    # エンティティを確認する
+    # Check for entities
     if entity_type == 'Weekday':
-        # エンティティ リストを列挙する
+        # List entities are lists
         day = entity_value
-    # 指定した日の日付を取得する
+    # Get the date for the specified day
     print(GetDate(day))
 
 else:
-    # 他のインテント (例: "None") が予測されました
+    # Some other intent (for example, "None") was predicted
     print('You said {}'.format(result.text))
     if result.text.lower().replace('.', '') == 'stop':
         intent = result.text
@@ -362,21 +432,23 @@ else:
         print('Try asking me for the time, the day, or the date.')
 ```
 
-6. 変更を保存し、**speaking-clock-client** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
+## クライアント アプリケーションを実行する
 
-**C#**
+1. 変更を保存し、**speaking-clock-client** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
-```
-dotnet run
-```
+    **C#**
 
-**Python**
+    ```
+    dotnet run
+    ```
 
-```
-python speaking-clock-client.py
-```
+    **Python**
 
-7. プロンプトが表示されたら、アプリケーションをテストするために声を出して発言を話します。たとえば、次のことを試してください。
+    ```
+    python speaking-clock-client.py
+    ```
+
+2. マイクを使用している場合、アプリケーションをテストするために声を出して発言を話します。たとえば、次のことを試してください (毎回、プログラムを再実行します)。
 
     *What's the time?*
     
@@ -390,10 +462,8 @@ python speaking-clock-client.py
 
     *What date is Sunday?*
 
-    > **注**: アプリケーションのロジックは意図的に単純であり、いくつかの制限がありますが、Speech SDK を使用して音声入力から意図を予測する言語理解モデルの機能をテストする目的に役立つはずです。*MM/DD/YYYY* 形式で日付を言語化するのが難しいため、特定の日付エンティティで **GetDay** 意図を認識できない場合があります。
+> **注**: アプリケーションのロジックは意図的に単純であり、いくつかの制限がありますが、Speech SDK を使用して音声入力から意図を予測する言語理解モデルの機能をテストする目的に役立つはずです。*MM/DD/YYYY* 形式で日付を言語化するのが難しいため、特定の日付エンティティで **GetDay** 意図を認識できない場合があります。
 
-8. テストが終了したら、「stop」と言います。
-
-## 詳細情報
+## 詳細
 
 音声と Language Understanding の統合の詳細については、[音声のドキュメント](https://docs.microsoft.com/azure/cognitive-services/speech-service/quickstarts/intent-recognition)を参照してください。

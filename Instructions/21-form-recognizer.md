@@ -15,7 +15,7 @@ lab:
 まだ行っていない場合は、このコースのコード リポジトリを複製する必要があります。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -137,7 +137,7 @@ pip install azure-ai-formrecognizer==3.0.0
 5. **train-model** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください
 
     - **C#**: Program.cs
-    - **Python**: train-model&period;py
+    - **Python**: train-model.py
 
     コード ファイルを開き、含まれているコードを確認して、次の詳細に注意してください。
     - インストールしたパッケージの名前空間インポートされます
@@ -190,7 +190,7 @@ pip install azure-ai-formrecognizer==3.0.0
     - Form Recognizer キー。
     - モデルのトレーニング時に生成されたモデル ID (これは、ターミナルを **train-model** フォルダーの **cmd** コンソールに戻すことで確認できます)。
 
-5. **test-model** フォルダーで、クライアント アプリケーションのコード ファイル (C# の場合は *Program.cs*、Python の場合は *test-model&period;py*) を開き、含まれているコードを確認して、次の詳細に注意してください。
+5. **test-model** フォルダーで、クライアント アプリケーションのコード ファイル (C# の場合は *Program.cs*、Python の場合は *test-model.py*) を開き、含まれているコードを確認して、次の詳細に注意してください。
     - インストールしたパッケージの名前空間インポートされます
     - **Main** 関数は、構成設定を取得し、キーとエンドポイントを使用して認証済み**クライアント**を作成します。
     - 次に、クライアントを使用して、**test1.jpg** 画像からフォーム フィールドと値を抽出します。
@@ -219,14 +219,14 @@ python test-model.py
 2. **Form_1.jpg.labels.json** を開き、そこに含まれる JSON を確認します。このファイルは、**Form_1.jpg** トレーニング ドキュメントの名前付きフィールドの場所と値を識別します。
 3. **Form_1.jpg.ocr.json** を開き、そこに含まれる JSON を確認します。このファイルには、**Form_1.jpg** のテキストレイアウトの JSOn 表現が含まれています。これには、フォームで見つかったすべてのテキスト領域の場所が含まれます。
 
-    *この演習では、フィールド情報ファイルが提供されています。独自のプロジェクトの場合は、これらのファイルを手動で作成するか、[サンプルのラベル付けツール](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool)を使用できます。*
+    *この演習では、フィールド情報ファイルが提供されています。独自のプロジェクトの場合は、これらのファイルを作成するか、[サンプルのラベル付けツール](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool)を使用できます。ツールを使用すると、フィールド情報ファイルが自動的に作成され、接続しているストレージ アカウントに保存されます。*
 
 4. **train-model** フォルダーで、トレーニング アプリケーションのコード ファイルを開きます。
 
     - **C#**: Program.cs
-    - **Python**: train-model&period;py
+    - **Python**: train-model.py
 
-5. **Main** 関数で、コメント「**モデルをトレーニングする**」を見つけ、図のように変更して、ラベルが使用されるようにトレーニング プロセスを変更します。
+5. **Main** 関数で、コメント「**Train model**」を見つけ、図のように変更して、ラベルが使用されるようにトレーニング プロセスを変更します。
 
 **C#**
 
@@ -281,8 +281,8 @@ python test-model.py
     
 3. ビュー出力とどのように観察しますラベル**あり**でトレーニングされたモデルの出力は、フィールド1、フィールド2などの出力を生成したラベル**なし**でトレーニングされたモデルからの出力とは異なり、「CompanyPhoneNumber」や「DatedAs」などのフィールド名を提供します。  
 
-モデルをトレーニングするためのプログラムコードラベル付きの場合は、ラベルなしのトレーニングのコードと大きく異なることはありません。どちらかを選択すると、プロジェクトのタイムラインが大きく変わる可能性があります。たとえば、ラベル付きフォームを使用する場合は、ドキュメントにラベルを付ける必要があります (この演習では取り上げませんでしたが、[サンプルのラベル付けツールを使用してここで調べることができます](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool?tabs=v2-0))。モデルの選択は、モデルが返すフィールドと、返された値に対する信頼度に基づいて、ダウンストリームプロセスにも影響します。  
+モデルをトレーニングするためのプログラムコードラベル_付き_の場合は、ラベル_なし_のトレーニングのコードと大きく異なることはありません。どちらかを選択すると、プロジェクト計画のニーズが変わり_ます_。ラベル付きでトレーニングする場合は、[ラベル付きファイルを作成する](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool?tabs=v2-0)必要があります。また、トレーニング プロセスの選択により、異なるモデルが再生される場合があります。これは、モデルが返すフィールドと、返された値に対する信頼度に基づいて、ダウンストリームプロセスにも影響します。 
 
-## 詳細情報
+## 詳細
 
 Form Recognizer サービスの詳細については、[Form Recognizer のドキュメント](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/)を参照してください。

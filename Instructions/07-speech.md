@@ -13,18 +13,18 @@ lab:
 
 この演習では、これらの API の両方を使用して、スピーキング クロック アプリケーションを実装します。
 
-> **注**: この演習では、マイクとスピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。
+**注**: この演習では、スピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。最良のエクスペリエンスのため、マイクも必要です。一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
 
 ## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コードのリポジトリをこのラボで作業している環境にまだ複製していない場合は、次の手順に従って複製してください。それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
-    > **注**: ビルドとデバッグに必要なアセットを追加するように求められた場合は、**「今はしない」** を選択します。
+    **注**: ビルドとデバッグに必要なアセットを追加するように求められた場合は、**「今はしない」** を選択します。
 
 ## Cognitive Services リソースをプロビジョニングする
 
@@ -45,7 +45,7 @@ lab:
 
 この演習では、Speech SDK を使用して音声を認識および合成する、部分的に実装されたクライアント アプリケーションを完成させます。
 
-> **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。以下の手順で、希望する言語に適したアクションを実行します。
+**注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**07-speech** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
 2. **speaking-clock** フォルダーを右クリックして、統合ターミナルを開きます。次に、言語設定に適したコマンドを実行して、Speech SDK パッケージをインストールします。
@@ -72,7 +72,7 @@ lab:
     - **C#**: Program.cs
     - **Python**: speaking-clock.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「Import namespaces」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
@@ -127,8 +127,62 @@ lab:
 
 Cognitive Services リソースに音声サービス用の **SpeechConfig** ができたので、**Speech-to-text** API を使用して音声を認識し、テキストに転写することができます。
 
+### マイクが機能する場合
+
 1. プログラムの **Main** 関数で、コードが **TranscribeCommand** 関数を使用して音声入力を受け入れることに注意してください。
 2. **TranscribeCommand** 関数のコメント **「Configure speech recognition」** の下に、次のコードを追加して、入力用のデフォルトのシステムマイクを使用して音声を認識および転写するために使用できる **SpeechRecognizer** クライアントを作成します。
+
+    **C#**
+    
+    ```C#
+    // Configure speech recognition
+    using AudioConfig audioConfig = AudioConfig.FromDefaultMicrophoneInput();
+    using SpeechRecognizer speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
+    Console.WriteLine("Speak now...");
+    ```
+    
+    **Python**
+    
+    ```Python
+    # Configure speech recognition
+    audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
+    speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
+    print('Speak now...')
+    ```
+
+3. 以下の「**コードを追加してト書き起こしたマンドを処理する**」のセクションにスキップします。
+
+### または、ファイルからの温泉入力を使用します
+
+1. ターミナル ウィンドウで、次のコマンドを入力して、音声ファイルの再生に使用できるライブラリをインストールします。
+
+    **C#**
+
+    ```
+    dotnet add package System.Windows.Extensions --version 4.6.0 
+    ```
+
+    **Python**
+
+    ```
+    pip install playsound==1.2.2
+    ```
+
+2. プログラムのコード ファイルで、既存の名前空間のインポートの下に、次のコードを追加して、インストールしたライブラリをインポートします。
+
+    **C#**
+
+    ```C#
+    using System.Media;
+    ```
+
+    **Python**
+
+    ```Python
+    from playsound import playsound
+    ```
+
+3. **Main** 関数で、コードが **TranscribeCommand** 関数を使用して音声入力を受け入れることに注意してください。**TranscribeCommand** 関数のコメント **「Configure speech recognition」** の下に、適切なコードを追加して、音声ファイルからの音声を認識して、書き起こすために使用できる **SpeechRecognizer** クライアントを作成します。
 
     **C#**
 
@@ -150,10 +204,10 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
     audio_config = speech_sdk.AudioConfig(filename=audioFile)
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
     ```
-    
-    > **注**: ***AudioConfig** オブジェクトを変更してファイルパスを参照することにより、音声ファイルからの音声入力を認識することもできます。*
 
-3. **TranscribeCommand** 関数のコメント **「Process speech input」** の下に、音声入力をリッスンする次のコードを追加します。コマンドを返す関数の最後にあるコードを置き換えないように注意してください
+### コードを追加して書き起こしたコマンドを処理する
+
+1. **TranscribeCommand** 関数のコメント **「Process speech input」** の下に、音声入力をリッスンする次のコードを追加します。コマンドを返す関数の最後にあるコードを置き換えないように注意してください
 
     **C#**
     
@@ -193,7 +247,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
             print(cancellation.error_details)
     ```
 
-4. 変更を保存して、**speaking-clock** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
+2. 変更を保存して、**speaking-clock** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
     **C#**
     
@@ -207,11 +261,11 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
     python speaking-clock.py
     ```
 
-5. プロンプトが表示されたら、マイクに向かってはっきりと話し、「what time is it?」と言います。プログラムは、音声入力を書き起こし、時刻を表示する必要があります (コードが実行されているコンピューターの現地時間に基づいており、現在の時刻とは異なる場合があります)。再度プロンプトが表示されたら、「stop」と言ってプログラムを終了します。
+3. マイクを使用している場合、明瞭に話、"what time is it?" と言ってください。プログラムは、音声入力を書き起こし、時刻を表示する必要があります (コードが実行されているコンピューターの現地時間に基づいており、現在の時刻とは異なる場合があります)。
 
-    > **注** *SpeechRecognizer を使用すると、約 5 秒で話すことができます。音声入力が検出されない場合は、「一致なし」の結果が生成されます。アプリケーションのコードはデフォルトのコマンド「stop」を使用しているため、プログラムは終了します。*
-    > 
-    > *SpeechRecognizer でエラーが発生した場合、「Cancelled」の結果が生成されます。アプリケーションのコードは、エラーメッセージを表示します。最も可能性の高い原因は、構成ファイルのキーまたはリージョンが正しくないことです。*
+    SpeechRecognizer を使用すると、約 5 秒で話すことができます。音声入力が検出されない場合は、「一致なし」の結果が生成されます。
+
+    SpeechRecognizer でエラーが発生した場合、「Cancelled」の結果が生成されます。アプリケーションのコードは、エラーメッセージを表示します。最も可能性の高い原因は、構成ファイルのキーまたはリージョンが正しくないことです。
 
 ## 音声を合成する
 
@@ -272,13 +326,13 @@ speaking clock アプリケーションは話し言葉の入力を受け入れ�
     python speaking-clock.py
     ```
 
-5. プロンプトが表示されたら、マイクに向かってはっきりと話し、「what time is it?」と言います。プログラムが時間を教えくれるはずです。再度プロンプトが表示されたら、「stop」と言ってプログラムを終了します。
+5. プロンプトが表示されたら、マイクに向かってはっきりと話し、「what time is it?」と言います。プログラムが時間を教えくれるはずです。
 
 ## 別の音声を使用する
 
 speaking clock アプリケーションは、変更可能なデフォルトの音声を使用します。Speech サービスは、さまざまな*標準*音声だけでなく、より人間らしい*ニューラル*音声もサポートします。*カスタム* ボイスを作成することもできます。
 
-> **注**: ニューラル音声と標準音声のリストについては、Speech サービスのドキュメントの[言語と音声のサポート](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#text-    to-speech)を参照してください。  標準音声、ニューラル音声、およびカスタム音声の可用性は地域によって異なります。詳細については、[音声サービスでサポートされている地域] (https://docs.microsoft.com/azure/cognitive-services/speech-service/regions#standard-and-neural-voices) を参照してください。
+> **注**: ニューラル音声と標準音声のリストについては、Speech サービスのドキュメントの[言語と音声のサポート](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#text-to-speech)を参照してください。
 
 1. **TellTime** 関数のコメント **「Configure speech synthesis」** で、**SpeechSynthesizer** クライアントを作成する前に、次のようにコードを変更して代替音声を指定します。
 
@@ -312,7 +366,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     python speaking-clock.py
     ```
 
-3. プロンプトが表示されたら、マイクに向かってはっきりと話し、「what time is it?」と言います。プログラムは指定された声で話し、時間を伝えます。再度プロンプトが表示されたら、「stop」と言ってプログラムを終了します。
+3. プロンプトが表示されたら、マイクに向かってはっきりと話し、「what time is it?」と言います。プログラムは指定された声で話し、時間を伝えます。
 
 ## 音声合成マークアップ言語の使用
 
@@ -370,9 +424,8 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     python speaking-clock.py
     ```
 
-3. プロンプトが表示されたら、マイクに向かってはっきりと話し、「what time is it?」と言います。プログラムは、SSML で指定された音声 (SpeechConfig で指定された音声を上書き) で話し、時間を通知し、一時停止した後、「停止」して終了するように通知する必要があります。
-4. 再度プロンプトが表示されたら、「stop」と言ってプログラムを終了します。
+3. プロンプトが表示されたら、マイクに向かってはっきりと話し、「what time is it?」と言います。プログラムは、SSML で指定された音声 (SpeechConfig で指定された音声を上書き) で話し、時間を通知し、一時停止した後、このラボを終了する時間であることを通知する必要があります。
 
-## 詳細情報
+## 詳細
 
 **Speech-to-text** および **Text-to-speech** の使用の詳細については、[Speech-to-text ドキュメント](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-speech-to-text)および [Text-to-speech ドキュメント](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-text-to-speech)を参照してください。

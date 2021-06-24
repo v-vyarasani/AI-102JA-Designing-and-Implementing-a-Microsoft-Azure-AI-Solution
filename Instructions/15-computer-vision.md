@@ -6,14 +6,14 @@ lab:
 
 # Computer Vision を使用する画像の分析
 
-Computer Vision は、ソフトウェアシステムが画像を分析することで視覚入力を解釈できるようにする人工知能機能です。Microsoft Azure では、**Computer Vision** Cognitive Services は、キャプションとタグを提案する画像の分析、一般的なオブジェクト、ランドマーク、有名人、ブランドの検出、アダルトコンテンツの存在など、一般的な Computer Vision 用の構築済みモデルを提供します。Computer Visionサービスを使用して、画像の色と形式を分析し、「スマートにトリミングされた」サムネイル画像を生成することもできます。
+Computer Vision は、ソフトウェアシステムが画像を分析することで視覚入力を解釈できるようにする人工知能機能です。Microsoft Azure では、**Computer Vision** Cognitive Services は、キャプションとタグを提案する画像の分析、一般的なオブジェクト、ランドマーク、有名人、ブランドの検出、アダルトコンテンツの存在など、一般的な Computer Vision 用の構築済みモデルを提供します。Computer Vision サービスを使用して、画像の色と形式を分析し、「スマートにトリミングされた」サムネイル画像を生成することもできます。
 
 ## このコースのリポジトリを複製する
 
 **AI-102-AIEngineer** コードのリポジトリをこのラボで作業している環境にまだ複製していない場合は、次の手順に従って複製してください。それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -24,7 +24,7 @@ Computer Vision は、ソフトウェアシステムが画像を分析するこ�
 サブスクリプションにまだない場合は、**Cognitive Services** リソースをプロビジョニングする必要があります。
 
 1. `https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **&#65291;「リソースの作成」** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
+2. **&#65291;[リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がない可能性があります - 提供されているものを使用してください)*
     - **リージョン**: *利用可能な任意のリージョンを選択します*
@@ -63,14 +63,14 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 4. **image-analysis** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#**: Program.cs
-    - **Python**: image-analysis&period;py
+    - **Python**: image-analysis.py
 
     コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
 **C#**
 
 ```C#
-// Import namespaces
+// import namespaces
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 ```
@@ -78,13 +78,13 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 **Python**
 
 ```Python
-# Import namespaces
+# import namespaces
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
 from msrest.authentication import CognitiveServicesCredentials
 ```
     
-## 分析用の画像を確認する
+## ビューの画像は、あなたが分析します
 
 この演習では、Computer Vision サービスを使用して複数の画像を分析します。
 
@@ -95,7 +95,7 @@ from msrest.authentication import CognitiveServicesCredentials
 
 これで、SDK を使用して Computer Vision サービスを呼び出す準備が整いました。
 
-1. クライアント アプリケーションのコード ファイル (**Program.cs** または **image-analysis&period;py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント **「Authenticate Computer Vision client」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+1. クライアント アプリケーションのコード ファイル (**Program.cs** または **image-analysis.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント **「Authenticate Computer Vision client」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
 
 **C#**
 
@@ -147,7 +147,7 @@ features = [VisualFeatureTypes.description,
             VisualFeatureTypes.adult]
 ```
     
-4. **AnalyzeImage**関数のコメント **「Get image analysis」** の下に、次のコードを追加します (後でコードを追加する場所を示すコメントを含む)。
+4. **AnalyzeImage** 関数のコメント **「Get image analysis」** の下に、次のコードを追加します (後でコードを追加する場所を示すコメントを含む)。
 
 **C#**
 
@@ -230,7 +230,7 @@ python image-analysis.py images/street.jpg
 
 画像の内容に関する手がかりを提供する関連*タグ*を特定すると役立つ場合があります。
 
-1. **AnalyzeImage** 関数のコメント **「 画像タグを取得する」** の下に、次のコードを追加します。
+1. **AnalyzeImage** 関数のコメント **「Get image tags」** の下に、次のコードを追加します。
 
 **C#**
 
@@ -262,7 +262,7 @@ if (len(analysis.tags) > 0):
 
 Computer Vision サービスは、画像の*カテゴリ*を提案でき、各カテゴリ内で有名なランドマークや有名人を識別できます。
 
-1. **AnalyzeImage** 関数のコメント **「画像カテゴリを取得する」** の下に、次のコードを追加します
+1. **AnalyzeImage** 関数のコメント **「Get image categories (including celebrities and landmarks)」** の下に、次のコードを追加します
 
 **C#**
 
@@ -364,9 +364,9 @@ if (len(analysis.categories) > 0):
 
 ## 画像でブランドを取得する
 
-一部のブランドは、ブランド名が表示されていなくても、ロゴから視覚的に認識できます。Computer Visionサービス は、何千もの有名なブランドを特定するためにトレーニングされています。
+一部のブランドは、ブランド名が表示されていなくても、ロゴから視覚的に認識できます。Computer Vision サービスは、何千もの有名なブランドを特定するためにトレーニングされています。
 
-1. **AnalyzeImage** 関数で、コメント「**画像からブランドを取得する**」下に、次のコードを追加します。
+1. **AnalyzeImage** 関数で、コメント「**Get brands in the image**」下に、次のコードを追加します。
 
 **C#**
 
@@ -469,7 +469,7 @@ if len(analysis.objects) > 0:
 
 一部の画像はすべての視聴者に適しているとは限らないため、成人向けまたは暴力的な性質の画像を特定するためにモデレートを適用する必要がある場合があります。
 
-1. **AnalyzeImage** 関数のコメント **「モデレーション評価を取得する」** の下に、次のコードを追加します。
+1. **AnalyzeImage** 関数のコメント **「Get moderation ratings」** の下に、次のコードを追加します。
 
 **C#**
 
@@ -538,7 +538,7 @@ print('Thumbnail saved in.', thumbnail_file_name)
     
 2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、実行ごとに **Main** 関数のファイル名を変更します。各画像のコード ファイルと同じフォルダーに生成された **thumbnail.jpg** ファイルを開きます。
 
-## 詳細情報
+## 詳細
 
 この演習では、Computer Vision サービスの画像分析および操作機能のいくつかについて説明しました。このサービスには、テキストの読み取り、顔の検出、およびその他の Computer Vision タスクの機能も含まれています。
 
