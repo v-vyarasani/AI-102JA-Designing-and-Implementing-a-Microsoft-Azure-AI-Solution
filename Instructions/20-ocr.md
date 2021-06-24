@@ -13,7 +13,7 @@ lab:
 まだ行っていない場合は、このコースのコード リポジトリを複製する必要があります。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -65,7 +65,7 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
     - **C#**: Program.cs
     - **Python**: read-text.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
 **C#**
 
@@ -84,7 +84,7 @@ from azure.cognitiveservices.vision.computervision.models import OperationStatus
 from msrest.authentication import CognitiveServicesCredentials
 ```
 
-5. クライアント・アプリケーションのコードファイルで **Main** 関数では、構成設定を読み込むためのコードが提供されていることに注意してください。次に、コメント**「Authenticate Computer Vision client」**を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+5. クライアント・アプリケーションのコードファイルで **Main** 関数では、構成設定を読み込むためのコードが提供されていることに注意してください。次に、コメント **「Authenticate Computer Vision client」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
 
 **C#**
 

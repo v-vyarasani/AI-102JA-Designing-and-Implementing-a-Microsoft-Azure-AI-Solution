@@ -15,7 +15,7 @@ lab:
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -77,7 +77,7 @@ lab:
 Translator サービスは、翻訳されるテキストのソース言語を自動的に検出できますが、テキストが書かれている言語を明示的に検出することもできます。
 
 1. コード ファイルで、**GetLanguage** 関数を見つけます。この関数は、現在、すべてのテキスト値に対して「en」を返します。
-2. **GetLanguage** 関数のコメント**「Use the Translator detect function」**の下に、次のコードを追加して、Translator の REST API を使用して、指定されたテキストの言語を検出します。言語を返す関数の最後にあるコードを置き換えないように注意してください。
+2. **GetLanguage** 関数のコメント **「Use the Translator detect function」** の下に、次のコードを追加して、Translator の REST API を使用して、指定されたテキストの言語を検出します。言語を返す関数の最後にあるコードを置き換えないように注意してください。
 
 **C#**
 

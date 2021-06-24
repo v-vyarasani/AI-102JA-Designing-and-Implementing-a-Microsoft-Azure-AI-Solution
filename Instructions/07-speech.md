@@ -20,7 +20,7 @@ lab:
 **AI-102-AIEngineer** コードのリポジトリをこのラボで作業している環境にまだ複製していない場合は、次の手順に従って複製してください。それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -72,7 +72,7 @@ lab:
     - **C#**: Program.cs
     - **Python**: speaking-clock.py
 
-    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
@@ -89,7 +89,7 @@ lab:
     import azure.cognitiveservices.speech as speech_sdk
     ```
 
-5. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードがすでに提供されていることに注意してください。Cognitive Servicesリソースの **SpeechConfig** を作成するには、これらの変数を使用する必要があります。コメント**「Configure speech service」**の下に次のコードを追加します。
+5. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードがすでに提供されていることに注意してください。Cognitive Servicesリソースの **SpeechConfig** を作成するには、これらの変数を使用する必要があります。コメント **「Configure speech service」** の下に次のコードを追加します。
 
     **C#**
     
@@ -130,7 +130,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
 ### マイクが機能する場合
 
 1. プログラムの **Main** 関数で、コードが **TranscribeCommand** 関数を使用して音声入力を受け入れることに注意してください。
-2. **TranscribeCommand** 関数のコメント**「Configure speech recognition」**の下に、次のコードを追加して、入力用のデフォルトのシステムマイクを使用して音声を認識および転写するために使用できる **SpeechRecognizer** クライアントを作成します。
+2. **TranscribeCommand** 関数のコメント **「Configure speech recognition」** の下に、次のコードを追加して、入力用のデフォルトのシステムマイクを使用して音声を認識および転写するために使用できる **SpeechRecognizer** クライアントを作成します。
 
     **C#**
     
@@ -182,7 +182,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
     from playsound import playsound
     ```
 
-3. **Main** 関数で、コードが **TranscribeCommand** 関数を使用して音声入力を受け入れることに注意してください。**TranscribeCommand** 関数のコメント**「Configure speech recognition」**の下に、適切なコードを追加して、音声ファイルからの音声を認識して、書き起こすために使用できる **SpeechRecognizer** クライアントを作成します。
+3. **Main** 関数で、コードが **TranscribeCommand** 関数を使用して音声入力を受け入れることに注意してください。**TranscribeCommand** 関数のコメント **「Configure speech recognition」** の下に、適切なコードを追加して、音声ファイルからの音声を認識して、書き起こすために使用できる **SpeechRecognizer** クライアントを作成します。
 
     **C#**
 
@@ -207,7 +207,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
 
 ### コードを追加して書き起こしたコマンドを処理する
 
-1. **TranscribeCommand** 関数のコメント**「Process speech input」**の下に、音声入力をリッスンする次のコードを追加します。コマンドを返す関数の最後にあるコードを置き換えないように注意してください
+1. **TranscribeCommand** 関数のコメント **「Process speech input」** の下に、音声入力をリッスンする次のコードを追加します。コマンドを返す関数の最後にあるコードを置き換えないように注意してください
 
     **C#**
     
@@ -272,7 +272,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
 speaking clock アプリケーションは話し言葉の入力を受け入れますが、実際には話しません。音声合成用のコードを追加して修正しましょう。
 
 1. プログラムの **Main** 関数で、コードが **TellTime** 関数を使用してユーザーに現在の時刻を通知することに注意してください。
-2. **TellTime**関数のコメント**「Configure speech synthesis」**の下に、次のコードを追加して、音声出力の生成に使用できる **SpeechSynthesizer** クライアントを作成します。
+2. **TellTime**関数のコメント **「Configure speech synthesis」** の下に、次のコードを追加して、音声出力の生成に使用できる **SpeechSynthesizer** クライアントを作成します。
 
     **C#**
     
@@ -290,7 +290,7 @@ speaking clock アプリケーションは話し言葉の入力を受け入れ�
     
     > **注**: *デフォルトのオーディオ構成では、出力にデフォルトのシステム オーディオ デバイスが使用されるため、**AudioConfig** を明示的に指定する必要はありません。オーディオ出力をファイルにリダイレクトする必要がある場合は、ファイルパスを指定して **AudioConfig** を使用できます。*
 
-3. **TellTime** 関数のコメント**「Synthesize spoken output」**の下に、次のコードを追加して音声出力を生成します。応答を出力する関数の最後にあるコードを置き換えないように注意してください。
+3. **TellTime** 関数のコメント **「Synthesize spoken output」** の下に、次のコードを追加して音声出力を生成します。応答を出力する関数の最後にあるコードを置き換えないように注意してください。
 
     **C#**
     
@@ -334,7 +334,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
 
 > **注**: ニューラル音声と標準音声のリストについては、Speech サービスのドキュメントの[言語と音声のサポート](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#text-to-speech)を参照してください。
 
-1. **TellTime** 関数のコメント**「Configure speech synthesis」**で、**SpeechSynthesizer** クライアントを作成する前に、次のようにコードを変更して代替音声を指定します。
+1. **TellTime** 関数のコメント **「Configure speech synthesis」** で、**SpeechSynthesizer** クライアントを作成する前に、次のようにコードを変更して代替音声を指定します。
 
    **C#**
 
@@ -372,7 +372,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
 
 音声合成アップ言語 (SSML) を使用すると、XML ベースの形式を使用して音声を合成する方法をカスタマイズできます。
 
-1. **TellTime** 関数で、コメント**「Synthesize spoken output」**の下にある現在のすべてのコードを次のコードに置き換えます (コメント **Print the response** の下にコードを残します)。
+1. **TellTime** 関数で、コメント **「Synthesize spoken output」** の下にある現在のすべてのコードを次のコードに置き換えます (コメント **Print the response** の下にコードを残します)。
 
    **C#**
 

@@ -15,7 +15,7 @@ lab:
 まだ行っていない場合は、このコースのコード リポジトリを複製する必要があります。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -100,7 +100,7 @@ setup
 
 > **重要**: 進む前に、後で再度取得できる場所に SAS URI を貼り付けてください (たとえば、Visual Studio Code の新しいテキスト ファイルに)。
 
-15. Azure portal で、リソース グループを更新し、作成したばかりの Azure ストレージ アカウントが含まれていることを確認します。ストレージ アカウントを開き、左側のペインで **「ストレージ エクスプローラー」** を選択します。次に、ストレージ エクスプローラーで、**「BLOB CONTAINERS」** を展開し、**sampleforms **コンテナーを選択して、ファイルがローカルの **21-custom-form/sample-forms** フォルダーからアップロードされていることを確認します。
+15. Azure portal で、リソース グループを更新し、作成したばかりの Azure ストレージ アカウントが含まれていることを確認します。ストレージ アカウントを開き、左側のペインで **「ストレージ エクスプローラー」** を選択します。次に、ストレージ エクスプローラーで、**「BLOB CONTAINERS」** を展開し、**sampleforms** コンテナーを選択して、ファイルがローカルの **21-custom-form/sample-forms** フォルダーからアップロードされていることを確認します。
 
 ## ラベル*なし*でモデルをトレーニングする
 

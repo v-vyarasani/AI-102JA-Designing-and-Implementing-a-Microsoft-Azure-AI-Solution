@@ -6,14 +6,14 @@ lab:
 
 # 顔の検出、分析、認識
 
-人間の顔を検出、分析、認識する機能は、AI のコア機能です。この演習では、画像内の顔を操作するために使用できる 2 つの Azure Cognitive Services である **Computer Vision **サービスと **Face** サービスについて説明します。
+人間の顔を検出、分析、認識する機能は、AI のコア機能です。この演習では、画像内の顔を操作するために使用できる 2 つの Azure Cognitive Services である **Computer Vision** サービスと **Face** サービスについて説明します。
 
 ## このコースのリポジトリを複製する
 
 まだ行っていない場合は、このコースのコード リポジトリを複製する必要があります。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -66,7 +66,7 @@ lab:
     - **C#**: Program.cs
     - **Python**: detect-faces.py
 
-6. コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+6. コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
     **C#**
 
@@ -96,7 +96,7 @@ lab:
 
 これで、SDK を使用して Computer Vision サービスを呼び出し、画像内の顔を検出する準備が整いました。
 
-1. クライアント アプリケーションのコード ファイル (**Program.cs** または **detect-faces.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント**「Authenticate Computer Vision client」**を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
+1. クライアント アプリケーションのコード ファイル (**Program.cs** または **detect-faces.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント **「Authenticate Computer Vision client」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
 
     **C#**
 
@@ -119,7 +119,7 @@ lab:
 
 2. **Main** 関数で、追加したコードの下で、コードが画像ファイルへのパスを指定し、**AnalyzeFaces** という名前の関数に画像パスを渡すことに注意してください。この関数はまだ完全には実装されていません。
 
-3. **AnalyzeFaces** 関数のコメン**「Specify features to be retrieved (faces)」**の下に、次のコードを追加します。
+3. **AnalyzeFaces** 関数のコメン **「Specify features to be retrieved (faces)」** の下に、次のコードを追加します。
 
     **C#**
 
@@ -138,7 +138,7 @@ lab:
     features = [VisualFeatureTypes.faces]
     ```
 
-4. **AnalyzeFaces** 関数のコメント**「Get image analysis」**の下に、次のコードを追加します。
+4. **AnalyzeFaces** 関数のコメント **「Get image analysis」** の下に、次のコードを追加します。
 
 **C#**
 
@@ -260,7 +260,7 @@ with open(image_file, mode="rb") as image_data:
     - **C#**: Program.cs
     - **Python**: analyze-faces.py
 
-6. コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」**というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
+6. コード ファイルを開き、上部の既存の名前空間参照の下で、**「名前空間のインポート」** というコメントを見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
     **C#**
 
@@ -279,7 +279,7 @@ with open(image_file, mode="rb") as image_data:
     from msrest.authentication import CognitiveServicesCredentials
     ```
 
-7. **Main** 関数では、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント**「Authenticate Face client」**を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、**FaceClient** オブジェクトを作成および認証します
+7. **Main** 関数では、構成設定をロードするためのコードが提供されていることに注意してください。次に、コメント **「Authenticate Face client」** を見つけます。次に、このコメントの下に、次の言語固有のコードを追加して、**FaceClient** オブジェクトを作成および認証します
 
     **C#**
 
@@ -307,7 +307,7 @@ with open(image_file, mode="rb") as image_data:
 Face サービスの最も基本的な機能の 1 つは、画像内の顔を検出し、年齢、感情表現、髪の色、眼鏡の存在などの属性を決定することです。
 
 1. アプリケーションのコードファイルの **Main** 関数で、ユーザーがメニュー オプション **1** を選択した場合に実行されるコードを調べます。このコードは **DetectFaces** 関数を呼び出し、パスを画像ファイルに渡します。
-2. コードファイルで **DetectFaces** 関数を見付け、コメント**「Specify facial features to be retrieved」**の下に、次のコードを追加します。
+2. コードファイルで **DetectFaces** 関数を見付け、コメント **「Specify facial features to be retrieved」** の下に、次のコードを追加します。
 
     **C#**
 
@@ -865,7 +865,7 @@ with open(image_file, mode="rb") as image_data:
 顔認識は、身元の確認によく使用されます。Face サービスを使用すると、画像内の顔を別の顔と比較したり、**PersonGroup** に登録されている人物から確認したりできます。
 
 1. アプリケーションのコードファイルの **Main** 関数で、ユーザーがメニュー オプション **5** を選択した場合に実行されるコードを調べます。このコードは **VerifyFace** 関数を呼び出し、画像ファイル (**person1.jpg**) へのパスと、顔の識別に使用される **PeopleGroup** の ID を渡します。
-2. コード ファイルで **VerifyFace** 関数を見付け、コメント**「Get the ID of the person from the people group」**の下 (結果を出力するコードの上) に次のコードを追加します。
+2. コード ファイルで **VerifyFace** 関数を見付け、コメント **「Get the ID of the person from the people group」** の下 (結果を出力するコードの上) に次のコードを追加します。
 
 **C#**
 

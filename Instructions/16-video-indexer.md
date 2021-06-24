@@ -13,7 +13,7 @@ lab:
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -40,7 +40,7 @@ lab:
 
 ![ビデオ プレーヤーと 「インサイト」 ペインを備えた Video Indexer](./images/video-indexer-insights.png)
 
-2. 動画の再生中に、**「タイムライン」 **タブを選択して、動画オーディオのトランスクリプトを表示します。
+2. 動画の再生中に、**「タイムライン」** タブを選択して、動画オーディオのトランスクリプトを表示します。
 
 ![ビデオ プレーヤーと動画トランスクリプトを表示するタイムライン ペインを備えた Video Indexer。](./images/video-indexer-transcript.png)
 
@@ -107,7 +107,7 @@ Video Indexer サーポータルは、動画インデックス プロジェク�
 
 1. Visual Studio Code の **16-video-indexer** フォルダーで、**analyze-video.html** を開きます。これは、Video Indexer の **「プレーヤー」** ウィジェットと **「インサイト」** ウィジェットを追加する基本的な HTML ページです。ヘッダー内の **vb.widgets.mediator.js** スクリプトへの参照に注意してください。このスクリプトにより、ページ上の複数の Video Indexer ウィジェットが相互に対話できるようになります。
 2. Video Indexer ポータルで、**「メディア ファイル」** ページに戻り、**責任ある AI** 動画を開きます。
-3. ビデオ プレーヤーの下の**「&lt;/&gt;埋め込み」** を選択し、HTML iframe コードを表示して、ウィジェットを埋め込みます。
+3. ビデオ プレーヤーの下の **「&lt;/&gt;埋め込み」** を選択し、HTML iframe コードを表示して、ウィジェットを埋め込みます。
 4. **「共有と埋め込み」 **ダイアログ ボックスで、**「プレーヤー」** ウィジェットを選択し、動画サイズを 560 x 315 に設定してから、埋め込みコードをクリップボードにコピーします。
 5. Visual Studio Code の **analyze-video.html** ファイルで、コピーしたコードをコメント「**&lt;-- Player widget goes here -- &gt;**」の下に貼り付けます。
 6. **「共有と埋め込み」** ダイアログボックスに戻り、**「インサイト」** ウィジェットを選択して、埋め込みコードをクリップボードにコピーします。次に、**「共有と埋め込み」** ダイアログボックスを閉じ、Visual Studio Code に戻って、コピーしたコードをコメント「**&lt;-- Insights widget goes here -- &gt;**」の下に貼り付けます。

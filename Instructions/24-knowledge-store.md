@@ -19,7 +19,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -27,7 +27,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 ## Azure リソースを作成する
 
-> **注**: 以前に **Azure Cognitive Search ソリューションの作成 (22-azure-search.md)** の演習を完了し、サブスクリプションにこれらの Azure リソースが残っている場合は、このセクションをスキップして、**「検索ソリューションの作成」** セクションから開始できます。それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
+> **注**: 以前に **[Azure Cognitive Search ソリューションの作成] (22-azure-search.md)** の演習を完了し、サブスクリプションにこれらの Azure リソースが残っている場合は、このセクションをスキップして、**「検索ソリューションの作成」** セクションから開始できます。それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
 
 1. 新しい Wev ブラウザー、`https://portal.azure.com` で Azure portalを開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. サブスクリプションの**リソース グループ**を表示します。

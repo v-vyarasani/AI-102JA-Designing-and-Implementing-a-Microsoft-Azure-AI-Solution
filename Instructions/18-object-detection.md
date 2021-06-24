@@ -13,7 +13,7 @@ lab:
 **AI-102-AIEngineer** コード リポジトリをこのラボで作業している環境に既に複製している場合は、Visual Studio Code で開きます。それ以外の場合は、次の手順に従って今すぐ複製してください。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -89,7 +89,7 @@ Custom Vision ポータルのグラフィカル ツールを使用して画像�
 1. Custom Vision ポータルの **「トレーニング画像」** ページの右上にある*設定* (&#9881;) アイコンをクリックして、プロジェクトの設定を表示します。
 2. **「一般」** (左側) の下で、このプロジェクトを一意に識別する **「プロジェクト ID」** に注意してください。
 3. 右側の **「リソース」** の下に、キーとエンドポイントを含む*トレーニング* リソースの詳細が表示されていることに注意してください (この情報は、Azure portal でリソースを表示することでも取得できます)。
-4. Visual Studio Code の **18-object-detection **フォルダーの下で、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
+4. Visual Studio Code の **18-object-detection** フォルダーの下で、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
 5. **train-detector** フォルダーを右クリックして、統合ターミナルを開きます。次に、言語設定のための適切なコマンドを実行して、Custom Vision トレーニング パッケージをインストールします。
 
 **C#**

@@ -17,7 +17,7 @@ lab:
 **AI-102-AIEngineer** コードのリポジトリをこのラボで作業している環境にまだ複製していない場合は、次の手順に従って複製してください。それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、 `https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -36,7 +36,7 @@ Margie'sTravel　用に作成するソリューションには、Azure　サブ�
 ### Azure Cognitive Search リソースを作成する
 
 1. ブラウザータブで、`https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **&#「リソースの作成」** ボタンを選択し、*search*,を検索して、次の設定で **Azure Cognitive Search** リソースを作成します。
+2. **&#65291;「リソースの作成」** ボタンを選択し、*search*,を検索して、次の設定で **Azure Cognitive Search** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *新しいリソースグループを作成します（制限付きサブスクリプションを使用している場合は、新しいリソースを作成する権限がない可能性がありますリソースグループ-提供されているものを使用）*
     - **サービス名**: *一意の名前を入力します*
@@ -63,7 +63,7 @@ Margie'sTravel　用に作成するソリューションには、Azure　サブ�
 
 1. Azure portalの 「ホーム」 ページに戻り、**&#65291;「リソースの作成」** ボタンを選択し、*ストレージ アカウント*を検索して、次の設定で**ストレージ アカウント** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
-    - **リソース グループ**: ** Azure Cognitive Search および Cognitive Services リソースと同じリソースグループ*
+    - **リソース グループ**: * *Azure Cognitive Search および Cognitive Services リソースと同じリソースグループ*
     - **ストレージ アカウント名**: *一意の名前を入力します*
     - **リージョン**: *利用可能な任意のリージョンを選択します*
     - **パフォーマンス**: 標準
@@ -135,13 +135,13 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 
     | フィールド名 | 取得可能 | フィルター可能 | 並べ替え可能 | ファセット可能 | 検索可能 |
     | ---------- | ----------- | ---------- | -------- | --------- | ---------- |
-    | metadata_storage_size | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; | | |
-    | metadata_storage_last_modified | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; | | |
-    | metadata_storage_name | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; |
-    | metadata_author | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; |
-    | 場所 | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | | | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; |
-    | キーフレーズ | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | | | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; |
-    | 言語 | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004;  | ＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆nbsp;＆＃10004; | | | |
+    | metadata_storage_size | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | |
+    | metadata_storage_last_modified | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | |
+    | metadata_storage_name | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
+    | metadata_author | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
+    | 場所 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
+    | キーフレーズ | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
+    | 言語 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | | |
 
 11. 選択内容を再確認し、特に注意して、各フィールドで正しい**取得可能**、**フィルター可能**、**並べ替え可能**、**ファセット可能**、および**検索可能**オプションが選択されていることを確認します (後で変更するのは難しい場合があります)。次に、次の手順 (*インデクサーの作成*) に進みます。
 12. **インデクサー名**を　**margies-indexer**.変更します。
@@ -158,11 +158,11 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
 インデックスができたので、検索できます。
 
 1. Azure Cognitive Search リソースの **「概要」** ページの上部で、**「検索エクスプローラー」** を選択します。
-2. 検索エクスプローラーの **「クエリ文字列」** ボックスに「*」 (単一のアスタリスク) と入力し、**「検索」** を選択します。
+2. 検索エクスプローラーの **「クエリ文字列」** ボックスに`*` (単一のアスタリスク) と入力し、**「検索」** を選択します。
 
     このクエリは、インデックス内のすべてのドキュメントを JSON 形式で取得します。結果を調べて、選択した認知スキルによって抽出されたドキュメント コンテンツ、メタデータ、および強化されたデータを含む各ドキュメントのフィールドをメモします。
 
-3. クエリ文字列を「search = *＆$ count = true」に変更し、検索を送信します。
+3. クエリ文字列を`search=*&$count=true`に変更し、検索を送信します。
 
     今回の結果には、検索によって返されたドキュメントの数を示す　**@odata.count** ftフィールドが結果の上部に含まれています。
 
@@ -413,7 +413,7 @@ Web アプリには、検索結果を処理およびレンダリングするた�
     flask run
     ```
 
-2. アプリが正常に起動したときに表示されるメッセージで、実行中の Web アプリケーション (*http://localhost:5000/*または*http://127.0.0.1:5000/ *) へのリンクをたどって、Webブラウザで Margies Travel サイトを開きます。
+2. アプリが正常に起動したときに表示されるメッセージで、実行中の Web アプリケーション (*http://localhost:5000/* または*http://127.0.0.1:5000/*) へのリンクをたどって、Webブラウザで Margies Travel サイトを開きます。
 3. Margie's Travelの Web サイトで、検索ボックスに **London hotel** と入力し、**「検索」**　をクリックします。
 4. 検索結果を確認します。これらには、ファイル名 (ファイル URL へのハイパーリンク付き)、検索語 (*London* および *hotel*) が強調されたファイル コンテンツの抽出、およびインデックス フィールドからのファイルの他の属性が含まれます。
 5. 結果ページには、結果を絞り込むことができるいくつかのユーザーインターフェイス要素が含まれていることに注意してください。これらには以下が含まれます。
