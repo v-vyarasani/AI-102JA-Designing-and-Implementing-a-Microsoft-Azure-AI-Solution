@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Forms からのデータの抽出'
     module: 'モジュール 11 - 画像およびドキュメント内のテキストの読み取り'
@@ -219,7 +219,7 @@ python test-model.py
 2. **Form_1.jpg.labels.json** を開き、そこに含まれる JSON を確認します。このファイルは、**Form_1.jpg** トレーニング ドキュメントの名前付きフィールドの場所と値を識別します。
 3. **Form_1.jpg.ocr.json** を開き、そこに含まれる JSON を確認します。このファイルには、**Form_1.jpg** のテキストレイアウトの JSOn 表現が含まれています。これには、フォームで見つかったすべてのテキスト領域の場所が含まれます。
 
-    *この演習では、フィールド情報ファイルが提供されています。独自のプロジェクトの場合は、これらのファイルを作成するか、[サンプルのラベル付けツール](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool)を使用できます。ツールを使用すると、フィールド情報ファイルが自動的に作成され、接続しているストレージ アカウントに保存されます。*
+    *この演習では、フィールド情報ファイルが提供されています。独自のプロジェクトの場合は、これらのファイルを作成するか、[サンプルのラベル付けツール](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/label-tool)を使用できます。ツールを使用すると、フィールド情報ファイルが自動的に作成され、接続しているストレージ アカウントに保存されます。*
 
 4. **train-model** フォルダーで、トレーニング アプリケーションのコード ファイルを開きます。
 
@@ -240,7 +240,7 @@ CustomFormModel model = await trainingClient
 **Python**
 
 ```Python
-# Train model 
+# モデルのトレーニング 
 poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=True)
 model = poller.result()
 ```
