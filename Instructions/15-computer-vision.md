@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Computer Vision を使用する画像の分析'
     module: 'モジュール 8 - Computer Vision の概要'
@@ -256,7 +256,7 @@ if (len(analysis.tags) > 0):
         print(" -'{}' (confidence: {:.2f}%)".format(tag.name, tag.confidence * 100))
 ```
 
-2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、**Main** 関数でファイル名を変更して、画像のキャプションに加えて、提案されたタグのリストが表示されることを確認します。
+2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、画像のキャプションに加えて、提案されたタグのリストが表示されることを確認します。
 
 ## 画像カテゴリを取得する
 
@@ -360,7 +360,7 @@ if (len(analysis.categories) > 0):
 
 ```
     
-2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、**Main** 関数でファイル名を変更し、画像のキャプションとタグに加えて、推奨されるカテゴリのリストが、認識されているランドマークや有名人 (特に **building.jpg** と **person.jpg** の画像) とともに表示されることを確認します。
+2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、画像のキャプションとタグに加えて、推奨されるカテゴリのリストが、認識されているランドマークや有名人 (特に **building.jpg** と **person.jpg** の画像) とともに表示されることを確認します。
 
 ## 画像でブランドを取得する
 
@@ -392,7 +392,7 @@ if (len(analysis.brands) > 0):
         print(" -'{}' (confidence: {:.2f}%)".format(brand.name, brand.confidence * 100))
 ```
     
-2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、**Main** 関数でファイル名を変更し、識別されたブランド (具体的には、**person.jpg** 画像) を確認します。
+2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、識別されたブランド (具体的には、**person.jpg** 画像) を確認します。
 
 ## 画像内のオブジェクトを検出して特定する
 
@@ -463,7 +463,7 @@ if len(analysis.objects) > 0:
     print('  Results saved in', outputfile)
 ```
     
-2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、**Main** 関数でファイル名を変更し、検出されるオブジェクトを監視します。実行するたびに、コードファイルと同じフォルダーに生成された **objects.jpg** ファイルを表示して、注釈付きのオブジェクトを確認します。
+2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、検出されるオブジェクトを監視します。実行するたびに、コードファイルと同じフォルダーに生成された **objects.jpg** ファイルを表示して、注釈付きのオブジェクトを確認します。
 
 ## 画像のモデレート評価を取得する
 
@@ -489,7 +489,7 @@ ratings = 'Ratings:\n -Adult: {}\n -Racy: {}\n -Gore: {}'.format(analysis.adult.
 print(ratings)
 ```
     
-2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、**Main** 関数でファイル名を変更し、各画像の評価を確認します。
+2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、各画像の評価を確認します。
 
 > **注**: 前のタスクでは、単一の方法を使用して画像を分析し、コードを段階的に追加して結果を解析および表示しました。SDK には、キャプションの提案、タグの識別、オブジェクトの検出などの個別のメソッドも用意されています。つまり、最も適切なメソッドを使用して必要な情報のみを返し、返す必要のあるデータ ペイロードのサイズを減らすことができます。詳細については、[.NET SDK のドキュメント](https://docs.microsoft.com/dotnet/api/overview/azure/cognitiveservices/client/computervision?view=azure-dotnet)または [Python SDK のドキュメント](https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/computervision?view=azure-python)を参照してください。
 
@@ -536,7 +536,7 @@ with open(thumbnail_file_name, "wb") as thumbnail_file:
 print('Thumbnail saved in.', thumbnail_file_name)
 ```
     
-2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、実行ごとに **Main** 関数のファイル名を変更します。各画像のコード ファイルと同じフォルダーに生成された **thumbnail.jpg** ファイルを開きます。
+2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、各画像のコード ファイルと同じフォルダーに生成された **thumbnail.jpg** ファイルを開きます。
 
 ## 詳細
 
