@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Bot Framework SDK を使用したボットの作成'
     module: 'モジュール 7 - 会話型 AI と the Azure Bot Service'
@@ -46,7 +46,7 @@ Bot Framework SDK を使用して、テンプレートに基づいてボット�
 
 **C#**
 
-```
+```C#
 dotnet new -i Microsoft.Bot.Framework.CSharp.EchoBot
 dotnet new -i Microsoft.Bot.Framework.CSharp.CoreBot
 dotnet new -i Microsoft.Bot.Framework.CSharp.EmptyBot
@@ -54,7 +54,7 @@ dotnet new -i Microsoft.Bot.Framework.CSharp.EmptyBot
 
 **Python**
 
-```
+```Python
 pip install botbuilder-core
 pip install asyncio
 pip install aiohttp
@@ -65,13 +65,13 @@ pip install cookiecutter==1.7.0
 
 **C#**
 
-```
+```C#
 dotnet new echobot -n TimeBot
 ```
 
 **Python**
 
-```
+```Python
 cookiecutter https://github.com/microsoft/botbuilder-python/releases/download/Templates/echo.zip
 ```
 
@@ -81,7 +81,7 @@ Python を使用している場合、cookiecutter のプロンプトが表示さ
     
 5. ターミナル ペインで、次のコマンドを入力して、現在のディレクトリを **TimeBot** フォルダーに変更し、ボット用に生成されたコード ファイルを一覧表示します。
 
-    ```
+    ```Code
     cd TimeBot
     dir
     ```
@@ -94,13 +94,13 @@ Python を使用している場合、cookiecutter のプロンプトが表示さ
 
 **C#**
 
-```
+```C#
 dotnet run
 ```
 
 **Python**
 
-```
+```Python
 python app.py
 ```
     
@@ -172,13 +172,13 @@ async def on_message_activity(self, turn_context: TurnContext):
 
 **C#**
 
-```
+```C#
 dotnet run
 ```
 
 **Python**
 
-```
+```Python
 python app.py
 ```
 
@@ -195,129 +195,6 @@ python app.py
     ボットは、「What is the time?」というクエリに応答するようになりました。ボットが実行されている現地時間を表示します。その他のクエリの場合は、ユーザーに時刻を尋ねるように求めます。これは非常に限定されたボットであり、言語理解サービスと追加のカスタムコードとの統合によって改善される可能性がありますが、テンプレートから作成されたボットを拡張することで Bot Framework SDK を使用してソリューションを構築する方法の実用的な例として機能します。
 
 9. Bot Framework Emulator を閉じて VisualStudio Code に戻り、ターミナル ウィンドウで **CTRL+C** を入力してボットを停止します。
-
-## 時間が許せば：ボットを Azure にデプロイする
-
-これで、ボットを Azure にデプロイする準備が整いました。デプロイには、デプロイ用のコードを準備し、必要な Azure リソースを作成するための複数の手順が含まれます。
-
-### リソース グループの作成または選択
-
-ボットは、単一のリソース グループで作成できる複数の Azure リソースに依存しています。
-
-1. `https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
-2. **「リソース グループ」** ページを表示して、サブスクリプションに存在するリソース グループを確認します。
-3. 任意のリージョンで一意の名前を持つ新しいリソース グループを作成します(既存のリソース グループに制限する「サンドボックス」サブスクリプションを使用している場合は、リソース グループ名をメモしてください)。
-
-### Azure アプリケーション登録を作成する
-
-ボットがユーザーや Web サービスと通信できるようにするには、アプリケーション登録が必要です。
-
-1. **TimeBot**フォルダーのターミナル ウィンドウで、次のコマンドを入力して、Azure コマンド ライン インターフェイス (CLI) を使用して Azure にログインします。ブラウザーが開いたら、Azure サブスクリプションにサインインします。
-
-```
-az login
-```
-
-2. 複数の Azure サブスクリプションがある場合は、次のコマンドを入力して、ボットをデプロイするサブスクリプションを選択します。
-
-```
-az account set --subscription "<YOUR_SUBSCRIPTION_ID>"
-```
-
-3. 次のコマンドを入力して、パスワード **Super$ecretPassw0rd** を使用して **TimeBot** のアプリケーション登録を作成します (必要に応じて別の表示名とパスワードを使用できますが、それらは後で必要になります)。
-
-```
-az ad app create --display-name "TimeBot" --password 'Super$ecretPassw0rd' --available-to-other-tenants
-```
-
-4. コマンドが完了すると、大きな JSON 応答が表示されます。この応答で、**appId** 値を見つけてメモします。これは、次の手順で必要になります。
-
-### Azure リソースを作成する
-
-SDKを使用してテンプレートからボットを作成すると、必要な Azure リソースの作成に必要な Azure Resource Manager テンプレートが提供されます。
-
-1. **TimeBot** フォルダーのターミナル ペインで、次のコマンドを (1 行で) 入力し、PLACEHOLDER 値を次のように置き換えます
-    - **YOUR_RESOURCE_GROUP**: 既存のリソース グループの名前。
-    - **YOUR_APP_ID**: 前の手順でメモした **appId** 値。
-    - **リージョン**: Azure リージョン コード (*eastus* など)。
-    - **他のすべてのプレースホルダー**: 新しいリソースに名前を付けるために使用される一意の値。指定するリソース ID は、4 ? 42 文字の長さのグローバルに一意の文字列である必要があります。**BotId** パラメーターと **newWebAppName** パラメーターに使用する値をメモします。後で必要になります。
-
-```
-az deployment group create --resource-group "YOUR_RESOURCE_GROUP" --template-file "deploymenttemplates/template-with-preexisting-rg.json" --parameters appId="YOUR_APP_ID" appSecret="Super$ecretPassw0rd" botId="A_UNIQUE_BOT_ID" newWebAppName="A_UNIQUE_WEB_APP_NAME" newAppServicePlanName="A_UNIQUE_PLAN_NAME" appServicePlanLocation="REGION" --name "A_UNIQUE_SERVICE_NAME"
-```
-
-2. コマンドが完了するのを待ちます。成功すると、JSON 応答が表示されます。
-
-    エラーが発生した場合は、コマンドのタイプミスまたは既存のリソースとの一意の名前の競合が原因である可能性があります。問題を修正して、再試行してください。障害が発生する前に作成されたリソースを削除するには、Azure portal を使用する必要がある場合があります。
-
-3. コマンドが完了したら、Azure portal でリソース グループを表示して、作成されたリソースを確認します。
-
-### デプロイ用のボット コードの準備
-
-必要な Azure リソースが用意できたので、それらにデプロイするためのコードを準備できます。
-
-1. Visual Studio Code の **TimeBot** フォルダーのターミナル ペインで、次のコマンドを入力して、コードの依存関係をデプロイ用に準備します。
-
-**C#**
-
-```
-az bot prepare-deploy --lang Csharp --code-dir "." --proj-file-path "TimeBot.csproj"
-```
-
-**Python**
-
-```
-rmdir /S /Q  __pycache__
-notepad requirements.txt
-```
-
-- 2 番目のコマンドは、メモ帳で Python 環境のため requirements.txt ファイルが開きます。修正を以下に一致するように変更を保存し、メモ帳を閉じます。
-
-```
-botbuilder-core==4.11.0
-aiohttp
-```
-
-### デプロイ用 zip アーカイブを作成する
-
-ボット ファイルをデプロイするには、それらを.zip アーカイブにパッケージ化します。これは、ボットのルート フォルダー内のファイルとフォルダーから作成する必要があります (ルート フォルダー自体を圧縮<u>しない</u>でください。その内容を圧縮してください)。
-
-1. Visual Studio Code の**エクスプローラー** ペインで、**TimeBot** フォルダー内のファイルまたはフォルダーのいずれかを右クリックし、**「ファイル エクスプローラーで表示」** を選択します。
-2. 「ファイルエクスプローラー」 ウィンドウで、**TimeBot** フォルダー内の<u>すべての</u>ファイルを選択します。次に、選択したファイルのいずれかを右クリックして、 > **「圧縮 (zip 形式)フォルダー**に**送信」** を選択します。
-3. **TimeBot** フォルダー内の結果の zip ファイルの名前を **TimeBot.zip** に変更します。
-
-### ボットのデプロイとテスト
-
-コードの準備ができたので、デプロイできます。
-
-1. Visual Studio Code の **TimeBot** フォルダーのターミナル ペインで、次のコマンドを (1 行で) 入力して、パッケージ化されたコードファイルを展開し、PLACEHOLDER 値を次のように置き換えます。
-    - **YOUR_RESOURCE_GROUP**: 既存のリソース グループの名前。
-    - **YOUR_WEB_APP_NAME**: Azure リソースの作成時に **newWebAppName** パラメーターに指定した一意の名前。
-
-```
-az webapp deployment source config-zip --resource-group "YOUR_RESOURCE_GROUP" --name "YOUR_WEB_APP_NAME" --src "TimeBot.zip"
-```
-
-2. Azure portal で、リソースを含むリソース グループで、**ボット チャネル登録リソース** (Azure リソースの作成時に **BotId** パラメーターに割り当てた名前が付けられます)。
-3. **「ボット管理」**セクションで、**「Web チャットでテスト」** を選択します。次に、ボットが初期化されるのを待ちます。
-4. 「*Hello*」などのメッセージを入力し、ボットからの応答を表示します。これは、*何時かを尋ねる必要があります*。
-5. 「*What is the time?*」と入力し、応答を表示します。
-
-## Web ページで Web チャット チャネルを使用する
-
-Azure Bot Service の主な利点の 1 つは、複数の*チャネル*を介してボットを配信できることです。
-
-1. Azure portal のボットのブレードで、ボットがリンクされている**チャネル**を表示します。
-2. **Web チャット** チャネルが自動的に追加され、一般的な通信プラットフォーム用の他のチャネルが利用可能であることに注意してください。
-3. **Webチャット** チャネルの横にある **「編集」** をクリックします。これにより、ボットを Web ページに埋め込むために必要な設定を含むページが開きます。ボットを埋め込むには、提供されている HTML 埋め込みコードと、ボット用に生成された秘密鍵の 1 つが必要です。
-4. **埋め込みコード**をコピーします。
-5. Visual Studio Code で、**13-bot-framework/web-client** フォルダーを展開し、そこに含まれる **default.html** ファイルを選択します。
-6. HTML コードで、コメントのすぐ下にコピーした埋め込みコードを貼り付け、**ここにボットのiframeを追加します**
-7. Azure portalに戻り、秘密鍵の 1 つに **「表示」** を選択して (どちらでも構いません)、コピーします。次に、Visual Studio Code に戻り、前に追加したHTML埋め込みコードに貼り付けて、**YOUR_SECRET_HERE** を置き換えます。
-8. Visual Studio Code の**エクスプローラー** ペインで、**default.html** を右クリックし、**「ファイル エクスプローラーで表示」** を選択します。
-9. Microsoft Edge の 「ファイル エクスプローラー」 ウィンドウで、**default.html** を開きます。
-10. 開いた Web ページで、「*Hello*」と入力してボットをテストします。メッセージを送信するまで初期化されないため、グリーティング メッセージの直後に、時刻を尋ねるプロンプトが表示されることに注意してください。
-11. 「*What is the time?*」を送信してボットをテストします。
 
 ## 詳細
 

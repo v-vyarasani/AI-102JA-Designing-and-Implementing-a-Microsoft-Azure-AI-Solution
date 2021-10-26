@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '音声の認識と合成'
     module: 'モジュール4 - 音声対応アプリケーションの構築'
@@ -97,6 +97,9 @@ lab:
     // Configure speech service
     speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
     Console.WriteLine("Ready to use speech service in " + speechConfig.Region);
+    
+    // Configure voice
+    speechConfig.SpeechSynthesisVoiceName = "en-US-AriaNeural";
     ```
     
     **Python**
