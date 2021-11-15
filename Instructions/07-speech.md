@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '音声の認識と合成'
     module: 'モジュール4 - 音声対応アプリケーションの構築'
@@ -343,7 +343,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
 
     ```C#
     // Configure speech synthesis
-    speechConfig.SpeechSynthesisVoiceName = "en-GB-George"; // add this
+    speechConfig.SpeechSynthesisVoiceName = "en-GB-RyanNeural"; // add this
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
@@ -351,7 +351,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     
     ```Python
     # Configure speech synthesis
-    speech_config.speech_synthesis_voice_name = 'en-GB-George' # add this
+    speech_config.speech_synthesis_voice_name = 'en-GB-RyanNeural' # add this
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
 
@@ -383,7 +383,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     // Synthesize spoken output
     string responseSsml = $@"
         <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>
-            <voice name='en-GB-Susan'>
+            <voice name='en-GB-LibbyNeural'>
                 {responseText}
                 <break strength='weak'/>
                 Time to end this lab!
@@ -402,7 +402,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     # Synthesize spoken output
     responseSsml = " \
         <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'> \
-            <voice name='en-GB-Susan'> \
+            <voice name='en-GB-LibbyNeural'> \
                 {} \
                 <break strength='weak'/> \
                 Time to end this lab! \
