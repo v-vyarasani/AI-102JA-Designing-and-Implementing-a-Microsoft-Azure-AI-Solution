@@ -122,10 +122,10 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
         | Cognitive Skill | パラメーター | フィールド名 |
         | --------------- | ---------- | ---------- |
         | 抽出場所の名前 | | locations |
-        | キー フレーズを抽出する | | キーフレーズ |
-        | 言語を検出する | | language |
-        | 画像からタグを生成します | | imageTags |
-        | 画像からキャプションを生成します | | imageCaption |
+        | キー フレーズを抽出 | | keyphrases |
+        | 言語を検出 | | language |
+        | 画像からタグを生成 | | imageTags |
+        | 画像からキャプションを生成 | | imageCaption |
 
 6. (後で変更することが困難な場合があるため)、選択をダブルチェックします。次に、次のステップ (*ターゲット インデックスのカスタマイズ*) に進みます。
 7. **インデックス名**を **margies-index** に変更します。
@@ -138,9 +138,9 @@ Web ブラウザーのタブが開き、Azure にサインインするように�
     | metadata_storage_last_modified | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | |
     | metadata_storage_name | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
     | metadata_author | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
-    | 場所 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
-    | キーフレーズ | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
-    | 言語 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | | |
+    | locations | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
+    | keyphrases | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
+    | language | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | | |
 
 11. 選択内容を再確認し、特に注意して、各フィールドで正しい**取得可能**、**フィルター可能**、**並べ替え可能**、**ファセット可能**、および**検索可能**オプションが選択されていることを確認します (後で変更するのは難しい場合があります)。次に、次の手順 (*インデクサーの作成*) に進みます。
 12. **インデクサー名**を　**margies-indexer**.変更します。
