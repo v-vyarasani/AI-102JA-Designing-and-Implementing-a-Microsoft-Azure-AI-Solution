@@ -146,7 +146,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     - **テンプレート**: HTTP トリガー
     - **関数名**: wordcount
     - **名前空間**: margies.search
-    - **承認レベル**: 機能
+    - **承認レベル**: Function
 
     ### **Python**
 
@@ -155,7 +155,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     - **仮想環境**: 仮想環境をスキップ
     - **テンプレート**: HTTP トリガー
     - **関数名**: wordcount
-    - **承認レベル**: 機能
+    - **承認レベル**: Function
 
     ***launch.json** を 上書きするように求められた場合は、上書きしてください。*
 
@@ -430,11 +430,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     - **関数アプリ名**: グローバルに一意な名前を入力します。
     - **Runtime**: .NET Core 3.1
     - **OS**: Linux
-    - **ホスティング プラン**: 消費
+    - **ホスティング プラン**: Consumption
     - **リソース グループ**: Azure Cognitive Search リソースを含むリソースグループ。
         - 注: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
-    - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ数。
-    - **Application Insights**: 今はしない
+    - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ。
+    - **Application Insights**: Skip for now
 
     *Visual Studio Code は、関数プロジェクトの作成時に保存された v**vscode** フォルダーの構成設定に基づいて、コンパイルされたバージョンの関数を (**bin** ーに) 展開します。*
 
@@ -444,11 +444,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     - **関数**: Azureで新しい関数アプリを作成する (詳細)
     - **関数アプリ名**: グローバルに一意な名前を入力します。
     - **Runtime**: Python 3.8
-    - **ホスティング プラン**: 消費
+    - **ホスティング プラン**: Consumption
     - **リソース グループ**: Azure Cognitive Search リソースを含むリソースグループ。
         - 注: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
-    - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ数。
-    - **Application Insights**: 今はしない
+    - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ。
+    - **Application Insights**: Skip for now
 
 8. Visual Studio Codeが関数をデプロイするのを待ちます。展開が完了すると、通知が表示されます。
 
