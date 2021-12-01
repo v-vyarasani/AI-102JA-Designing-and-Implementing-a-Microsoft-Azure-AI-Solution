@@ -281,6 +281,7 @@ speaking clock アプリケーションは話し言葉の入力を受け入れ�
     
     ```C#
     // Configure speech synthesis
+    speechConfig.SpeechSynthesisVoiceName = "en-GB-RyanNeural";
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
@@ -288,6 +289,7 @@ speaking clock アプリケーションは話し言葉の入力を受け入れ�
     
     ```Python
     # Configure speech synthesis
+    speech_config.speech_synthesis_voice_name = "en-GB-RyanNeural"
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
     
