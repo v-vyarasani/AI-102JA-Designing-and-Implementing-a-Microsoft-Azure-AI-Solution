@@ -78,7 +78,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
 
 この演習では、Azure Cognitive Search REST インターフェイスを使用して、JSON リクエストを送信することでこれらのコンポーネントを作成します。
 
-1. Visual Studio Cod eの **23-custom-search-skill** フォルダーで、**create-search** フォルダーを展開し、**data_source.json** を選択します。このファイルには、**margies-custom-data**.という名前のデータソースの JSON 定義が含まれています。
+1. Visual Studio Cod eの **23-custom-search-skill** フォルダーで、**create-search** フォルダーを展開し、**data_source.json** を選択します。このファイルには、**margies-custom-data**という名前のデータソースの JSON 定義が含まれています。
 2. **YOUR_CONNECTION_STRING** プレースホルダーを Azure ストレージアカウントの接続文字列に置き換えます。これは次のようになります。
 
     ```
@@ -94,11 +94,11 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     *キーは、Azure portal の Cognitive Services リソースの **「キーとエンドポイント」** ページにあります。*
 
 6. 更新された JSON ファイルを保存して閉じます。
-7. **create-search** フォルダーで、i**index.json**.を開きます。このファイルには**margies-custom-index**という名前のインデックスの JSON 定義が含まれています。
+7. **create-search** フォルダーで、**index.json**を開きます。このファイルには**margies-custom-index**という名前のインデックスの JSON 定義が含まれています。
 8. インデックスの JSON を確認し、変更を加えずにファイルを閉じます。
-9. **create-search** フォルダーで、**indexer.json**.を開きます。このファイルには**margies-custom-indexer**という名前のインデックスの JSON 定義が含まれています。
+9. **create-search** フォルダーで、**indexer.json**を開きます。このファイルには**margies-custom-indexer**という名前のインデックスの JSON 定義が含まれています。
 10. インデクサーの JSON を確認し、変更を加えずにファイルを閉じます。
-11. **create-search** フォルダーで、**create-search.cmd**.を開きます。このバッチ スクリプトは、cURL ユーティリティを使用して、Azure Cognitive Search リソースの REST インターフェイスに JSON 定義を送信します。
+11. **create-search** フォルダーで、**create-search.cmd**を開きます。このバッチ スクリプトは、cURL ユーティリティを使用して、Azure Cognitive Search リソースの REST インターフェイスに JSON 定義を送信します。
 12. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure Cognitive Search リソースの **Url** と**管理キー**の 1 つに置き換えます。
 
     *これらの値は、Azure portal の Azure Cognitive Search リソースの **「概要」** ページと **「キー」** ページにあります。*
@@ -146,7 +146,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     - **テンプレート**: HTTP トリガー
     - **関数名**: wordcount
     - **名前空間**: margies.search
-    - **承認レベル**: 機能
+    - **承認レベル**: Function
 
     ### **Python**
 
@@ -155,7 +155,7 @@ Azure Cognitive Search は、コグニティブ スキルの強化パイプラ�
     - **仮想環境**: 仮想環境をスキップ
     - **テンプレート**: HTTP トリガー
     - **関数名**: wordcount
-    - **承認レベル**: 機能
+    - **承認レベル**: Function
 
     ***launch.json** を 上書きするように求められた場合は、上書きしてください。*
 
@@ -430,13 +430,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     - **関数アプリ名**: グローバルに一意な名前を入力します。
     - **Runtime**: .NET Core 3.1
     - **OS**: Linux
-    - **ホスティング プラン**: 消費
+    - **ホスティング プラン**: Consumption
     - **リソース グループ**: Azure Cognitive Search リソースを含むリソースグループ。
         - 注: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
-    - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ数。
-    - **Application Insights**: 今はしない
+    - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ。
+    - **Application Insights**: Skip for now
 
-    *Visual Studio Code は、関数プロジェクトの作成時に保存された v**vscode** フォルダーの構成設定に基づいて、コンパイルされたバージョンの関数を (**bin** ーに) 展開します。*
+    *Visual Studio Code は、関数プロジェクトの作成時に保存された **vscode** フォルダーの構成設定に基づいて、コンパイルされたバージョンの関数を (**bin** ーに) 展開します。*
 
     ### **Python**
 
@@ -444,17 +444,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     - **関数**: Azureで新しい関数アプリを作成する (詳細)
     - **関数アプリ名**: グローバルに一意な名前を入力します。
     - **Runtime**: Python 3.8
-    - **ホスティング プラン**: 消費
+    - **ホスティング プラン**: Consumption
     - **リソース グループ**: Azure Cognitive Search リソースを含むリソースグループ。
         - 注: このリソースグループに既に Windows ベースの Web アプリが含まれている場合、Linux ベースの関数をそこにデプロイすることはできません。既存の Web アプリを削除するか、関数を別のリソース グループにデプロイします。
-    - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ数。
-    - **Application Insights**: 今はしない
+    - **ストレージ アカウント**: Margie's Travel のドキュメントが保存されているストレージ。
+    - **Application Insights**: Skip for now
 
 8. Visual Studio Codeが関数をデプロイするのを待ちます。展開が完了すると、通知が表示されます。
 
 ## 関数をテストする
 
-Azure にデプロイしたので、Azureポー タルで関数をテストできます。
+Azure にデプロイしたので、Azureポータルで関数をテストできます。
 
 1. [Azure portal](https://portal.azure.com) を開き、関数アプリを作成したリソースグループを参照します。次に、関数アプリのアプリサービスを開きます。
 2. アプリ サービスのブレードの **関数** ページで**wordcount** 関数を開きます。
@@ -542,7 +542,7 @@ Azure にデプロイしたので、Azureポー タルで関数をテストで�
 7. インデックスの JSON を確認し、変更を加えずにファイルを閉じます。
 8. **update-search** フォルダーで、**update-indexer.json** を開きます。このファイルには、**margies-custom-indexer** のJSON定義と、**top_words** フィールドの追加のマッピングが含まれています。
 9. インデクサーの JSON を確認し、変更を加えずにファイルを閉じます。
-10. **update-search** フォルダーで、**update-search.cmd**.を開きます。このバッチ スクリプトは、cURL ユーティリティを使用して、更新されたJSON 定義を Azure CognitiveSearch リソースの REST インターフェイスに送信します。
+10. **update-search** フォルダーで、**update-search.cmd**を開きます。このバッチ スクリプトは、cURL ユーティリティを使用して、更新されたJSON 定義を Azure CognitiveSearch リソースの REST インターフェイスに送信します。
 11. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure Cognitive Search リソースの **Url** と**管理キー**の 1 つに置き換えます。
 
     *これらの値は、Azure portal の Azure Cognitive Search リソースの **「概要」** ページと **「キー」** ページにあります。*

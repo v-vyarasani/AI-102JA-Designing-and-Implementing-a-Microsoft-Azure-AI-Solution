@@ -111,9 +111,9 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
         - **Docs**: 自動生成されたキー列と、テーブルにまだ割り当てられていないシェイパー スキルからのすべての **knowledge_projection** 出力値が含まれます。
 8. **storageConnectionString** 値の **YOUR_CONNECTION_STRING** プレースホルダーを、ストレージ アカウントの接続文字列に置き換えます。
 9. 更新された JSON ファイルを保存して閉じます。
-10. **create-search** フォルダーで、i**index.json**.を開きます。このファイルには、**margies-knowledge-index** という名前のインデックスの JSON 定義が含まれています。
+10. **create-search** フォルダーで、**index.json**を開きます。このファイルには、**margies-knowledge-index** という名前のインデックスの JSON 定義が含まれています。
 11. インデックスの JSON を確認し、変更を加えずにファイルを閉じます。
-12. **create-search** フォルダーで、**indexer.json**.を開きます。このファイルには、**margies-knowledge-indexer** という名前のインデクサーの JSON 定義が含まれています。
+12. **create-search** フォルダーで、**indexer.json**を開きます。このファイルには、**margies-knowledge-indexer** という名前のインデクサーの JSON 定義が含まれています。
 13. インデクサーの JSON を確認し、変更を加えずにファイルを閉じます。
 
 ### REST リクエストの送信
