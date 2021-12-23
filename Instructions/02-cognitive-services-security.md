@@ -126,7 +126,7 @@ Cognitive Services リソースのキーのリストが返されます。**key1*
 
 ### サービス プリンシパルの作成
 
-Key Vault 内のシークレットにアクセスするには、アプリケーションはシークレットにアクセスできるサービス プリンシパルを使用する必要があります。Azure コマンド ライン インターフェイス (CLI) を使用して、サービス プリンシパルを作成し、Azure Vault のシークレットへのアクセスを許可します。
+Key Vault 内のシークレットにアクセスするには、アプリケーションはシークレットにアクセスできるサービス プリンシパルを使用する必要があります。Azure コマンド ライン インターフェイス (CLI) を使用して、サービス プリンシパルを作成し、オブジェクト ID を検索して、Azure Vault にシークレットにアクセス権を付与します。
 
 1. Visual Studio Code に戻り、**02-cognitive-security** フォルダーの対話型ターミナルで、*&lt;spName&gt;* をアプリケーション ID に適した名前 (たとえば、*ai-app *) に置き換えて、次の Azure CLI コマンドを実行します。また、*&lt;subscriptionId&gt;* と *&lt;resourceGroup&gt;* を、サブスクリプション ID と、Cognitive Services および Key Vault リソースを含むリソース グループの正しい値に置き換えます。
 
@@ -150,10 +150,16 @@ Key Vault 内のシークレットにアクセスするには、アプリケー�
 
 **appId**、**password**、**tenant** の値をメモします。後で必要になります (このターミナルを閉じると、パスワードを取得できなくなります。したがって、ここで値をメモすることが重要です。出力を Visual Studio Code の新しいテキスト ファイルに貼り付けて、後で必要な値を確実に見つけられるようにすることができます。)
 
-2. 新しいサービス プリンシパルに Key Vault のシークレットにアクセスするためのアクセス許可を割り当てるには、次の Azure CLI コマンドを実行し、*&lt;keyVaultName&gt;* を Azure Key Vault リソースの名前に置き換え、*&lt;spName&gt;* をサービス プリンシパルの作成時に指定したのと同じ値に置き換えます。
+2. サービス プリンシパルの **オブジェクト ID** を取得するには、次の Azure CLI コマンドを *&lt;appId&gt;* をサービス プリンシパルのアプリ ID の値に置き換えて実行します。
 
     ```
-    az keyvault set-policy -n <keyVaultName> --spn "api://<spName>" --secret-permissions get list
+    az ad sp show --id <appId> --query objectId --out tsv
+    ```
+
+3. 新しいサービス プリンシパルにアクセスを割り当てて、Key Vault のシークレットにアクセスするには、次の Azure CLI コマンドを *&lt;keyVaultName&gt;* を Azure Key Vault リソースの名前に、*&lt;objectId&gt;* をサービス プリンシパルのオブジェクト ID の値に置き換えて実行します。
+
+    ```
+    az keyvault set-policy -n <keyVaultName> --object-id <objectId> --secret-permissions get list
     ```
 
 ### アプリケーションでサービス プリンシパルを使用する
