@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '音声の認識と合成'
     module: 'モジュール4 - 音声対応アプリケーションの構築'
@@ -345,7 +345,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
 
     ```C#
     // Configure speech synthesis
-    speechConfig.SpeechSynthesisVoiceName = "en-GB-RyanNeural"; // add this
+    speechConfig.SpeechSynthesisVoiceName = "en-GB-LibbyNeural"; // add this
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
@@ -353,7 +353,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     
     ```Python
     # Configure speech synthesis
-    speech_config.speech_synthesis_voice_name = 'en-GB-RyanNeural' # add this
+    speech_config.speech_synthesis_voice_name = 'en-GB-LibbyNeural' # add this
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
 

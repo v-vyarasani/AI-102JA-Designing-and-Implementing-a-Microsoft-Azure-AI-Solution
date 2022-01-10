@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Cognitive Services の概要'
     module: 'モジュール 2 - Cognitive Services を使用した AI アプリの開発'
@@ -21,7 +21,7 @@ lab:
 
 ## Cognitive Services リソースをプロビジョニングする
 
-Azure Cognitive Services は、アプリケーションに組み込むことができる人工知能機能をカプセル化するクラウドベースのサービスです。特定の API (**Text Analytics** や **Computer Vision** など) に個別の Cognitive Services リソースをプロビジョニングすることも、単一のエンドポイントとキーを介して複数の Cognitive Services API へのアクセスを提供する一般的な **Cognitive Services** リソースをプロビジョニングすることもできます。この場合、単一の **Cognitive Services** リソースを使用します。
+Azure Cognitive Services は、アプリケーションに組み込むことができる人工知能機能をカプセル化するクラウドベースのサービスです。特定の API (**Language** や **Computer Vision** など) に個別の Cognitive Services リソースをプロビジョニングすることも、単一のエンドポイントとキーを介して複数の Cognitive Services API へのアクセスを提供する一般的な **Cognitive Services** リソースをプロビジョニングすることもできます。この場合、単一の **Cognitive Services** リソースを使用します。
 
 1. `https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **&#65291;「リソースの作成」** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
@@ -39,7 +39,7 @@ Azure Cognitive Services は、アプリケーションに組み込むことが�
 
 ## REST インターフェイスの使用
 
-Cognitive Services API は REST ベースであるため、HTTP 経由で JSON リクエストを送信することで API を利用できます。この例では、**Text Analytics** REST API を使用して言語検出を実行するコンソール アプリケーションについて説明します。ただし、基本的な原則は、Cognitive Services リソースでサポートされているすべての API で同じです。
+Cognitive Services API は REST ベースであるため、HTTP 経由で JSON リクエストを送信することで API を利用できます。この例では、**Language** REST API を使用して言語検出を実行するコンソール アプリケーションについて説明します。ただし、基本的な原則は、Cognitive Services リソースでサポートされているすべての API で同じです。
 
 > **注**: この演習では、**C#** または **Python** のいずれかから REST API を使用することを選択できます。以下の手順で、希望する言語に適したアクションを実行します。
 

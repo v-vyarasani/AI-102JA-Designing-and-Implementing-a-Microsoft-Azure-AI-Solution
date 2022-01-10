@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Forms からのデータの抽出'
     module: 'モジュール 11 - 画像およびドキュメント内のテキストの読み取り'
@@ -27,7 +27,7 @@ Form Recognizer サービスを使用するには、Azure サブスクリプシ�
 
 1.  `https://portal.azure.com` で Azure portal を開き、Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 
-2. **&H65291;「リソースの作成」** ボタンを選択し、*Form Recognizer* を検索して、次の設定で **Form Recognizer** リソースを作成します。
+2. **&#65291;「リソースの作成」** ボタンを選択し、*Form Recognizer* を検索して、次の設定で **Form Recognizer** リソースを作成します。
     - **サブスクリプション**: *お使いの Azure サブスクリプション*
     - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がない可能性があります - 提供されているものを使用してください)*
     - **リージョン**: *利用可能な任意のリージョンを選択します*
@@ -100,7 +100,7 @@ setup
 
 > **重要**: 進む前に、後で再度取得できる場所に SAS URI を貼り付けてください (たとえば、Visual Studio Code の新しいテキスト ファイルに)。
 
-15. Azure portal で、リソース グループを更新し、作成したばかりの Azure ストレージ アカウントが含まれていることを確認します。ストレージ アカウントを開き、左側のペインで **「ストレージ エクスプローラー」** を選択します。次に、ストレージ エクスプローラーで、**「BLOB CONTAINERS」** を展開し、**sampleforms** コンテナーを選択して、ファイルがローカルの **21-custom-form/sample-forms** フォルダーからアップロードされていることを確認します。
+15. Azure portal で、リソース グループを更新し、作成したばかりの Azure ストレージ アカウントが含まれていることを確認します。ストレージ アカウントを開き、左側のペインで「**ストレージ ブラウザー (プレビュー)**」を選択します次に、ストレージ エクスプローラーで、「**BLOB CONTAINERS**」を展開し、**sampleforms **コンテナーを選択して、ファイルがローカルの **21-custom-form/sample-forms** フォルダーからアップロードされていることを確認します。
 
 ## ラベル*なし*でモデルをトレーニングする
 
@@ -240,7 +240,7 @@ CustomFormModel model = await trainingClient
 **Python**
 
 ```Python
-# モデルのトレーニング 
+# Train model 
 poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=True)
 model = poller.result()
 ```

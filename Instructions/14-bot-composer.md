@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Bot Framework Composer を使用したボットの作成'
     module: 'モジュール 7 - 会話型 AI と the Azure Bot Service'
@@ -211,7 +211,7 @@ Bot Framework Composer を使用してボットを作成します。 このツ�
 
 ```
 [Activity    
-    Text = ${TextInput_Prompt_Kz22lf_text()}    
+    Text = Enter your city.
     SuggestedActions = Cancel
 ]
 ```
