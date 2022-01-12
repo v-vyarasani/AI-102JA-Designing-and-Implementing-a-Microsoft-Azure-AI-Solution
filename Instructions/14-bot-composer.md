@@ -211,7 +211,7 @@ Bot Framework Composer を使用してボットを作成します。 このツ�
 
 ```
 [Activity    
-    Text = ${TextInput_Prompt_Kz22lf_text()}    
+    Text = Enter your city.
     SuggestedActions = Cancel
 ]
 ```
