@@ -17,7 +17,7 @@ lab:
 **AI-102-AIEngineer** コードのリポジトリをこのラボで作業している環境にまだ複製していない場合は、次の手順に従って複製してください。それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を開始します。
-2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
+2. パレットを開き (SHIFT+CTRL+P)、**Git: Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102JA-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` リポジトリをローカル フォルダーに複製します (どのフォルダーでもかまいません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
@@ -82,7 +82,7 @@ lab:
 
 1. Language Studio の 「**Learn FAQ**」 プロジェクトで、「**Edit knowledge base**」 (ナレッジ ベースの編集) ページを選択し、既存の質問と回答のペアを確認し (複数のヒントが表示されている場合は、それを読み、「**Got it**」 (了解) をクリックして解除するか、「**Skip all**」 (すべてスキップ) をクリックします) 
 2. ナレッジ ベースで「**&#65291; 質問のペアの追加**」を選択します。
-3. 「**質問**」ボックスに`What is Microsoft certification?`と入力、**Enter****キーを押します。
+3. 「**質問**」ボックスに`What is Microsoft certification?`と入力、**Enter** キーを押します。
 4. 「**&#65291; 代替フレージングの追加**」 を選択し、`How can I demonstrate my Microsoft technology skills?`と入力し、**Enter** キーを押します。
 5. 「**回答**」 ボックスに、`The Microsoft Certified Professional program enables you to validate and prove your skills with Microsoft technologies.`と入力し、**Enter** キーを押して「**送信**」をクリックすると、質問 (代替フレージングを含む) と回答がナレッジ ベースに追加されます。
 
